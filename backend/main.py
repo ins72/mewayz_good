@@ -8,17 +8,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import os
 
-from api.api_v1.api import api_router
-from core.config import settings
-from db.init_db import init_db
-
+# Import our basic server functionality for now
+from server import api_router as basic_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
-    await init_db()
+    print("MEWAYZ V2 starting up...")
     yield
     # Shutdown
+    print("MEWAYZ V2 shutting down...")
 
 
 app = FastAPI(
@@ -38,8 +37,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include API router
-app.include_router(api_router, prefix="/api/v1")
+# Include the basic API router for now
+app.include_router(basic_router)
 
 # Health check endpoint
 @app.get("/api/health")
@@ -58,6 +57,13 @@ async def root():
     return {
         "message": "Welcome to MEWAYZ V2 - Complete Business Platform",
         "version": "2.0.0",
-        "docs_url": "/docs"
+        "docs_url": "/docs",
+        "features": [
+            "E-commerce Platform",
+            "Stripe Payments", 
+            "Multi-vendor Marketplace",
+            "Creator Tools",
+            "Business Management"
+        ]
     }
 
