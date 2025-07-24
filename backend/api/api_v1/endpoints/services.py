@@ -2,7 +2,7 @@ from typing import Any
 
 from fastapi import APIRouter
 
-from app import schemas
+from  schemas
 from utilities import send_web_contact_email
 from schemas import EmailContent
 

@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 from motor.core import AgnosticDatabase
 import pytest
 
-from app import crud
+from  crud
 from core.config import settings
 from schemas.user import UserCreate
 from tests.utils.utils import random_email, random_lower_string

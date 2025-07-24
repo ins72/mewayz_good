@@ -1,6 +1,6 @@
 from pymongo.database import Database
 
-from app import crud, schemas
+from  crud, schemas
 from core.config import settings
 
 

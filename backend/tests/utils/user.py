@@ -3,7 +3,7 @@ from typing import Dict
 from fastapi.testclient import TestClient
 from motor.core import AgnosticDatabase
 
-from app import crud
+from  crud
 from core.config import settings
 from models.user import User
 from schemas.user import UserCreate, UserUpdate

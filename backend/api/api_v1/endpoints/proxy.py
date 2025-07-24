@@ -3,7 +3,7 @@ from pydantic import AnyHttpUrl
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
 import httpx
 
-from app import models
+from  models
 from api import deps
 
 

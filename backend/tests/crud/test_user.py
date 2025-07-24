@@ -2,7 +2,7 @@ from fastapi.encoders import jsonable_encoder
 from motor.core import AgnosticDatabase
 import pytest
 
-from app import crud
+from  crud
 from core.security import verify_password
 from schemas.user import UserCreate, UserUpdate
 from tests.utils.utils import random_email, random_lower_string
