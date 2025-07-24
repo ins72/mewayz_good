@@ -116,7 +116,7 @@ async def login_with_oauth2(
         # No TOTP, so this concludes the login validation
         force_totp = False
         refresh_token = security.create_refresh_token(subject=user.id)
-        await crud.token.create(db=db, obj_in=refresh_token, user_obj=user)
+        await crud_token.create(db=db, obj_in=refresh_token, user_obj=user)
     return {
         "access_token": security.create_access_token(subject=user.id, force_totp=force_totp),
         "refresh_token": refresh_token,
