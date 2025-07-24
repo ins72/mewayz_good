@@ -29,7 +29,7 @@ async def create_user_profile(
     """
     Create new user without the need to be logged in.
     """
-    user = await crud.user.get_by_email(db, email=email)
+    user = await crud_user.get_by_email(db, email=email)
     if user:
         raise HTTPException(
             status_code=400,
@@ -37,7 +37,7 @@ async def create_user_profile(
         )
     # Create user auth
     user_in = schemas.UserCreate(password=password, email=email, full_name=full_name)
-    user = await crud.user.create(db, obj_in=user_in)
+    user = await crud_user.create(db, obj_in=user_in)
     return user
 
 
