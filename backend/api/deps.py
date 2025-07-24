@@ -28,7 +28,7 @@ def get_db() -> Generator:
 def get_token_payload(token: str) -> TokenPayload:
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.JWT_ALGO])
-        token_data = schemas.TokenPayload(**payload)
+        token_data = TokenPayload(**payload)
     except (jwt.JWTError, ValidationError):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
