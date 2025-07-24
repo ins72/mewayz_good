@@ -9,9 +9,10 @@ from motor.core import AgnosticDatabase
 from crud.crud_user import user as crud_user
 from crud.crud_token import token as crud_token
 from models.user import User
-from schemas.user import UserCreate
+from schemas.user import UserCreate, UserUpdate
 from schemas.token import WebToken, Token
 from schemas.msg import Msg
+from schemas.totp import EnableTOTP
 from api import deps
 from core import security
 from core.config import settings
