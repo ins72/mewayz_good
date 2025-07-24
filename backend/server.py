@@ -47,7 +47,8 @@ async def root():
             "E-commerce Platform with Multi-vendor Support",
             "Stripe Payment Integration (Live Keys Configured)",
             "MEWAYZ Bundle Subscriptions with Multi-bundle Discounts",
-            "Creator Tools & Bio Links",
+            "Creator Tools & Bio Links (NEW!)",
+            "Content Creation Platform (NEW!)",
             "Business Management Suite",
             "MongoDB Labs Foundation"
         ]
@@ -65,6 +66,14 @@ async def health_check():
             "stripe": "configured" if os.environ.get("STRIPE_SECRET_KEY") else "not configured",
             "google_oauth": "configured" if os.environ.get("GOOGLE_CLIENT_ID") else "not configured",
             "openai": "configured" if os.environ.get("OPENAI_API_KEY") else "not configured"
+        },
+        "bundles": {
+            "creator": "✅ Bio Links + Content Creation",
+            "ecommerce": "✅ Multi-vendor Marketplace", 
+            "social_media": "⏳ Coming Next",
+            "education": "⏳ Coming Soon",
+            "business": "⏳ Coming Soon",
+            "operations": "⏳ Coming Soon"
         }
     }
 
@@ -95,37 +104,43 @@ async def get_mewayz_bundles():
                 "name": "CREATOR",
                 "price": 19,
                 "monthly_price": 19,
-                "features": ["5 workspaces", "Advanced bio links", "Content creation", "Course platform", "Priority support"]
+                "features": ["5 workspaces", "Advanced bio links", "Content creation", "Custom domains", "Analytics dashboard", "Priority support"],
+                "status": "✅ AVAILABLE - Bio Links & Content Platform Ready!"
             },
             "ecommerce": {
                 "name": "E-COMMERCE", 
                 "price": 24,
                 "monthly_price": 24,
-                "features": ["Online store", "Inventory management", "Payment processing", "Multi-vendor marketplace"]
+                "features": ["Online store", "Inventory management", "Payment processing", "Multi-vendor marketplace"],
+                "status": "✅ AVAILABLE - Full E-commerce Suite Ready!"
             },
             "social_media": {
                 "name": "SOCIAL MEDIA",
                 "price": 29,
                 "monthly_price": 29,
-                "features": ["Post scheduling", "Social analytics", "Automation", "Multi-platform management"]
+                "features": ["Post scheduling", "Social analytics", "Automation", "Multi-platform management"],
+                "status": "⏳ IN DEVELOPMENT"
             },
             "education": {
                 "name": "EDUCATION",
                 "price": 29,
                 "monthly_price": 29,
-                "features": ["Course creation", "Student management", "Certificates", "Live sessions"]
+                "features": ["Course creation", "Student management", "Certificates", "Live sessions"],
+                "status": "⏳ COMING SOON"
             },
             "business": {
                 "name": "BUSINESS",
                 "price": 39,
                 "monthly_price": 39,
-                "features": ["CRM", "Team management", "Advanced analytics", "Business intelligence"]
+                "features": ["CRM", "Team management", "Advanced analytics", "Business intelligence"],
+                "status": "⏳ COMING SOON"
             },
             "operations": {
                 "name": "OPERATIONS",
                 "price": 24,
                 "monthly_price": 24,
-                "features": ["Booking system", "Form builder", "Workflow automation", "Operations management"]
+                "features": ["Booking system", "Form builder", "Workflow automation", "Operations management"],
+                "status": "⏳ COMING SOON"
             }
         },
         "discounts": {
@@ -138,6 +153,35 @@ async def get_mewayz_bundles():
             "revenue_share": 0.15,
             "minimum_monthly": 99,
             "features": ["All bundles included", "White-label solution", "Dedicated support", "API access"]
+        }
+    }
+
+# Creator Bundle Quick Access (NEW!)
+@api_router.get("/creator/quick-demo")
+async def creator_bundle_demo():
+    """Demo endpoints for Creator Bundle features"""
+    return {
+        "message": "🎨 CREATOR BUNDLE ($19/month) - Now Available!",
+        "features": {
+            "bio_links": {
+                "description": "Professional bio link pages with custom domains",
+                "demo_url": "/api/creator/templates",
+                "example": "mewayz.app/your-username"
+            },
+            "content_creation": {
+                "description": "Blog posts, articles, and content management",
+                "demo_url": "/api/creator/content",
+                "features": ["Markdown editor", "SEO optimization", "Analytics"]
+            },
+            "analytics": {
+                "description": "Track views, clicks, and engagement",
+                "features": ["Real-time stats", "Referrer tracking", "Button performance"]
+            }
+        },
+        "getting_started": {
+            "step_1": "POST /api/creator/bio-pages - Create your bio page",
+            "step_2": "POST /api/creator/bio-pages/{id}/buttons - Add buttons",
+            "step_3": "Visit /api/creator/p/{slug} - View your page"
         }
     }
 
