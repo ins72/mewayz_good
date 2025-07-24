@@ -459,12 +459,27 @@ def run_all_tests():
     print("🚀 Starting MEWAYZ V2 Backend API Test Suite")
     print("=" * 60)
     
+    # Initialize global variables for test data sharing
+    global test_user_credentials, access_token
+    test_user_credentials = None
+    access_token = None
+    
     tests = [
+        # Basic API Tests
         ("Root Endpoint", test_root_endpoint),
         ("Health Check", test_health_endpoint),
         ("Bundle Pricing", test_bundles_pricing),
         ("Get Status Checks", test_get_status),
-        ("Create Status Check", test_create_status)
+        ("Create Status Check", test_create_status),
+        
+        # Authentication System Tests
+        ("Auth API Root", test_auth_api_root),
+        ("Users Tester Endpoint", test_users_tester_endpoint),
+        ("User Registration", test_user_registration),
+        ("OAuth2 Login", test_oauth2_login),
+        ("Protected Endpoint Without Auth", test_protected_endpoint_without_auth),
+        ("Protected Endpoint With Auth", test_protected_endpoint_with_auth),
+        ("Duplicate User Registration", test_duplicate_user_registration),
     ]
     
     results = {}
@@ -484,16 +499,31 @@ def run_all_tests():
     passed = 0
     total = len(results)
     
-    for test_name, result in results.items():
-        status = "✅ PASS" if result else "❌ FAIL"
-        print(f"{status} {test_name}")
-        if result:
-            passed += 1
+    # Group results by category
+    basic_tests = ["Root Endpoint", "Health Check", "Bundle Pricing", "Get Status Checks", "Create Status Check"]
+    auth_tests = ["Auth API Root", "Users Tester Endpoint", "User Registration", "OAuth2 Login", 
+                  "Protected Endpoint Without Auth", "Protected Endpoint With Auth", "Duplicate User Registration"]
+    
+    print("🔧 BASIC API TESTS:")
+    for test_name in basic_tests:
+        if test_name in results:
+            status = "✅ PASS" if results[test_name] else "❌ FAIL"
+            print(f"   {status} {test_name}")
+            if results[test_name]:
+                passed += 1
+    
+    print("\n🔐 AUTHENTICATION SYSTEM TESTS:")
+    for test_name in auth_tests:
+        if test_name in results:
+            status = "✅ PASS" if results[test_name] else "❌ FAIL"
+            print(f"   {status} {test_name}")
+            if results[test_name]:
+                passed += 1
     
     print(f"\n📈 Overall: {passed}/{total} tests passed ({passed/total*100:.1f}%)")
     
     if passed == total:
-        print("🎉 All tests passed! Backend is fully functional.")
+        print("🎉 All tests passed! Backend with authentication system is fully functional.")
         return True
     else:
         print("⚠️  Some tests failed. Check individual test results above.")
