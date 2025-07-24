@@ -40,8 +40,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include the basic API router for now
+# Include the basic API router
 app.include_router(basic_router)
+
+# Include the authentication and user management router
+app.include_router(auth_router, prefix="/api/v1")
 
 # Health check endpoint
 @app.get("/api/health")
