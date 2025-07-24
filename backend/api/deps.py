@@ -6,9 +6,11 @@ from jose import jwt
 from pydantic import ValidationError
 from motor.core import AgnosticDatabase
 
-from crud import crud_user
-from models import user as models
-from schemas import user as schemas, token as token_schemas
+from crud.crud_user import user as crud_user
+from crud.crud_token import token as crud_token
+from models.user import User
+from schemas.user import User as UserSchema
+from schemas.token import TokenPayload, MagicTokenPayload
 from core.config import settings
 from db.session import MongoDatabase
 
