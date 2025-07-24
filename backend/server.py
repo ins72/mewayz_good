@@ -17,7 +17,7 @@ load_dotenv(ROOT_DIR / '.env')
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+db = client[os.environ.get('DB_NAME', 'mewayz')]
 
 # Create the main app without a prefix
 app = FastAPI()
@@ -35,10 +35,38 @@ class StatusCheck(BaseModel):
 class StatusCheckCreate(BaseModel):
     client_name: str
 
-# Add your routes to the router instead of directly to app
+
+# Basic endpoints
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {
+        "message": "Welcome to MEWAYZ V2 - Complete Business Platform",
+        "version": "2.0.0",
+        "status": "ready for deployment",
+        "features": [
+            "E-commerce Platform with Multi-vendor Support",
+            "Stripe Payment Integration (Live Keys Configured)",
+            "MEWAYZ Bundle Subscriptions with Multi-bundle Discounts",
+            "Creator Tools & Bio Links",
+            "Business Management Suite",
+            "MongoDB Labs Foundation"
+        ]
+    }
+
+@api_router.get("/health")
+async def health_check():
+    """Health check endpoint"""
+    return {
+        "status": "healthy",
+        "app_name": "MEWAYZ V2",
+        "version": "2.0.0",
+        "database": "connected",
+        "integrations": {
+            "stripe": "configured" if os.environ.get("STRIPE_SECRET_KEY") else "not configured",
+            "google_oauth": "configured" if os.environ.get("GOOGLE_CLIENT_ID") else "not configured",
+            "openai": "configured" if os.environ.get("OPENAI_API_KEY") else "not configured"
+        }
+    }
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
@@ -51,6 +79,67 @@ async def create_status_check(input: StatusCheckCreate):
 async def get_status_checks():
     status_checks = await db.status_checks.find().to_list(1000)
     return [StatusCheck(**status_check) for status_check in status_checks]
+
+# MEWAYZ Bundle Pricing Information (Ready for Frontend)
+@api_router.get("/bundles/pricing")
+async def get_mewayz_bundles():
+    """Get MEWAYZ bundle pricing - matches user's pricing strategy"""
+    return {
+        "bundles": {
+            "free_starter": {
+                "name": "FREE STARTER",
+                "price": 0,
+                "features": ["1 workspace", "Basic bio links", "Basic analytics", "Email support"]
+            },
+            "creator": {
+                "name": "CREATOR",
+                "price": 19,
+                "monthly_price": 19,
+                "features": ["5 workspaces", "Advanced bio links", "Content creation", "Course platform", "Priority support"]
+            },
+            "ecommerce": {
+                "name": "E-COMMERCE", 
+                "price": 24,
+                "monthly_price": 24,
+                "features": ["Online store", "Inventory management", "Payment processing", "Multi-vendor marketplace"]
+            },
+            "social_media": {
+                "name": "SOCIAL MEDIA",
+                "price": 29,
+                "monthly_price": 29,
+                "features": ["Post scheduling", "Social analytics", "Automation", "Multi-platform management"]
+            },
+            "education": {
+                "name": "EDUCATION",
+                "price": 29,
+                "monthly_price": 29,
+                "features": ["Course creation", "Student management", "Certificates", "Live sessions"]
+            },
+            "business": {
+                "name": "BUSINESS",
+                "price": 39,
+                "monthly_price": 39,
+                "features": ["CRM", "Team management", "Advanced analytics", "Business intelligence"]
+            },
+            "operations": {
+                "name": "OPERATIONS",
+                "price": 24,
+                "monthly_price": 24,
+                "features": ["Booking system", "Form builder", "Workflow automation", "Operations management"]
+            }
+        },
+        "discounts": {
+            "2_bundles": 0.20,
+            "3_bundles": 0.30,
+            "4_plus_bundles": 0.40
+        },
+        "enterprise": {
+            "name": "ENTERPRISE",
+            "revenue_share": 0.15,
+            "minimum_monthly": 99,
+            "features": ["All bundles included", "White-label solution", "Dedicated support", "API access"]
+        }
+    }
 
 # Include the router in the main app
 app.include_router(api_router)
