@@ -25,7 +25,7 @@ def get_db() -> Generator:
         pass
 
 
-def get_token_payload(token: str) -> schemas.TokenPayload:
+def get_token_payload(token: str) -> TokenPayload:
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.JWT_ALGO])
         token_data = schemas.TokenPayload(**payload)
