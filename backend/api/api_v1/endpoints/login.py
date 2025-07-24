@@ -140,9 +140,9 @@ async def login_with_totp(
     if not new_counter:
         raise HTTPException(status_code=400, detail="Login failed; unable to verify TOTP.")
     # Save the new counter to prevent reuse
-    current_user = await crud.user.update_totp_counter(db=db, db_obj=current_user, new_counter=new_counter)
+    current_user = await crud_user.update_totp_counter(db=db, db_obj=current_user, new_counter=new_counter)
     refresh_token = security.create_refresh_token(subject=current_user.id)
-    await crud.token.create(db=db, obj_in=refresh_token, user_obj=current_user)
+    await crud_token.create(db=db, obj_in=refresh_token, user_obj=current_user)
     return {
         "access_token": security.create_access_token(subject=current_user.id),
         "refresh_token": refresh_token,
@@ -161,7 +161,7 @@ async def enable_totp_authentication(
     For validation of token before enabling TOTP.
     """
     if current_user.hashed_password:
-        user = await crud.user.authenticate(db, email=current_user.email, password=data_in.password)
+        user = await crud_user.authenticate(db, email=current_user.email, password=data_in.password)
         if not data_in.password or not user:
             raise HTTPException(status_code=400, detail="Unable to authenticate or activate TOTP.")
     totp_in = security.create_new_totp(label=current_user.email, uri=data_in.uri)
@@ -171,8 +171,8 @@ async def enable_totp_authentication(
     if not new_counter:
         raise HTTPException(status_code=400, detail="Unable to authenticate or activate TOTP.")
     # Enable TOTP and save the new counter to prevent reuse
-    current_user = await crud.user.activate_totp(db=db, db_obj=current_user, totp_in=totp_in)
-    current_user = await crud.user.update_totp_counter(db=db, db_obj=current_user, new_counter=new_counter)
+    current_user = await crud_user.activate_totp(db=db, db_obj=current_user, totp_in=totp_in)
+    current_user = await crud_user.update_totp_counter(db=db, db_obj=current_user, new_counter=new_counter)
     return {"msg": "TOTP enabled. Do not lose your recovery code."}
 
 
@@ -187,10 +187,10 @@ async def disable_totp_authentication(
     Disable TOTP.
     """
     if current_user.hashed_password:
-        user = await crud.user.authenticate(db, email=current_user.email, password=data_in.original)
+        user = await crud_user.authenticate(db, email=current_user.email, password=data_in.original)
         if not data_in.original or not user:
             raise HTTPException(status_code=400, detail="Unable to authenticate or deactivate TOTP.")
-    await crud.user.deactivate_totp(db=db, db_obj=current_user)
+    await crud_user.deactivate_totp(db=db, db_obj=current_user)
     return {"msg": "TOTP disabled."}
 
 
@@ -203,7 +203,7 @@ async def refresh_token(
     Refresh tokens for future requests
     """
     refresh_token = security.create_refresh_token(subject=current_user.id)
-    await crud.token.create(db=db, obj_in=refresh_token, user_obj=current_user)
+    await crud_token.create(db=db, obj_in=refresh_token, user_obj=current_user)
     return {
         "access_token": security.create_access_token(subject=current_user.id),
         "refresh_token": refresh_token,
@@ -227,8 +227,8 @@ async def recover_password(email: str, db: AgnosticDatabase = Depends(deps.get_d
     """
     Password Recovery
     """
-    user = await crud.user.get_by_email(db, email=email)
-    if user and crud.user.is_active(user):
+    user = await crud_user.get_by_email(db, email=email)
+    if user and crud_user.is_active(user):
         tokens = security.create_magic_tokens(subject=user.id)
         if settings.EMAILS_ENABLED:
             send_reset_password_email(email_to=user.email, email=email, token=tokens[0])
@@ -249,13 +249,13 @@ async def reset_password(
     """
     claim_in = deps.get_magic_token(token=claim)
     # Get the user
-    user = await crud.user.get(db, id=ObjectId(magic_in.sub))
+    user = await crud_user.get(db, id=ObjectId(magic_in.sub))
     # Test the claims
     if (
         (claim_in.sub == magic_in.sub)
         or (claim_in.fingerprint != magic_in.fingerprint)
         or not user
-        or not crud.user.is_active(user)
+        or not crud_user.is_active(user)
     ):
         raise HTTPException(status_code=400, detail="Password update failed; invalid claim.")
     # Update the password
