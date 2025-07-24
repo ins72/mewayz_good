@@ -39,7 +39,7 @@ See `security.py` for other requirements.
 """
 
 
-@router.post("/magic/{email}", response_model=WebToken)
+@router.post("/magic/{email}", response_model=schemas.WebToken)
 async def login_with_magic_link(*, db: AgnosticDatabase = Depends(deps.get_db), email: str) -> Any:
     """
     First step of a 'magic link' login. Check if the user exists and generate a magic link. Generates two short-duration
@@ -47,7 +47,7 @@ async def login_with_magic_link(*, db: AgnosticDatabase = Depends(deps.get_db), 
     """
     user = await crud_user.get_by_email(db, email=email)
     if not user:
-        user_in = UserCreate(**{"email": email})
+        user_in = schemas.UserCreate(**{"email": email})
         user = await crud_user.create(db, obj_in=user_in)
     if not crud_user.is_active(user):
         # Still permits a timed-attack, but does create ambiguity.
