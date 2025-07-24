@@ -32,9 +32,7 @@ class Settings(BaseSettings):
     SERVER_BOT: str = "MEWAYZ Bot"
     
     # CORS Settings
-    BACKEND_CORS_ORIGINS: Annotated[
-        list[AnyHttpUrl] | str, BeforeValidator(parse_cors)
-    ] = ["*"]
+    BACKEND_CORS_ORIGINS: list[str] = ["*"]
 
     # Monitoring
     SENTRY_DSN: HttpUrl | None = None
