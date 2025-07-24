@@ -8,8 +8,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import os
 
-# Import our basic server functionality for now
+# Import our basic server functionality
 from server import api_router as basic_router
+
+# Import MongoDB Labs authentication system
+from api.api_v1.api import api_router as auth_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
