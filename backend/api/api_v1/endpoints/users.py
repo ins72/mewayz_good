@@ -62,7 +62,7 @@ async def update_user(
     if obj_in.full_name is not None:
         user_in.full_name = obj_in.full_name
     if obj_in.email is not None:
-        check_user = await crud.user.get_by_email(db, email=obj_in.email)
+        check_user = await crud_user.get_by_email(db, email=obj_in.email)
         if check_user and check_user.email != current_user.email:
             raise HTTPException(
                 status_code=400,
