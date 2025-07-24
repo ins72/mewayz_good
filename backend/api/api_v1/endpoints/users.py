@@ -94,7 +94,7 @@ async def read_all_users(
     """
     Retrieve all current users.
     """
-    return await crud.user.get_multi(db=db, page=page)
+    return await crud_user.get_multi(db=db, page=page)
 
 
 @router.post("/new-totp", response_model=schemas.NewTOTP)
