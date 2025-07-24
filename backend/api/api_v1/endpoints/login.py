@@ -71,18 +71,18 @@ async def validate_magic_link(
     """
     claim_in = deps.get_magic_token(token=obj_in.claim)
     # Get the user
-    user = await crud.user.get(db, id=ObjectId(magic_in.sub))
+    user = await crud_user.get(db, id=ObjectId(magic_in.sub))
     # Test the claims
     if (
         (claim_in.sub == magic_in.sub)
         or (claim_in.fingerprint != magic_in.fingerprint)
         or not user
-        or not crud.user.is_active(user)
+        or not crud_user.is_active(user)
     ):
         raise HTTPException(status_code=400, detail="Login failed; invalid claim.")
     # Validate that the email is the user's
     if not user.email_validated:
-        await crud.user.validate_email(db=db, db_obj=user)
+        await crud_user.validate_email(db=db, db_obj=user)
     # Check if totp active
     refresh_token = None
     force_totp = True
@@ -90,7 +90,7 @@ async def validate_magic_link(
         # No TOTP, so this concludes the login validation
         force_totp = False
         refresh_token = security.create_refresh_token(subject=user.id)
-        await crud.token.create(db=db, obj_in=refresh_token, user_obj=user)
+        await crud_token.create(db=db, obj_in=refresh_token, user_obj=user)
     return {
         "access_token": security.create_access_token(subject=user.id, force_totp=force_totp),
         "refresh_token": refresh_token,
