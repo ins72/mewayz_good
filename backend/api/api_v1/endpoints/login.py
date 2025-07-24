@@ -6,9 +6,9 @@ from fastapi import APIRouter, Body, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from motor.core import AgnosticDatabase
 
-from crud import crud_user
+from crud import crud_user, crud_token
 from models import user as user_models
-from schemas import user as user_schemas, token as token_schemas
+from schemas import user as user_schemas, token as token_schemas, msg as msg_schemas
 from api import deps
 from core import security
 from core.config import settings
