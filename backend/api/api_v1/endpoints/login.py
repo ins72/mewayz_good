@@ -9,6 +9,7 @@ from motor.core import AgnosticDatabase
 from crud.crud_user import user as crud_user
 from crud.crud_token import token as crud_token
 from models.user import User
+import models
 import schemas
 from api import deps
 from core import security
