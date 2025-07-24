@@ -5,7 +5,9 @@ from fastapi.encoders import jsonable_encoder
 from pydantic.networks import EmailStr
 from motor.core import AgnosticDatabase
 
-from  crud, models, schemas
+from crud.crud_user import user as crud_user
+import models
+import schemas
 from api import deps
 from core.config import settings
 from core import security
