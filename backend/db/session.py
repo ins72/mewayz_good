@@ -1,10 +1,10 @@
-from app.core.config import settings
-from app.__version__ import __version__
+from core.config import settings
+from __version__ import __version__
 from motor import motor_asyncio, core
 from odmantic import AIOEngine
 from pymongo.driver_info import DriverInfo
 
-DRIVER_INFO = DriverInfo(name="full-stack-fastapi-mongodb", version=__version__)
+DRIVER_INFO = DriverInfo(name="mewayz-v2", version=__version__)
 
 
 class _MongoClientSingleton:
@@ -33,4 +33,4 @@ async def ping():
     await MongoDatabase().command("ping")
 
 
-__all__ = ["MongoDatabase", "ping"]
+__all__ = ["MongoDatabase", "ping", "get_engine"]
