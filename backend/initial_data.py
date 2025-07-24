@@ -1,8 +1,8 @@
 import asyncio
 import logging
 
-from app.db.init_db import init_db
-from app.db.session import MongoDatabase
+from db.init_db import init_db
+from db.session import MongoDatabase
 
 from tenacity import after_log, before_log, retry, stop_after_attempt, wait_fixed
 

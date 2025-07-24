@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from app.db.session import ping
+from db.session import ping
 
 from tenacity import after_log, before_log, retry, stop_after_attempt, wait_fixed
 

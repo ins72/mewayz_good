@@ -1,8 +1,8 @@
 import sentry_sdk
 import asyncio
 
-from app.core.celery_app import celery_app
-from app.core.config import settings
+from core.celery_app import celery_app
+from core.config import settings
 
 client_sentry = sentry_sdk.init(
     dsn=settings.SENTRY_DSN,

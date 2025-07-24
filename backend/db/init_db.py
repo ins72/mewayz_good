@@ -1,7 +1,7 @@
 from pymongo.database import Database
 
 from app import crud, schemas
-from app.core.config import settings
+from core.config import settings
 
 
 async def init_db(db: Database) -> None:

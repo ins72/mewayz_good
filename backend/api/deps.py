@@ -7,8 +7,8 @@ from pydantic import ValidationError
 from motor.core import AgnosticDatabase
 
 from app import crud, models, schemas
-from app.core.config import settings
-from app.db.session import MongoDatabase
+from core.config import settings
+from db.session import MongoDatabase
 
 reusable_oauth2 = OAuth2PasswordBearer(tokenUrl=f"{settings.API_V1_STR}/login/oauth")
 

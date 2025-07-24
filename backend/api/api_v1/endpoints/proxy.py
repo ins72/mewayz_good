@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request, Response
 import httpx
 
 from app import models
-from app.api import deps
+from api import deps
 
 
 router = APIRouter()

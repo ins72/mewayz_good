@@ -1,10 +1,10 @@
 from __future__ import annotations
 from motor.core import AgnosticDatabase
 
-from app.crud.base import CRUDBase
-from app.models import User, Token
-from app.schemas import RefreshTokenCreate, RefreshTokenUpdate
-from app.core.config import settings
+from crud.base import CRUDBase
+from models import User, Token
+from schemas import RefreshTokenCreate, RefreshTokenUpdate
+from core.config import settings
 
 
 class CRUDToken(CRUDBase[Token, RefreshTokenCreate, RefreshTokenUpdate]):

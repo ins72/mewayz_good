@@ -5,9 +5,9 @@ from pydantic import BaseModel
 from motor.core import AgnosticDatabase
 from odmantic import AIOEngine
 
-from app.db.base_class import Base
-from app.core.config import settings
-from app.db.session import get_engine
+from db.base_class import Base
+from core.config import settings
+from db.session import get_engine
 
 ModelType = TypeVar("ModelType", bound=Base)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)

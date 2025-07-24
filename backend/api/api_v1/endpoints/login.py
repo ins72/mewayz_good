@@ -7,10 +7,10 @@ from fastapi.security import OAuth2PasswordRequestForm
 from motor.core import AgnosticDatabase
 
 from app import crud, models, schemas
-from app.api import deps
-from app.core import security
-from app.core.config import settings
-from app.utilities import (
+from api import deps
+from core import security
+from core.config import settings
+from utilities import (
     send_reset_password_email,
     send_magic_login_email,
 )

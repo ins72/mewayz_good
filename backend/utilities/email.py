@@ -5,8 +5,8 @@ from typing import Any, Dict
 import emails
 from emails.template import JinjaTemplate
 
-from app.core.config import settings
-from app.schemas import EmailContent, EmailValidation
+from core.config import settings
+from schemas import EmailContent, EmailValidation
 
 
 def send_email(

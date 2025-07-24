@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from odmantic import Reference
 
-from app.db.base_class import Base
+from db.base_class import Base
 
 from .user import User  # noqa: F401
 

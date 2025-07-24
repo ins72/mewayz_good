@@ -6,12 +6,12 @@ import pytest_asyncio
 from fastapi.testclient import TestClient
 from motor.core import AgnosticDatabase
 
-from app.core.config import settings
-from app.db.init_db import init_db
-from app.main import app
-from app.db.session import MongoDatabase, _MongoClientSingleton
-from app.tests.utils.user import authentication_token_from_email
-from app.tests.utils.utils import get_superuser_token_headers
+from core.config import settings
+from db.init_db import init_db
+from main import app
+from db.session import MongoDatabase, _MongoClientSingleton
+from tests.utils.user import authentication_token_from_email
+from tests.utils.utils import get_superuser_token_headers
 
 TEST_DATABASE = "test"
 settings.MONGO_DATABASE = TEST_DATABASE

@@ -7,8 +7,8 @@ from passlib.totp import TOTP
 from passlib.exc import TokenError, MalformedTokenError
 import uuid
 
-from app.core.config import settings
-from app.schemas import NewTOTP
+from core.config import settings
+from schemas import NewTOTP
 
 """
 https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Authentication_Cheat_Sheet.md

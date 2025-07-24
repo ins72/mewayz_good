@@ -6,10 +6,10 @@ from pydantic.networks import EmailStr
 from motor.core import AgnosticDatabase
 
 from app import crud, models, schemas
-from app.api import deps
-from app.core.config import settings
-from app.core import security
-from app.utilities import (
+from api import deps
+from core.config import settings
+from core import security
+from utilities import (
     send_new_account_email,
 )
 

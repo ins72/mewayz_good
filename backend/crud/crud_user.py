@@ -2,11 +2,11 @@ from typing import Any, Dict, Union
 
 from motor.core import AgnosticDatabase
 
-from app.core.security import get_password_hash, verify_password
-from app.crud.base import CRUDBase
-from app.models.user import User
-from app.schemas.user import UserCreate, UserInDB, UserUpdate
-from app.schemas.totp import NewTOTP
+from core.security import get_password_hash, verify_password
+from crud.base import CRUDBase
+from models.user import User
+from schemas.user import UserCreate, UserInDB, UserUpdate
+from schemas.totp import NewTOTP
 
 
 # ODM, Schema, Schema

@@ -4,7 +4,7 @@ from uuid import UUID
 from datetime import date, datetime
 import json
 
-from app.schema_types import BaseEnum
+from schema_types import BaseEnum
 
 
 class BaseSchema(BaseModel):

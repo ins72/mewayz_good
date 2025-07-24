@@ -4,7 +4,7 @@ from datetime import datetime
 from pydantic import EmailStr
 from odmantic import ObjectId, Field
 
-from app.db.base_class import Base
+from db.base_class import Base
 
 if TYPE_CHECKING:
     from . import Token  # noqa: F401
