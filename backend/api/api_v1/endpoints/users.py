@@ -52,7 +52,7 @@ async def update_user(
     Update user.
     """
     if current_user.hashed_password:
-        user = await crud.user.authenticate(db, email=current_user.email, password=obj_in.original)
+        user = await crud_user.authenticate(db, email=current_user.email, password=obj_in.original)
         if not obj_in.original or not user:
             raise HTTPException(status_code=400, detail="Unable to authenticate this update.")
     current_user_data = jsonable_encoder(current_user)
