@@ -105,8 +105,8 @@ async def login_with_oauth2(
     """
     First step with OAuth2 compatible token login, get an access token for future requests.
     """
-    user = await crud.user.authenticate(db, email=form_data.username, password=form_data.password)
-    if not form_data.password or not user or not crud.user.is_active(user):
+    user = await crud_user.authenticate(db, email=form_data.username, password=form_data.password)
+    if not form_data.password or not user or not crud_user.is_active(user):
         raise HTTPException(status_code=400, detail="Login failed; incorrect email or password")
     # Check if totp active
     refresh_token = None
