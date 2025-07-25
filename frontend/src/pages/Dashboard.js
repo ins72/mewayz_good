@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Logo from '../components/Logo';
 import BundleDashboard from '../components/BundleDashboard';
 import CreatorBundleDashboard from '../components/CreatorBundleDashboard';
 import EcommerceBundleDashboard from '../components/EcommerceBundleDashboard';
