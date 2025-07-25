@@ -264,7 +264,7 @@ const OnboardingWizard = () => {
   };
 
   const calculateBundleDiscount = () => {
-    const bundleCount = formData.selectedBundles.length;
+    const bundleCount = formData.selectedBundles.filter(b => b !== 'free_starter').length;
     if (bundleCount >= 4) return 0.40; // 40% discount for 4+ bundles
     if (bundleCount === 3) return 0.30; // 30% discount for 3 bundles
     if (bundleCount === 2) return 0.20; // 20% discount for 2 bundles
@@ -272,8 +272,19 @@ const OnboardingWizard = () => {
   };
 
   const calculateTotalPrice = () => {
+    // If only free bundle is selected
+    if (formData.selectedBundles.includes('free_starter') && formData.selectedBundles.length === 1) {
+      return {
+        basePrice: 0,
+        discount: 0,
+        discountedPrice: 0,
+        savings: 0,
+        isFree: true
+      };
+    }
+
     const selectedBundles = pricingBundles.filter(bundle => 
-      formData.selectedBundles.includes(bundle.id)
+      formData.selectedBundles.includes(bundle.id) && bundle.id !== 'free_starter'
     );
     
     const basePrice = selectedBundles.reduce((total, bundle) => {
@@ -287,7 +298,8 @@ const OnboardingWizard = () => {
       basePrice,
       discount,
       discountedPrice,
-      savings: basePrice - discountedPrice
+      savings: basePrice - discountedPrice,
+      isFree: false
     };
   };
 
