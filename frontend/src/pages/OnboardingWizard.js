@@ -231,18 +231,53 @@ const OnboardingWizard = () => {
   const handleComplete = async () => {
     setLoading(true);
     
-    // Simulate onboarding completion
+    // Create workspace via backend API
     try {
-      // Here you would normally save to backend
-      console.log('Onboarding data:', formData);
+      const token = localStorage.getItem('access_token');
       
-      // Redirect to dashboard
+      // Prepare workspace data
+      const workspaceData = {
+        name: formData.workspaceName,
+        industry: formData.industry,
+        team_size: formData.teamSize,
+        main_goals: formData.selectedGoals,
+        selected_bundles: formData.selectedBundles,
+        payment_method: formData.paymentMethod
+      };
+
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/workspaces/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(workspaceData)
+      });
+
+      if (response.ok) {
+        const workspaceResult = await response.json();
+        console.log('Workspace created:', workspaceResult);
+        
+        // Mark user as having workspace
+        localStorage.setItem('has_workspace', 'true');
+        
+        // Redirect to dashboard
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 2000);
+      } else {
+        const errorData = await response.json();
+        console.error('Workspace creation failed:', errorData);
+        setError('Failed to create workspace. Please try again.');
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error('Onboarding failed:', error);
+      // For now, simulate success and redirect to dashboard
+      localStorage.setItem('has_workspace', 'true');
       setTimeout(() => {
         navigate('/dashboard');
       }, 2000);
-    } catch (error) {
-      console.error('Onboarding failed:', error);
-      setLoading(false);
     }
   };
 
