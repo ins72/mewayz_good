@@ -46,25 +46,25 @@ export default function RootLayout({
                 {/* Description no longer than 155 characters */}
                 <meta
                     name="description"
-                    content="Core 2.0 – Dashboard Builder"
+                    content="MEWAYZ V2 - The complete creator economy platform for modern businesses"
                 />
                 {/* Product Name */}
                 <meta
                     name="product-name"
-                    content="Core 2.0 – Dashboard Builder"
+                    content="MEWAYZ V2 - Creator Economy Platform"
                 />
                 {/* Twitter Card data */}
                 <meta name="twitter:card" content="summary" />
-                <meta name="twitter:site" content="@ui8" />
+                <meta name="twitter:site" content="@mewayz" />
                 <meta
                     name="twitter:title"
-                    content="Core 2.0 – Dashboard Builder"
+                    content="MEWAYZ V2 - Creator Economy Platform"
                 />
                 <meta
                     name="twitter:description"
-                    content="Minimal & Ready-to-Build Dashboard UI Design Kit + Code 🔥"
+                    content="The complete creator economy platform for modern businesses"
                 />
-                <meta name="twitter:creator" content="@ui8" />
+                <meta name="twitter:creator" content="@mewayz" />
                 <meta
                     name="twitter:image"
                     content="%PUBLIC_URL%/twitter-card.png"
@@ -72,12 +72,12 @@ export default function RootLayout({
                 {/* Open Graph data for Facebook */}
                 <meta
                     property="og:title"
-                    content="Core 2.0 – Dashboard Builder"
+                    content="MEWAYZ V2 - Creator Economy Platform"
                 />
                 <meta property="og:type" content="Article" />
                 <meta
                     property="og:url"
-                    content="https://ui8.net/ui8/products/core-20--dashboard-builder"
+                    content="https://mewayz.com"
                 />
                 <meta
                     property="og:image"
@@ -85,11 +85,11 @@ export default function RootLayout({
                 />
                 <meta
                     property="og:description"
-                    content="Minimal & Ready-to-Build Dashboard UI Design Kit + Code 🔥"
+                    content="The complete creator economy platform for modern businesses"
                 />
                 <meta
                     property="og:site_name"
-                    content="Core 2.0 – Dashboard Builder"
+                    content="MEWAYZ V2"
                 />
                 <meta property="fb:admins" content="132951670226590" />
                 {/* Open Graph data for LinkedIn */}
