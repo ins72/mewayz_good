@@ -468,19 +468,20 @@ async def process_saved_payment(
     request: ProcessPaymentRequest,
     current_user=Depends(get_current_user)
 ):
-    """Step 2: Process payment using saved card data"""
+    """Step 2: Process payment using already saved card data"""
     try:
         # Parse saved payment ID
         customer_id, payment_method_id = request.saved_payment_id.split(':')
         
-        # Get customer info
-        customer = stripe.Customer.retrieve(customer_id)
+        print(f"Processing payment for customer: {customer_id}, payment method: {payment_method_id}")
         
-        # Get payment method details
-        payment_method = stripe.PaymentMethod.retrieve(payment_method_id)
+        # Get customer info (already exists from Step 1)
+        customer = stripe.Customer.retrieve(customer_id)
+        print(f"Retrieved customer: {customer.email}")
         
         # Extract bundle info from customer metadata
         bundles = customer.metadata.get('bundles', '').split(',')
+        print(f"Bundles from metadata: {bundles}")
         
         # Calculate pricing (same logic as step 1)
         bundle_prices = {
@@ -508,6 +509,7 @@ async def process_saved_payment(
             discount_rate = 0.20
 
         discounted_amount = int(total_amount * (1 - discount_rate))
+        print(f"Calculated amount: ${discounted_amount/100:.2f} (discount: {discount_rate*100}%)")
 
         # Create price object
         try:
@@ -531,14 +533,14 @@ async def process_saved_payment(
         except Exception as e:
             raise HTTPException(status_code=400, detail=f"Price creation failed: {str(e)}")
 
-        # Create subscription
+        # Create subscription using the ALREADY SAVED payment method
         try:
             subscription = stripe.Subscription.create(
                 customer=customer_id,
                 items=[{
                     'price': price.id,
                 }],
-                default_payment_method=payment_method_id,
+                default_payment_method=payment_method_id,  # Use the already saved payment method
                 expand=['latest_invoice.payment_intent'],
                 metadata={
                     'user_id': str(current_user.id),
@@ -546,7 +548,7 @@ async def process_saved_payment(
                     'payment_interval': payment_interval
                 }
             )
-            print(f"Created subscription: {subscription.id}")
+            print(f"Created subscription: {subscription.id} using saved payment method")
         except Exception as e:
             raise HTTPException(status_code=400, detail=f"Subscription creation failed: {str(e)}")
 
@@ -556,6 +558,7 @@ async def process_saved_payment(
         
         # Check if subscription is active (most common case for successful payments)
         if subscription.status == 'active':
+            print("✅ Subscription is active - payment successful!")
             return {
                 'subscription_id': subscription.id,
                 'status': 'success',
@@ -581,6 +584,7 @@ async def process_saved_payment(
                         'status': 'requires_action'
                     }
                 elif payment_intent.status == 'succeeded':
+                    print("✅ Payment intent succeeded!")
                     return {
                         'subscription_id': subscription.id,
                         'status': 'success',
@@ -627,8 +631,10 @@ async def process_saved_payment(
     except HTTPException:
         raise
     except stripe.error.StripeError as e:
+        print(f"Stripe error: {str(e)}")
         raise HTTPException(status_code=400, detail=f"Stripe error: {str(e)}")
     except Exception as e:
+        print(f"Payment processing error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Payment processing failed: {str(e)}")
 
 @router.post("/create-customer-portal-session")
