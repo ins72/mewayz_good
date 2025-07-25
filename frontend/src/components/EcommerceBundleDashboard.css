@@ -208,18 +208,37 @@
 /* E-commerce Grid */
 .ecommerce-grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: var(--space-lg);
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
   align-items: start;
+}
+
+@media (min-width: 768px) {
+  .ecommerce-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .ecommerce-grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
 }
 
 .dashboard-card {
   background: var(--bg-glass);
   border: 1px solid var(--border-primary);
   border-radius: var(--radius-lg);
-  padding: var(--space-lg);
+  padding: var(--space-md);
   transition: all var(--transition-normal);
   height: fit-content;
+}
+
+@media (min-width: 768px) {
+  .dashboard-card {
+    padding: var(--space-lg);
+  }
 }
 
 .dashboard-card:hover {
