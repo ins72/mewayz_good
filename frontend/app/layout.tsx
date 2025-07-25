@@ -31,7 +31,7 @@ const interDisplay = localFont({
 });
 
 export const metadata: Metadata = {
-    title: "MEWAYZ V2 - Creator Economy Platform",
+    title: "MEWAYZ - Creator Economy Platform",
     description: "The complete creator economy platform for modern businesses",
 };
 
