@@ -34,10 +34,16 @@ const ProtectedRoute = ({ children }) => {
 // Workspace Route Component - checks if user needs onboarding
 const WorkspaceRoute = ({ children, requiresWorkspace = true }) => {
   const token = localStorage.getItem('access_token');
-  const hasWorkspace = localStorage.getItem('user_workspace_id');
+  const hasWorkspace = localStorage.getItem('has_workspace') === 'true';
+  const invitationToken = new URLSearchParams(window.location.search).get('invitation');
   
   if (!token) {
     return <Navigate to="/login" />;
+  }
+  
+  // If user has invitation, skip onboarding and go to invitation flow
+  if (invitationToken && !requiresWorkspace) {
+    return <Navigate to={`/invitation?invitation=${invitationToken}`} />;
   }
   
   if (requiresWorkspace && !hasWorkspace) {
