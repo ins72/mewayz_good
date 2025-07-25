@@ -361,14 +361,16 @@
   font-size: 16px;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 480px) {
+/* Mobile responsiveness - matching landing page breakpoints */
+@media (max-width: 768px) {
   .auth-container {
     padding: 16px;
   }
   
   .auth-card {
     padding: 32px 24px;
+    max-width: 100%;
+    margin: 0 auto;
   }
   
   .auth-logo h1 {
@@ -376,15 +378,45 @@
   }
   
   .auth-header h2 {
-    font-size: 20px;
+    font-size: 24px;
+  }
+  
+  .version-badge {
+    font-size: 10px;
+    padding: 4px 8px;
   }
 }
 
-/* Focus states for accessibility */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 24px 20px;
+    border-radius: 20px;
+  }
+  
+  .auth-logo h1 {
+    font-size: 24px;
+  }
+  
+  .auth-header h2 {
+    font-size: 20px;
+  }
+  
+  .form-group input {
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+  
+  .auth-submit {
+    padding: 16px 28px;
+    font-size: 15px;
+  }
+}
+
+/* Focus states for accessibility - matching landing page */
 .auth-submit:focus,
 .form-group input:focus {
   outline: 2px solid #667eea;
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 /* Loading state for submit button */
@@ -394,4 +426,76 @@
 
 .auth-submit.loading .loading-spinner {
   display: inline-block;
+}
+
+/* Additional landing page consistency features */
+.auth-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-primary);
+  opacity: 0;
+  border-radius: 24px;
+  transition: opacity var(--animation-speed) ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.auth-card:hover::before {
+  opacity: 0.03;
+}
+
+/* Floating elements animation like landing page */
+.auth-container::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  width: 100px;
+  height: 100px;
+  background: var(--gradient-accent);
+  opacity: 0.05;
+  border-radius: 50%;
+  animation: floatTopRight 15s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes floatTopRight {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-30px) scale(1.1); }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .auth-card {
+    border: 2px solid var(--border-light);
+  }
+  
+  .form-group input {
+    border-color: var(--border-light);
+  }
+  
+  .error-message,
+  .success-message {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .auth-container::before,
+  .auth-container::after,
+  .auth-card,
+  .auth-submit::before {
+    animation: none;
+  }
+  
+  .auth-submit:hover:not(:disabled),
+  .form-group input:focus,
+  .auth-footer a:hover {
+    transform: none;
+  }
 }
