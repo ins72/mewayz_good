@@ -79,6 +79,10 @@ function App() {
               </WorkspaceRoute>
             } 
           />
+          {/* Bundle Dashboards */}
+          <Route path="/dashboard/creator" element={<CreatorBundleDashboard />} />
+          <Route path="/dashboard/bundles" element={<BundleDashboard />} />
+          
           <Route 
             path="/dashboard" 
             element={
