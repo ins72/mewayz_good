@@ -1855,6 +1855,10 @@ def run_all_tests():
     mewayz_v2_tests = ["MEWAYZ V2 Bundle Pricing System", "Multi-Bundle Discount Logic", 
                        "Payment Method Management Endpoints", "Subscription Management Workflows",
                        "Bundle Combinations Pricing", "Data Validation and Persistence"]
+    bundle_services_tests = ["Bundle Services Health Check", "Creator Bundle Bio Links Without Auth",
+                            "Creator Bundle Bio Links With Auth", "E-commerce Bundle Stores With Auth", 
+                            "Business Bundle CRM With Auth", "Bundle Access Control Integration",
+                            "Bundle Activation for Services", "Cross-Bundle Integration"]
     payment_tests = ["Bundle Pricing Calculation", "Stripe Subscription Without Auth", "Stripe Create Subscription"]
     flow_tests = ["Complete Onboarding Flow"]
     
