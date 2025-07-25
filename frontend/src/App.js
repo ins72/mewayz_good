@@ -87,6 +87,14 @@ function App() {
               </WorkspaceRoute>
             } 
           />
+          <Route 
+            path="/account" 
+            element={
+              <ProtectedRoute>
+                <AccountSettings />
+              </ProtectedRoute>
+            } 
+          />
 
           {/* 404 Route */}
           <Route path="*" element={<NotFound />} />
