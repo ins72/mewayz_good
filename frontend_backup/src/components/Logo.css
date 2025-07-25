@@ -1,0 +1,148 @@
+/* MEWAYZ V2 Logo Component - Professional Dark Theme */
+.mewayz-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: transform var(--transition-normal, 0.3s) ease;
+  user-select: none;
+}
+
+.mewayz-logo.clickable {
+  cursor: pointer;
+}
+
+.mewayz-logo.clickable:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.mewayz-logo.clickable:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.mewayz-logo h1 {
+  font-weight: 800;
+  margin: 0;
+  background: var(--gradient-primary, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.mewayz-logo .version-badge {
+  background: var(--gradient-primary, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+  color: white;
+  border-radius: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: var(--shadow-glow, 0 0 40px rgba(102, 126, 234, 0.15));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Size Variants */
+.mewayz-logo.small h1 {
+  font-size: 18px;
+}
+
+.mewayz-logo.small .version-badge {
+  padding: 2px 8px;
+  font-size: 10px;
+  border-radius: 12px;
+}
+
+.mewayz-logo.medium h1 {
+  font-size: 24px;
+}
+
+.mewayz-logo.medium .version-badge {
+  padding: 4px 12px;
+  font-size: 11px;
+  border-radius: 16px;
+}
+
+.mewayz-logo.large h1 {
+  font-size: 36px;
+}
+
+.mewayz-logo.large .version-badge {
+  padding: 6px 14px;
+  font-size: 12px;
+  border-radius: 18px;
+}
+
+.mewayz-logo.xlarge h1 {
+  font-size: 48px;
+}
+
+.mewayz-logo.xlarge .version-badge {
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mewayz-logo.large h1 {
+    font-size: 28px;
+  }
+  
+  .mewayz-logo.xlarge h1 {
+    font-size: 36px;
+  }
+  
+  .mewayz-logo.xlarge .version-badge {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mewayz-logo {
+    gap: 8px;
+  }
+  
+  .mewayz-logo.medium h1 {
+    font-size: 20px;
+  }
+  
+  .mewayz-logo.large h1 {
+    font-size: 24px;
+  }
+  
+  .mewayz-logo.xlarge h1 {
+    font-size: 28px;
+  }
+}
+
+/* Animation Variants */
+.mewayz-logo.animated {
+  animation: logoFloat 3s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Focus styles for accessibility */
+.mewayz-logo.clickable:focus {
+  outline: 2px solid var(--accent-primary, #6366f1);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Dark mode specific adjustments */
+@media (prefers-color-scheme: dark) {
+  .mewayz-logo h1 {
+    background: var(--gradient-primary, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
