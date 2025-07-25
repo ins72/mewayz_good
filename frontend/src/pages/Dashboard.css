@@ -57,6 +57,12 @@
   50% { transform: translateY(-30px) rotate(2deg); }
 }
 
+.dashboard {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
 .dashboard-header {
   background: var(--bg-card);
   backdrop-filter: blur(20px);
@@ -66,8 +72,56 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: var(--shadow-card);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.dashboard-nav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.nav-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--animation-speed) ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.nav-btn:hover {
+  border-color: var(--border-light);
+  background: var(--bg-glass);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.nav-btn.active {
+  background: var(--gradient-primary);
+  border-color: transparent;
+  color: white;
+  box-shadow: var(--shadow-glow);
+}
+
+.dashboard-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dashboard-content {
+  flex: 1;
   position: relative;
-  z-index: 10;
+  z-index: 1;
 }
 
 .header-left .logo {
