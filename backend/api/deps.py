@@ -94,7 +94,9 @@ async def get_refresh_user(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Could not validate credentials",
         )
-    user = await crud_user.get(db, id=token_data.sub)
+    # Convert string ID to ObjectId
+    user_id = ObjectId(token_data.sub)
+    user = await crud_user.get(db, id=user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     if not crud_user.is_active(user):
@@ -109,7 +111,7 @@ async def get_refresh_user(
     await crud_token.remove(db, db_obj=token_obj)
 
     # Make sure to revoke all other refresh tokens
-    return await crud_user.get(id=token_data.sub)
+    return await crud_user.get(id=user_id)
 
 
 async def get_current_active_user(
