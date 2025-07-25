@@ -194,12 +194,13 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Frontend integration with backend APIs"
-    - "Complete Stripe payment flow implementation"
-    - "Landing page integration"
-  stuck_tasks: []
+    - "Stripe Payment Integration & Card Storage"
+    - "Frontend payment flow fixes"
+    - "Complete Stripe payment testing"
+  stuck_tasks:
+    - "Stripe Payment Integration & Card Storage"
   test_all: false
-  test_priority: "high_first"
+  test_priority: "stuck_first"
 
   - task: "Authentication System Integration"
     implemented: true
