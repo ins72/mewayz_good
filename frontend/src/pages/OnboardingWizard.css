@@ -515,6 +515,92 @@
   font-size: 1.125rem;
 }
 
+.free-summary {
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(72, 187, 120, 0.1), rgba(72, 187, 120, 0.05));
+  border: 1px solid rgba(72, 187, 120, 0.3);
+  border-radius: 1rem;
+}
+
+.free-summary h3 {
+  color: #48bb78;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.free-summary p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.multi-bundle-note {
+  text-align: center;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(72, 187, 120, 0.1);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(72, 187, 120, 0.3);
+}
+
+.multi-bundle-note p {
+  color: #48bb78;
+  font-weight: 600;
+  margin: 0;
+}
+
+.enterprise-option {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.enterprise-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 500px;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+.enterprise-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.enterprise-card h4 {
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.enterprise-card p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.enterprise-link {
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.enterprise-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
 /* Payment Step */
 .payment-step {
   max-width: 600px;
