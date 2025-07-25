@@ -238,6 +238,11 @@ const PaymentForm = ({
         {paymentError && (
           <div className="payment-error">
             {paymentError}
+            {retryCount > 0 && (
+              <div className="retry-info">
+                <small>Attempt {retryCount + 1}</small>
+              </div>
+            )}
           </div>
         )}
 
