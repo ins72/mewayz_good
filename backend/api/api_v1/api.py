@@ -21,7 +21,7 @@ async def api_root():
     return {
         "message": "MEWAYZ V2 API",
         "version": "2.0.0",
-        "endpoints": ["/login", "/users", "/proxy", "/payments", "/workspaces"]
+        "endpoints": ["/login", "/users", "/proxy", "/payments", "/workspaces", "/invitations"]
     }
 
 api_router.include_router(login.router, prefix="/login", tags=["login"])
