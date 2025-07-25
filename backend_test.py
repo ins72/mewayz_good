@@ -1894,6 +1894,14 @@ def run_all_tests():
             if results[test_name]:
                 passed += 1
     
+    print("\n🔗 PHASE 3 & 4: BUNDLE SERVICES INTEGRATION TESTS (Review Request Focus):")
+    for test_name in bundle_services_tests:
+        if test_name in results:
+            status = "✅ PASS" if results[test_name] else "❌ FAIL"
+            print(f"   {status} {test_name}")
+            if results[test_name]:
+                passed += 1
+    
     print("\n💳 STRIPE PAYMENT INTEGRATION TESTS:")
     for test_name in payment_tests:
         if test_name in results:
