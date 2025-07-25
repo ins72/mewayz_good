@@ -127,11 +127,11 @@ const Header = ({ toggleMobileMenu, scrollToSection, navigate }) => {
       <nav className="nav">
         <div className="logo">MEWAYZ</div>
         <ul className="nav-links">
-          <li><a href="/features">Features</a></li>
-          <li><a href="/pricing">Pricing</a></li>
+          <li><Link to="/features">Features</Link></li>
+          <li><Link to="/pricing">Pricing</Link></li>
           <li><a href="#testimonials" onClick={() => scrollToSection('testimonials')}>Reviews</a></li>
-          <li><a href="/help">Help</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><Link to="/help">Help</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
         </ul>
         <div className="nav-actions">
           <button onClick={() => navigate('/login')} className="btn btn-secondary">Login</button>
