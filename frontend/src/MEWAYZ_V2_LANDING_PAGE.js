@@ -113,8 +113,6 @@ const LandingPage = () => {
       </div>
     </PublicLayout>
   );
-    </div>
-  );
 };
 
 const Header = ({ toggleMobileMenu, scrollToSection, navigate }) => {
