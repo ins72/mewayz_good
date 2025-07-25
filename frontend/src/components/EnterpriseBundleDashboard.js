@@ -262,6 +262,8 @@ const EnterpriseBundleDashboard = () => {
     switch (currentView) {
       case 'payouts':
         return <EnterprisePayoutDashboard />;
+      case 'clients':
+        return <EnterpriseClientManager />;
       case 'overview':
       default:
         return (
