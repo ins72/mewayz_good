@@ -430,21 +430,27 @@ const Footer = () => {
         <div className="footer-links">
           <div className="footer-column">
             <h4>Product</h4>
-            <a href="#features">Features</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#demo">Demo</a>
+            <Link to="/features">Features</Link>
+            <Link to="/pricing">Pricing</Link>
+            <a href="#demo" onClick={() => {
+              const element = document.getElementById('demo');
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}>Demo</a>
           </div>
           <div className="footer-column">
             <h4>Company</h4>
-            <a href="#about">About</a>
-            <a href="#blog">Blog</a>
-            <a href="#careers">Careers</a>
+            <Link to="/about">About</Link>
+            <Link to="/contact">Contact</Link>
+            <Link to="/help">Help Center</Link>
           </div>
           <div className="footer-column">
             <h4>Support</h4>
-            <a href="#help">Help Center</a>
-            <a href="#contact">Contact</a>
-            <a href="#status">Status</a>
+            <Link to="/help">Help Center</Link>
+            <Link to="/contact">Contact</Link>
+            <Link to="/privacy">Privacy Policy</Link>
+            <Link to="/terms">Terms of Service</Link>
           </div>
         </div>
       </div>
