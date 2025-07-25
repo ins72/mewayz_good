@@ -48,6 +48,7 @@ app.include_router(basic_router)
 # Include the authentication and user management router
 app.include_router(auth_router, prefix="/api/v1")
 app.include_router(bundle_router)  # Bundle management routes
+app.include_router(bundle_services_router)  # Bundle-specific services routes
 
 # Health check endpoint
 @app.get("/api/health")
