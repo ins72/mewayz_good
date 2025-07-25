@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import OnboardingWizard from './pages/OnboardingWizard';
 import Dashboard from './pages/Dashboard';
+import InvitationHandler from './pages/InvitationHandler';
 import Contact from './pages/Contact';
 import Help from './pages/Help';
 import Privacy from './pages/Privacy';
