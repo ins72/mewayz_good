@@ -247,6 +247,122 @@ async def cancel_subscription(
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Cancellation failed: {str(e)}")
 
+@router.get("/customer-payment-methods")
+async def get_customer_payment_methods(current_user=Depends(get_current_user)):
+    """Get all saved payment methods for the current user"""
+    try:
+        # Find customer by email
+        customers = stripe.Customer.list(
+            email=current_user.email,
+            limit=1
+        )
+        
+        if not customers.data:
+            return {'payment_methods': []}
+        
+        customer = customers.data[0]
+        payment_methods = stripe.PaymentMethod.list(
+            customer=customer.id,
+            type="card"
+        )
+        
+        return {
+            'payment_methods': [
+                {
+                    'id': pm.id,
+                    'card': {
+                        'brand': pm.card.brand,
+                        'last4': pm.card.last4,
+                        'exp_month': pm.card.exp_month,
+                        'exp_year': pm.card.exp_year
+                    },
+                    'billing_details': pm.billing_details
+                }
+                for pm in payment_methods.data
+            ]
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching payment methods: {str(e)}")
+
+@router.post("/create-subscription-with-saved-card")
+async def create_subscription_with_saved_card(
+    request: dict,
+    current_user=Depends(get_current_user)
+):
+    """Create subscription using a saved payment method"""
+    try:
+        payment_method_id = request.get('payment_method_id')
+        bundles = request.get('bundles', [])
+        payment_interval = request.get('payment_interval', 'monthly')
+        
+        # Bundle pricing (in cents)
+        bundle_prices = {
+            'creator': {'monthly': 1900, 'yearly': 19000},     # $19/month, $190/year
+            'ecommerce': {'monthly': 2400, 'yearly': 24000},   # $24/month, $240/year
+            'social_media': {'monthly': 2900, 'yearly': 29000}, # $29/month, $290/year
+            'education': {'monthly': 2900, 'yearly': 29000},   # $29/month, $290/year
+            'business': {'monthly': 3900, 'yearly': 39000},    # $39/month, $390/year
+            'operations': {'monthly': 2400, 'yearly': 24000}   # $24/month, $240/year
+        }
+
+        # Calculate total amount with discount
+        total_amount = sum(bundle_prices[bundle_id][payment_interval] 
+                          for bundle_id in bundles if bundle_id in bundle_prices)
+        
+        bundle_count = len(bundles)
+        discount_rate = 0
+        if bundle_count >= 4:
+            discount_rate = 0.40
+        elif bundle_count == 3:
+            discount_rate = 0.30
+        elif bundle_count == 2:
+            discount_rate = 0.20
+
+        discounted_amount = int(total_amount * (1 - discount_rate))
+
+        # Find customer by email
+        customers = stripe.Customer.list(email=current_user.email, limit=1)
+        if not customers.data:
+            raise HTTPException(status_code=400, detail="No customer found for this user")
+        
+        customer = customers.data[0]
+
+        # Create price and subscription
+        price = stripe.Price.create(
+            currency='usd',
+            unit_amount=discounted_amount,
+            recurring={
+                'interval': 'month' if payment_interval == 'monthly' else 'year'
+            },
+            product_data={
+                'name': f"MEWAYZ V2 - {', '.join([bundle.title() for bundle in bundles])} Bundle(s)"
+            }
+        )
+
+        subscription = stripe.Subscription.create(
+            customer=customer.id,
+            items=[{'price': price.id}],
+            default_payment_method=payment_method_id,
+            expand=['latest_invoice.payment_intent'],
+            metadata={
+                'user_id': str(current_user.id),
+                'bundles': ','.join(bundles),
+                'payment_interval': payment_interval
+            }
+        )
+
+        return {
+            'subscription_id': subscription.id,
+            'status': 'active',
+            'customer_id': customer.id,
+            'amount_paid': discounted_amount,
+            'discount_applied': discount_rate * 100,
+            'bundles': bundles
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Subscription with saved card failed: {str(e)}")
+
 @router.get("/customer-subscriptions")
 async def get_customer_subscriptions(current_user=Depends(get_current_user)):
     """Get all subscriptions for the current user"""
