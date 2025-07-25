@@ -244,10 +244,82 @@
   gap: 2rem;
 }
 
+/* Bundles Step - Enhanced Professional Styling */
+.bundles-step {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.pricing-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pricing-header p {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.payment-toggle {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-glass);
+  padding: 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.toggle-label:has(input:checked) {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+.toggle-label input[type="radio"] {
+  display: none;
+}
+
+.save-badge {
+  background: rgba(72, 187, 120, 0.2);
+  color: #48bb78;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
 .bundles-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .bundle-card {
@@ -256,43 +328,72 @@
   border-radius: 1.5rem;
   padding: 2rem;
   cursor: pointer;
-  transition: all var(--animation-speed) ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  overflow: hidden;
 }
 
-.bundle-card:hover {
-  border-color: var(--border-light);
-  transform: translateY(-2px);
+.bundle-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
 }
 
+.bundle-card:hover::before,
+.bundle-card.selected::before {
+  opacity: 0.1;
+}
+
+.bundle-card:hover,
 .bundle-card.selected {
-  border-color: #667eea;
-  background: rgba(102, 126, 234, 0.1);
-  box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.bundle-card.free-bundle {
+  border-color: #48bb78;
+  background: linear-gradient(135deg, rgba(72, 187, 120, 0.05), rgba(72, 187, 120, 0.02));
+}
+
+.bundle-card.free-bundle:hover,
+.bundle-card.free-bundle.selected {
+  border-color: #48bb78;
+  box-shadow: 0 20px 40px rgba(72, 187, 120, 0.2);
 }
 
 .bundle-badge {
   position: absolute;
-  top: -12px;
-  right: 20px;
-  background: var(--gradient-primary);
+  top: 1rem;
+  right: 1rem;
+  background: var(--gradient-warm);
   color: white;
-  padding: 6px 12px;
-  border-radius: 50px;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
   font-size: 0.75rem;
   font-weight: 600;
 }
 
+.bundle-card.free-bundle .bundle-badge {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+}
+
 .bundle-header {
-  text-align: center;
   margin-bottom: 1.5rem;
 }
 
 .bundle-header h3 {
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .bundle-price {
@@ -318,13 +419,32 @@
   color: var(--text-secondary);
 }
 
-.bundle-header p {
+.free-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #48bb78;
+}
+
+.bundle-description {
   color: var(--text-secondary);
   font-size: 0.875rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+
+.yearly-savings {
+  background: rgba(72, 187, 120, 0.1);
+  color: #48bb78;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .bundle-features {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .feature-item {
@@ -342,6 +462,12 @@
   margin-top: 2px;
 }
 
+.feature-item.more-features {
+  color: var(--accent);
+  font-weight: 500;
+  font-style: italic;
+}
+
 .launch-special {
   background: var(--gradient-warm);
   color: white;
@@ -350,6 +476,7 @@
   font-size: 0.75rem;
   font-weight: 600;
   text-align: center;
+  margin-top: auto;
 }
 
 /* Pricing Summary */
