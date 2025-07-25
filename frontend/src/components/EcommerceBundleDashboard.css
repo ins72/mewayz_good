@@ -274,17 +274,18 @@
 }
 
 .customer-email {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
 }
 
 .status-badge {
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
   font-weight: 500;
   color: white;
   text-transform: capitalize;
+  text-align: center;
 }
 
 /* Top Products */
