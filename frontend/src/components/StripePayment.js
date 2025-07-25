@@ -49,6 +49,7 @@ const PaymentForm = ({
   const [processing, setProcessing] = useState(false);
   const [paymentError, setPaymentError] = useState('');
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
