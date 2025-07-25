@@ -31,8 +31,8 @@ const interDisplay = localFont({
 });
 
 export const metadata: Metadata = {
-    title: "Core 2.0",
-    description: "Core 2.0",
+    title: "MEWAYZ V2 - Creator Economy Platform",
+    description: "The complete creator economy platform for modern businesses",
 };
 
 export default function RootLayout({
