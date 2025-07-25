@@ -14,11 +14,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--space-3xl);
-  padding: var(--space-2xl);
+  margin-bottom: var(--space-xl);
+  padding: var(--space-lg);
   background: var(--bg-glass);
   border: 1px solid var(--border-primary);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
+  flex-wrap: wrap;
+  gap: var(--space-md);
 }
 
 .header-content h1 {
