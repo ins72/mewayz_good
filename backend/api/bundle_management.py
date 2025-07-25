@@ -10,7 +10,7 @@ from typing import List, Optional, Dict, Any
 from datetime import datetime
 
 from core.bundle_manager import BundleManager, BundleType, get_bundle_manager
-from core.auth import get_current_user
+from api.deps import get_current_user
 
 router = APIRouter(prefix="/api/bundles", tags=["Bundle Management"])
 
