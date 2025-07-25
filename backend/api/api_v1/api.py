@@ -4,6 +4,7 @@ from api.api_v1.endpoints import (
     login,
     users,
     proxy,
+    stripe_payments,
     # ecommerce,  # Temporarily disabled due to Pydantic v2 compatibility
     # payments,   # Temporarily disabled due to Pydantic v2 compatibility
 )
