@@ -332,6 +332,12 @@ const OnboardingWizard = () => {
 
         {/* Step Content */}
         <div className="step-content">
+          {error && (
+            <div className="error-message">
+              {error}
+            </div>
+          )}
+          
           {currentStep === 1 && (
             <WorkspaceStep 
               formData={formData}
