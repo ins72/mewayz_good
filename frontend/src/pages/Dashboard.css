@@ -203,10 +203,30 @@
 
 .dashboard-main {
   padding: 40px 32px;
-  max-width: 1400px;
+  max-width: 1200px;
+  width: 80%;
   margin: 0 auto;
   position: relative;
   z-index: 1;
+}
+
+@media (max-width: 1400px) {
+  .dashboard-main {
+    width: 85%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .dashboard-main {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-main {
+    width: 95%;
+    padding: 24px 16px;
+  }
 }
 
 .welcome-section {
