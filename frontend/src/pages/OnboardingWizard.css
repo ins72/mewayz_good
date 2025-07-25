@@ -624,6 +624,101 @@
   font-size: 1rem;
 }
 
+.pricing-recap {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.recap-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.recap-item.discount {
+  color: #48bb78;
+}
+
+.recap-item.total {
+  border-top: 1px solid var(--border);
+  padding-top: 0.5rem;
+  margin-top: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 1.125rem;
+}
+
+.payment-step.free-plan {
+  text-align: center;
+}
+
+.free-plan-message {
+  background: linear-gradient(135deg, rgba(72, 187, 120, 0.1), rgba(72, 187, 120, 0.05));
+  border: 1px solid rgba(72, 187, 120, 0.3);
+  border-radius: 1.5rem;
+  padding: 3rem;
+}
+
+.free-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.free-plan-message h3 {
+  color: #48bb78;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.free-plan-message p {
+  color: var(--text-secondary);
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+}
+
+.free-features {
+  text-align: left;
+  max-width: 400px;
+  margin: 2rem auto;
+  list-style: none;
+  padding: 0;
+}
+
+.free-features li {
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.free-note {
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+.continue-free-btn {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.continue-free-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(72, 187, 120, 0.3);
+}
+
 .no-bundles-message {
   text-align: center;
   padding: 3rem 2rem;
