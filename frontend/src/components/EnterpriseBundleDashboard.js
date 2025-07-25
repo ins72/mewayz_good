@@ -600,6 +600,13 @@ const EnterpriseBundleDashboard = () => {
           Dashboard Overview
         </button>
         <button 
+          className={`nav-tab ${currentView === 'clients' ? 'active' : ''}`}
+          onClick={() => setCurrentView('clients')}
+        >
+          <span>🏢</span>
+          Client Management
+        </button>
+        <button 
           className={`nav-tab ${currentView === 'payouts' ? 'active' : ''}`}
           onClick={() => setCurrentView('payouts')}
         >
