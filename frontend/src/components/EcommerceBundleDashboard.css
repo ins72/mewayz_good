@@ -374,11 +374,12 @@
 .revenue-amount {
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.2rem;
+  font-size: 0.9rem;
 }
 
 .revenue-label {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
 }
 
