@@ -277,21 +277,6 @@
   gap: 1rem;
 }
 
-.theme-toggle {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  transition: all var(--animation-speed) ease;
-}
-
-.theme-toggle:hover {
-  background: var(--bg-glass);
-  color: var(--text-primary);
-}
-
 .btn {
   padding: 10px 20px;
   border-radius: 12px;
