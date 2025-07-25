@@ -333,7 +333,7 @@ async def create_crm_contact(
 ):
     """Create a new CRM contact (Business Bundle required)"""
     try:
-        user_id = current_user.get("id") or current_user.get("user_id")
+        user_id = str(current_user.id)
         await check_bundle_access(user_id, "crm_service", bundle_manager)
         
         # Prepare contact data
