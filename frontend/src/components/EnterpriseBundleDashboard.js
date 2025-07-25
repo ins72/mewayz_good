@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import EnterprisePayoutDashboard from './EnterprisePayoutDashboard';
+import EnterpriseClientManager from './EnterpriseClientManager';
 import './EnterpriseBundleDashboard.css';
 
 const EnterpriseBundleDashboard = () => {
