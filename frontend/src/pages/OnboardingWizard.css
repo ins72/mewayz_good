@@ -770,108 +770,232 @@
   border-radius: 1.5rem;
 }
 
-/* Pricing Summary */
+/* Enhanced Pricing Summary */
 .pricing-summary {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  padding: 1.5rem;
-  margin-top: 2rem;
-}
-
-.pricing-summary h3 {
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-  font-size: 1.125rem;
-}
-
-.summary-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  color: var(--text-secondary);
-}
-
-.summary-row.discount {
-  color: #48bb78;
-}
-
-.summary-row.total {
-  border-top: 1px solid var(--border);
-  padding-top: 0.5rem;
-  margin-top: 1rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  font-size: 1.125rem;
+  background: var(--bg-glass);
+  border: 2px solid var(--border);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  margin-bottom: 3rem;
+  backdrop-filter: blur(20px);
 }
 
 .free-summary {
   text-align: center;
-  padding: 2rem;
+  padding: 1rem;
   background: linear-gradient(135deg, rgba(72, 187, 120, 0.1), rgba(72, 187, 120, 0.05));
   border: 1px solid rgba(72, 187, 120, 0.3);
   border-radius: 1rem;
+}
+
+.summary-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
 }
 
 .free-summary h3 {
   color: #48bb78;
   font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .free-summary p {
   color: var(--text-secondary);
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.free-features-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.free-features-preview span {
+  background: rgba(72, 187, 120, 0.2);
+  color: #48bb78;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.paid-summary {
+  /* No specific styling needed, inherits from pricing-summary */
+}
+
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.summary-header h3 {
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.selected-count {
+  background: var(--accent);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.summary-breakdown {
+  margin-bottom: 1.5rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.row-label {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.row-value {
+  color: var(--text-primary);
+  font-weight: 600;
   font-size: 1rem;
 }
 
-.multi-bundle-note {
-  text-align: center;
-  margin-top: 1rem;
-  padding: 1rem;
-  background: rgba(72, 187, 120, 0.1);
-  border-radius: 0.5rem;
-  border: 1px solid rgba(72, 187, 120, 0.3);
-}
-
-.multi-bundle-note p {
+.discount-row .row-label {
   color: #48bb78;
-  font-weight: 600;
-  margin: 0;
 }
 
-.enterprise-option {
-  margin-top: 3rem;
+.discount-value {
+  color: #48bb78;
+  font-weight: 700;
+}
+
+.discount-badge {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.summary-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 1rem 0;
+}
+
+.total-row {
+  border-top: 2px solid var(--border);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+.total-label {
+  color: var(--text-primary);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.total-value {
+  color: var(--accent);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.total-period {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.multi-bundle-celebration {
+  background: linear-gradient(135deg, rgba(72, 187, 120, 0.1), rgba(72, 187, 120, 0.05));
+  border: 1px solid rgba(72, 187, 120, 0.3);
+  border-radius: 1rem;
+  padding: 1rem;
   text-align: center;
+}
+
+.celebration-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.celebration-emoji {
+  font-size: 2rem;
+}
+
+.celebration-text {
+  color: #48bb78;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.celebration-text strong {
+  font-weight: 700;
+}
+
+/* Enterprise Teaser */
+.enterprise-teaser {
+  margin-top: 3rem;
 }
 
 .enterprise-card {
   background: var(--bg-glass);
-  border: 1px solid var(--border);
-  border-radius: 1rem;
+  border: 2px solid var(--border);
+  border-radius: 1.5rem;
   padding: 2rem;
-  max-width: 500px;
-  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
   transition: all 0.3s ease;
 }
 
 .enterprise-card:hover {
   border-color: var(--accent);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-.enterprise-card h4 {
+.enterprise-icon {
+  font-size: 3rem;
+}
+
+.enterprise-content {
+  flex-grow: 1;
+}
+
+.enterprise-content h4 {
   color: var(--text-primary);
   font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
 
-.enterprise-card p {
+.enterprise-content p {
   color: var(--text-secondary);
+  font-size: 1rem;
   margin-bottom: 1rem;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .enterprise-link {
@@ -879,17 +1003,53 @@
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-block;
+  font-size: 1rem;
 }
 
 .enterprise-link:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .bundles-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .bundle-card {
+    min-height: auto;
+  }
+  
+  .pricing-header h2 {
+    font-size: 2rem;
+  }
+  
+  .payment-toggle-container {
+    gap: 0.75rem;
+  }
+  
+  .enterprise-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  
+  .summary-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .celebration-content {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
 }
 
 /* Payment Step */
