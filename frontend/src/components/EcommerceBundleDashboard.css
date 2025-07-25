@@ -231,24 +231,25 @@
 .table-header {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1.5fr;
-  gap: var(--space-md);
-  padding: var(--space-lg);
+  gap: var(--space-sm);
+  padding: var(--space-md);
   background: var(--bg-secondary);
   border-radius: var(--radius-md);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
   font-weight: 600;
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .table-row {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1.5fr;
-  gap: var(--space-md);
-  padding: var(--space-lg);
+  gap: var(--space-sm);
+  padding: var(--space-md);
   border-bottom: 1px solid var(--border-secondary);
   transition: background var(--transition-normal);
   align-items: center;
+  font-size: 0.9rem;
 }
 
 .table-row:hover {
