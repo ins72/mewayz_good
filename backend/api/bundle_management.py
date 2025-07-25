@@ -17,11 +17,11 @@ router = APIRouter(prefix="/api/bundles", tags=["Bundle Management"])
 # Pydantic Models
 class BundleActivationRequest(BaseModel):
     bundle_type: BundleType
-    billing_cycle: str = Field(default="monthly", regex="^(monthly|yearly)$")
+    billing_cycle: str = Field(default="monthly", pattern="^(monthly|yearly)$")
 
 class MultiBundleRequest(BaseModel):
     bundles: List[BundleType]
-    billing_cycle: str = Field(default="monthly", regex="^(monthly|yearly)$")
+    billing_cycle: str = Field(default="monthly", pattern="^(monthly|yearly)$")
 
 class BundlePricingResponse(BaseModel):
     success: bool
