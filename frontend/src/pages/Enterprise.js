@@ -409,7 +409,7 @@ const Enterprise = () => {
                 <strong>Phone:</strong> 1-800-MEWAYZ-1
               </div>
               <div className="info-item">
-                <strong>Response Time:</strong> < 2 hours during business hours
+                <strong>Response Time:</strong> &lt; 2 hours during business hours
               </div>
             </div>
           </div>
