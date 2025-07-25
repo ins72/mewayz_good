@@ -53,14 +53,15 @@
   --shadow-accent: 0 8px 25px rgba(99, 102, 241, 0.3);
   --shadow-success: 0 8px 25px rgba(16, 185, 129, 0.3);
   
-  /* Professional Spacing */
+  /* Professional Spacing - Mobile First */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  --space-3xl: 4rem;
+  --space-md: 0.75rem;
+  --space-lg: 1rem;
+  --space-xl: 1.5rem;
+  --space-2xl: 2rem;
+  --space-3xl: 2.5rem;
+  --space-4xl: 3rem;
   
   /* Professional Border Radius */
   --radius-sm: 0.375rem;
