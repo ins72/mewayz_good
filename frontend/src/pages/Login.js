@@ -43,8 +43,32 @@ const Login = () => {
         localStorage.setItem('refresh_token', data.refresh_token);
         localStorage.setItem('user_email', formData.username);
         
-        // Redirect to dashboard
-        navigate('/dashboard');
+        // Check if user has workspace
+        try {
+          const workspaceResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
+            headers: {
+              'Authorization': `Bearer ${data.access_token}`
+            }
+          });
+          
+          const userData = await workspaceResponse.json();
+          
+          // For now, assume new users don't have workspace (you can implement workspace check logic)
+          const hasWorkspace = userData.workspaces && userData.workspaces.length > 0;
+          localStorage.setItem('has_workspace', hasWorkspace ? 'true' : 'false');
+          
+          // Redirect based on workspace status
+          if (hasWorkspace) {
+            navigate('/dashboard');
+          } else {
+            navigate('/onboarding');
+          }
+        } catch (error) {
+          console.error('Error checking workspace:', error);
+          // Default to onboarding if we can't check workspace status
+          localStorage.setItem('has_workspace', 'false');
+          navigate('/onboarding');
+        }
       } else {
         setError(data.detail || 'Login failed. Please check your credentials.');
       }
