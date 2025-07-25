@@ -163,7 +163,18 @@ const PaymentForm = ({
       }
     } catch (error) {
       console.error('Payment error:', error);
-      setPaymentError('An unexpected error occurred. Please try again.');
+      let errorMessage = 'An unexpected error occurred. Please try again.';
+      
+      // Handle network errors
+      if (error.message?.includes('Failed to fetch')) {
+        errorMessage = 'Network error. Please check your connection and try again.';
+      } else if (error.message?.includes('timeout')) {
+        errorMessage = 'Request timeout. Please try again.';
+      } else if (error.message?.includes('Authentication')) {
+        errorMessage = 'Session expired. Please log in again.';
+      }
+      
+      setPaymentError(errorMessage);
       if (onPaymentError) onPaymentError(error);
     } finally {
       setProcessing(false);
