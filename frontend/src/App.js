@@ -11,40 +11,32 @@ import Privacy from './pages/Privacy';
 import NotFound from './pages/NotFound';
 import './App.css';
 
-// Protected Route Component - requires authentication
+// Protected route component that checks authentication
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('access_token');
-  return token ? children : <Navigate to="/login" />;
-};
-
-// Public Route Component - redirect to appropriate page if already logged in
-const PublicRoute = ({ children }) => {
-  const token = localStorage.getItem('access_token');
-  const hasWorkspace = localStorage.getItem('has_workspace');
   
-  if (token) {
-    // User is logged in, redirect based on workspace status
-    return hasWorkspace === 'true' ? <Navigate to="/dashboard" /> : <Navigate to="/onboarding" />;
+  if (!token) {
+    return <Navigate to="/login" replace />;
   }
   
   return children;
 };
 
-// Workspace Route Component - requires authentication and redirects based on workspace status
+// Workspace route component that checks if user has workspace
 const WorkspaceRoute = ({ children, requiresWorkspace = true }) => {
   const token = localStorage.getItem('access_token');
-  const hasWorkspace = localStorage.getItem('has_workspace');
+  const hasWorkspace = localStorage.getItem('has_workspace') === 'true';
   
   if (!token) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" replace />;
   }
   
-  if (requiresWorkspace && hasWorkspace !== 'true') {
-    return <Navigate to="/onboarding" />;
+  if (requiresWorkspace && !hasWorkspace) {
+    return <Navigate to="/onboarding" replace />;
   }
   
-  if (!requiresWorkspace && hasWorkspace === 'true') {
-    return <Navigate to="/dashboard" />;
+  if (!requiresWorkspace && hasWorkspace) {
+    return <Navigate to="/dashboard" replace />;
   }
   
   return children;
