@@ -4,6 +4,7 @@ import LandingPage from './MEWAYZ_V2_LANDING_PAGE';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import OnboardingWizard from './pages/OnboardingWizard';
 import './App.css';
 
 // Protected Route Component
@@ -38,6 +39,14 @@ function App() {
             element={
               <PublicRoute>
                 <Register />
+              </PublicRoute>
+            } 
+          />
+          <Route 
+            path="/onboarding" 
+            element={
+              <PublicRoute>
+                <OnboardingWizard />
               </PublicRoute>
             } 
           />
