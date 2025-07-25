@@ -94,12 +94,13 @@ const PaymentForm = ({
         console.log('CardElement ready check:', !!cardElement);
         if (cardElement) {
           console.log('CardElement initialized successfully');
-          // Test if we can trigger a focus event
-          cardElement.focus().then(() => {
+          // Test if we can trigger a focus event (React 18 compatible)
+          try {
+            cardElement.focus();
             console.log('CardElement focus successful');
-          }).catch(err => {
+          } catch (err) {
             console.warn('CardElement focus failed:', err);
-          });
+          }
         } else {
           console.warn('CardElement not found in elements');
         }
