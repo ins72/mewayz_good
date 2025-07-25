@@ -313,6 +313,8 @@ const OnboardingWizard = () => {
         return formData.selectedGoals.length > 0;
       case 4:
         return formData.selectedBundles.length > 0;
+      case 5:
+        return formData.paymentCompleted;
       default:
         return true;
     }
