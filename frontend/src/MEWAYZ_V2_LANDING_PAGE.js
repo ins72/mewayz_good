@@ -3,16 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import './MEWAYZ_V2_LANDING_PAGE.css';
 
 const LandingPage = () => {
-  const [theme, setTheme] = useState('dark');
   const [isLoading, setIsLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Load saved theme
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    setTheme(savedTheme);
-    
     // Loading screen
     const timer = setTimeout(() => {
       setIsLoading(false);
