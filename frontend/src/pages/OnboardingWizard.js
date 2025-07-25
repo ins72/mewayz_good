@@ -11,7 +11,9 @@ const OnboardingWizard = () => {
     teamSize: '',
     selectedGoals: [],
     selectedBundles: [],
-    paymentMethod: 'monthly'
+    paymentMethod: 'monthly',
+    paymentCompleted: false,
+    subscriptionId: null
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
