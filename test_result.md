@@ -222,7 +222,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Complete pricing system verification with new 7-bundle structure - COMPLETED"
+    - "Bundle management system verification - COMPLETED"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
