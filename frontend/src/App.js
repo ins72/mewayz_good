@@ -19,6 +19,9 @@ import AccountSettings from './pages/AccountSettings';
 import CreatorBundle from './pages/bundles/CreatorBundle';
 import EcommerceBundle from './pages/bundles/EcommerceBundle';
 import BusinessBundle from './pages/bundles/BusinessBundle';
+// Bundle Dashboard Components
+import BundleDashboard from './components/BundleDashboard';
+import CreatorBundleDashboard from './components/CreatorBundleDashboard';
 import './App.css';
 
 // Protected Route Component
