@@ -126,7 +126,7 @@ const Header = ({ toggleMobileMenu, scrollToSection, navigate }) => {
   return (
     <header className="header">
       <nav className="nav">
-        <div className="logo">MEWAYZ</div>
+        <Logo size="medium" />
         <ul className="nav-links">
           <li><Link to="/features">Features</Link></li>
           <li><Link to="/pricing">Pricing</Link></li>
