@@ -3,6 +3,7 @@ import EnterprisePayoutDashboard from './EnterprisePayoutDashboard';
 import './EnterpriseBundleDashboard.css';
 
 const EnterpriseBundleDashboard = () => {
+  const [currentView, setCurrentView] = useState('overview');
   const [enterpriseMetrics, setEnterpriseMetrics] = useState({
     totalRevenue: 2456789.50,
     revenueShare: 368518.43, // 15% of total revenue
