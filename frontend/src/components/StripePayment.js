@@ -50,6 +50,18 @@ const PaymentForm = ({
   const [paymentError, setPaymentError] = useState('');
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
+  const [cardComplete, setCardComplete] = useState(false);
+  const [cardError, setCardError] = useState(null);
+
+  const handleCardChange = (event) => {
+    setCardError(event.error ? event.error.message : null);
+    setCardComplete(event.complete);
+    
+    // Clear any existing payment errors when user starts typing
+    if (paymentError && !event.empty) {
+      setPaymentError('');
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
