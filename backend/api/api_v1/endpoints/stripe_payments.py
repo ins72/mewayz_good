@@ -488,6 +488,7 @@ async def process_saved_payment(
         
         # Calculate pricing (same logic as step 1)
         bundle_prices = {
+            'free_starter': {'monthly': 0, 'yearly': 0},         # Free forever
             'creator': {'monthly': 1900, 'yearly': 19000},
             'ecommerce': {'monthly': 2400, 'yearly': 24000},
             'social_media': {'monthly': 2900, 'yearly': 29000},
