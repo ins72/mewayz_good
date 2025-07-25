@@ -5,6 +5,7 @@ from api.api_v1.endpoints import (
     users,
     proxy,
     stripe_payments,
+    stripe_webhooks,
     workspaces,
     # ecommerce,  # Temporarily disabled due to Pydantic v2 compatibility
     # payments,   # Temporarily disabled due to Pydantic v2 compatibility
