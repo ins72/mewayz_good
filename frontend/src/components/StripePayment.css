@@ -78,6 +78,35 @@
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
+.card-element-error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-element-error::before {
+  content: '⚠️';
+  flex-shrink: 0;
+}
+
+.loading-stripe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  text-align: center;
+  gap: 1rem;
+}
+
+.loading-stripe p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
 .payment-error {
   background: rgba(239, 68, 68, 0.1);
   color: #ef4444;
