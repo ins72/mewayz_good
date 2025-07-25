@@ -603,6 +603,43 @@ const BundlesStep = ({ formData, pricingBundles, handleBundleSelect, calculateTo
   );
 };
 
+const PaymentStep = ({ formData, pricingBundles, calculateTotalPrice, onPaymentSuccess, onPaymentError }) => {
+  const pricing = calculateTotalPrice();
+  const userEmail = localStorage.getItem('user_email');
+  
+  if (formData.selectedBundles.length === 0) {
+    return (
+      <div className="payment-step">
+        <div className="no-bundles-message">
+          <h3>No bundles selected</h3>
+          <p>Please go back and select at least one bundle to continue with payment.</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="payment-step">
+      <div className="payment-header">
+        <h3>Complete Your Subscription</h3>
+        <p>Secure payment processing powered by Stripe (Test Mode)</p>
+      </div>
+      
+      <StripePayment
+        totalAmount={pricing.discountedPrice}
+        selectedBundles={formData.selectedBundles}
+        paymentMethod={formData.paymentMethod}
+        onPaymentSuccess={onPaymentSuccess}
+        onPaymentError={onPaymentError}
+        customerInfo={{
+          email: userEmail,
+          name: formData.workspaceName || 'User'
+        }}
+      />
+    </div>
+  );
+};
+
 const CompleteStep = ({ formData, pricingBundles, calculateTotalPrice, loading }) => {
   const selectedBundles = pricingBundles.filter(bundle => 
     formData.selectedBundles.includes(bundle.id)
