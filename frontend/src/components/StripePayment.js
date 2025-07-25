@@ -54,6 +54,14 @@ const PaymentForm = ({
   const [cardError, setCardError] = useState(null);
 
   const handleCardChange = (event) => {
+    console.log('CardElement onChange event:', event);
+    console.log('Event properties:', {
+      empty: event.empty,
+      complete: event.complete,
+      error: event.error,
+      brand: event.brand
+    });
+    
     setCardError(event.error ? event.error.message : null);
     setCardComplete(event.complete);
     
