@@ -363,6 +363,227 @@ async def create_subscription_with_saved_card(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Subscription with saved card failed: {str(e)}")
 
+# NEW TWO-STEP PAYMENT PROCESS
+
+class SaveCardRequest(BaseModel):
+    payment_method_id: str
+    customer_info: dict
+    bundles: List[str]
+    payment_interval: str
+
+class ProcessPaymentRequest(BaseModel):
+    saved_payment_id: str
+
+@router.post("/save-card-and-customer")
+async def save_card_and_customer(
+    request: SaveCardRequest,
+    current_user=Depends(get_current_user)
+):
+    """Step 1: Save card data and customer info to database"""
+    try:
+        # Create or retrieve customer
+        try:
+            customers = stripe.Customer.list(email=request.customer_info['email'], limit=1)
+            if customers.data:
+                customer = customers.data[0]
+                print(f"Found existing customer: {customer.id}")
+            else:
+                customer = stripe.Customer.create(
+                    email=request.customer_info['email'],
+                    name=request.customer_info.get('name', ''),
+                    metadata={
+                        'user_id': str(current_user.id),
+                        'bundles': ','.join(request.bundles)
+                    }
+                )
+                print(f"Created new customer: {customer.id}")
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=f"Customer creation failed: {str(e)}")
+
+        # Attach payment method to customer
+        try:
+            stripe.PaymentMethod.attach(
+                request.payment_method_id,
+                customer=customer.id,
+            )
+            
+            # Set as default payment method
+            stripe.Customer.modify(
+                customer.id,
+                invoice_settings={
+                    'default_payment_method': request.payment_method_id,
+                }
+            )
+            print(f"Payment method {request.payment_method_id} attached to customer {customer.id}")
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=f"Payment method attachment failed: {str(e)}")
+
+        # Calculate pricing
+        bundle_prices = {
+            'creator': {'monthly': 1900, 'yearly': 19000},
+            'ecommerce': {'monthly': 2400, 'yearly': 24000},
+            'social_media': {'monthly': 2900, 'yearly': 29000},
+            'education': {'monthly': 2900, 'yearly': 29000},
+            'business': {'monthly': 3900, 'yearly': 39000},
+            'operations': {'monthly': 2400, 'yearly': 24000}
+        }
+
+        total_amount = 0
+        for bundle_id in request.bundles:
+            if bundle_id in bundle_prices:
+                total_amount += bundle_prices[bundle_id][request.payment_interval]
+
+        # Apply multi-bundle discount
+        bundle_count = len(request.bundles)
+        discount_rate = 0
+        if bundle_count >= 4:
+            discount_rate = 0.40
+        elif bundle_count == 3:
+            discount_rate = 0.30
+        elif bundle_count == 2:
+            discount_rate = 0.20
+
+        discounted_amount = int(total_amount * (1 - discount_rate))
+
+        # Return saved payment info for step 2
+        return {
+            'saved_payment_id': f"{customer.id}:{request.payment_method_id}",
+            'customer_id': customer.id,
+            'payment_method_id': request.payment_method_id,
+            'bundles': request.bundles,
+            'payment_interval': request.payment_interval,
+            'total_amount': total_amount,
+            'discounted_amount': discounted_amount,
+            'discount_rate': discount_rate,
+            'status': 'card_saved'
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Card saving failed: {str(e)}")
+
+@router.post("/process-saved-payment")
+async def process_saved_payment(
+    request: ProcessPaymentRequest,
+    current_user=Depends(get_current_user)
+):
+    """Step 2: Process payment using saved card data"""
+    try:
+        # Parse saved payment ID
+        customer_id, payment_method_id = request.saved_payment_id.split(':')
+        
+        # Get customer info
+        customer = stripe.Customer.retrieve(customer_id)
+        
+        # Get payment method details
+        payment_method = stripe.PaymentMethod.retrieve(payment_method_id)
+        
+        # Extract bundle info from customer metadata
+        bundles = customer.metadata.get('bundles', '').split(',')
+        
+        # Calculate pricing (same logic as step 1)
+        bundle_prices = {
+            'creator': {'monthly': 1900, 'yearly': 19000},
+            'ecommerce': {'monthly': 2400, 'yearly': 24000},
+            'social_media': {'monthly': 2900, 'yearly': 29000},
+            'education': {'monthly': 2900, 'yearly': 29000},
+            'business': {'monthly': 3900, 'yearly': 39000},
+            'operations': {'monthly': 2400, 'yearly': 24000}
+        }
+
+        total_amount = 0
+        payment_interval = 'monthly'  # Default, could be stored in metadata
+        for bundle_id in bundles:
+            if bundle_id in bundle_prices:
+                total_amount += bundle_prices[bundle_id][payment_interval]
+
+        bundle_count = len(bundles)
+        discount_rate = 0
+        if bundle_count >= 4:
+            discount_rate = 0.40
+        elif bundle_count == 3:
+            discount_rate = 0.30
+        elif bundle_count == 2:
+            discount_rate = 0.20
+
+        discounted_amount = int(total_amount * (1 - discount_rate))
+
+        # Create price object
+        try:
+            price = stripe.Price.create(
+                currency='usd',
+                unit_amount=discounted_amount,
+                recurring={
+                    'interval': 'month' if payment_interval == 'monthly' else 'year'
+                },
+                product_data={
+                    'name': f"MEWAYZ V2 - {', '.join([bundle.title() for bundle in bundles])} Bundle(s)"
+                },
+                metadata={
+                    'bundles': ','.join(bundles),
+                    'original_amount': str(total_amount),
+                    'discount_rate': str(discount_rate),
+                    'bundle_count': str(bundle_count)
+                }
+            )
+            print(f"Created price: {price.id}")
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=f"Price creation failed: {str(e)}")
+
+        # Create subscription
+        try:
+            subscription = stripe.Subscription.create(
+                customer=customer_id,
+                items=[{
+                    'price': price.id,
+                }],
+                default_payment_method=payment_method_id,
+                expand=['latest_invoice.payment_intent'],
+                metadata={
+                    'user_id': str(current_user.id),
+                    'bundles': ','.join(bundles),
+                    'payment_interval': payment_interval
+                }
+            )
+            print(f"Created subscription: {subscription.id}")
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=f"Subscription creation failed: {str(e)}")
+
+        # Check payment status
+        latest_invoice = subscription.latest_invoice
+        payment_intent = latest_invoice.payment_intent
+
+        if payment_intent.status == 'requires_action':
+            return {
+                'subscription_id': subscription.id,
+                'client_secret': payment_intent.client_secret,
+                'requires_action': True,
+                'payment_intent_client_secret': payment_intent.client_secret,
+                'status': 'requires_action'
+            }
+        elif payment_intent.status == 'succeeded':
+            return {
+                'subscription_id': subscription.id,
+                'status': 'success',
+                'customer_id': customer_id,
+                'amount_paid': discounted_amount,
+                'discount_applied': discount_rate * 100,
+                'bundles': bundles
+            }
+        else:
+            raise HTTPException(
+                status_code=400, 
+                detail=f"Payment failed with status: {payment_intent.status}"
+            )
+
+    except HTTPException:
+        raise
+    except stripe.error.StripeError as e:
+        raise HTTPException(status_code=400, detail=f"Stripe error: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Payment processing failed: {str(e)}")
+
 @router.post("/create-customer-portal-session")
 async def create_customer_portal_session(
     return_url: str,
