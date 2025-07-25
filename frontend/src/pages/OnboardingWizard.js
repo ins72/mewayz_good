@@ -395,6 +395,16 @@ const OnboardingWizard = () => {
           )}
           
           {currentStep === 5 && (
+            <PaymentStep 
+              formData={formData}
+              pricingBundles={pricingBundles}
+              calculateTotalPrice={calculateTotalPrice}
+              onPaymentSuccess={handlePaymentSuccess}
+              onPaymentError={handlePaymentError}
+            />
+          )}
+          
+          {currentStep === 6 && (
             <CompleteStep 
               formData={formData}
               pricingBundles={pricingBundles}
