@@ -22,6 +22,7 @@ import BusinessBundle from './pages/bundles/BusinessBundle';
 // Bundle Dashboard Components
 import BundleDashboard from './components/BundleDashboard';
 import CreatorBundleDashboard from './components/CreatorBundleDashboard';
+import BioLinkBuilder from './components/BioLinkBuilder';
 import './App.css';
 
 // Protected Route Component
