@@ -233,6 +233,23 @@ const OnboardingWizard = () => {
     }
   };
 
+  const handlePaymentSuccess = (paymentData) => {
+    console.log('Payment successful:', paymentData);
+    setFormData({
+      ...formData,
+      paymentCompleted: true,
+      subscriptionId: paymentData.subscription_id
+    });
+    setError('');
+    // Automatically move to next step
+    handleNext();
+  };
+
+  const handlePaymentError = (error) => {
+    console.error('Payment failed:', error);
+    setError(error.message || 'Payment failed. Please try again.');
+  };
+
   const handleComplete = async () => {
     setLoading(true);
     
