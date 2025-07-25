@@ -86,6 +86,27 @@ const PaymentForm = ({
     console.log('- Stripe instance:', !!stripe);
     console.log('- Elements instance:', !!elements);
     console.log('- Disabled state:', disabled);
+    
+    // Add a timeout to check if CardElement is ready
+    const checkTimeout = setTimeout(() => {
+      if (elements) {
+        const cardElement = elements.getElement(CardElement);
+        console.log('CardElement ready check:', !!cardElement);
+        if (cardElement) {
+          console.log('CardElement initialized successfully');
+          // Test if we can trigger a focus event
+          cardElement.focus().then(() => {
+            console.log('CardElement focus successful');
+          }).catch(err => {
+            console.warn('CardElement focus failed:', err);
+          });
+        } else {
+          console.warn('CardElement not found in elements');
+        }
+      }
+    }, 2000);
+    
+    return () => clearTimeout(checkTimeout);
   }, [stripe, elements, disabled]);
 
   const handleCardChange = (event) => {
