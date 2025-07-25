@@ -222,7 +222,9 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Bundle management system verification - COMPLETED"
+    - "Authentication Fix - JWT token validation for workspace creation"
+    - "Invitation System - New invitation endpoints"
+    - "Core Authentication Flow - Complete authentication testing"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
