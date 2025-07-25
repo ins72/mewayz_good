@@ -139,7 +139,9 @@ async def get_active_websocket_user(*, db: AgnosticDatabase, token: str) -> User
     if token_data.refresh:
         # Refresh token is not a valid access token
         raise ValidationError("Could not validate credentials")
-    user = await crud_user.get(db, id=token_data.sub)
+    # Convert string ID to ObjectId
+    user_id = ObjectId(token_data.sub)
+    user = await crud_user.get(db, id=user_id)
     if not user:
         raise ValidationError("User not found")
     if not crud_user.is_active(user):
