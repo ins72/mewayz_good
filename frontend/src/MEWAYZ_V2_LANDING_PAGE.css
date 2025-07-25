@@ -31,20 +31,6 @@
   --animation-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.landing-page[data-theme="light"] {
-  --bg-primary: #fafafa;
-  --bg-secondary: #ffffff;
-  --bg-card: rgba(255, 255, 255, 0.9);
-  --bg-glass: rgba(0, 0, 0, 0.02);
-  --text-primary: #1a1a1a;
-  --text-secondary: #525252;
-  --text-muted: #737373;
-  --border: rgba(0, 0, 0, 0.08);
-  --border-light: rgba(0, 0, 0, 0.12);
-  --shadow-card: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
-  --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.1);
-}
-
 .landing-page {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg-primary);
