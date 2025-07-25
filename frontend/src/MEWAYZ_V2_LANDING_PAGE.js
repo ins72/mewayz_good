@@ -436,7 +436,7 @@ const PricingSection = ({ navigate }) => {
               ))}
             </div>
             <button 
-              onClick={() => navigate('/onboarding')} 
+              onClick={() => navigate('/register')} 
               className="pricing-button"
             >
               Get Started
