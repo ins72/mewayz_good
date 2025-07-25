@@ -40,12 +40,6 @@ const LandingPage = () => {
     };
   }, [isLoading]);
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-  };
-
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -59,7 +53,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="landing-page" data-theme={theme}>
+    <div className="landing-page">
       {/* Loading Screen */}
       {isLoading && (
         <div className="loading-screen">
@@ -101,8 +95,6 @@ const LandingPage = () => {
 
       {/* Header */}
       <Header 
-        theme={theme}
-        toggleTheme={toggleTheme}
         toggleMobileMenu={toggleMobileMenu}
         scrollToSection={scrollToSection}
         navigate={navigate}
