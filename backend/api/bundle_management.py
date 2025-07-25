@@ -195,7 +195,7 @@ async def deactivate_bundle(
     Deactivate a specific bundle for the current user
     """
     try:
-        user_id = current_user.get("id") or current_user.get("user_id")
+        user_id = str(current_user.id)
         if not user_id:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
