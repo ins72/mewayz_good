@@ -71,83 +71,110 @@ const Dashboard = () => {
     <div className="dashboard">
       <div className="dashboard-header">
         <div className="dashboard-nav">
-          <button 
-            className={`nav-btn ${currentView === 'bundles' ? 'active' : ''}`}
-            onClick={() => setCurrentView('bundles')}
-          >
-            📦 Bundle Overview
-          </button>
-          
-          {/* Bundle-specific dashboards - show based on active bundles */}
-          {activeBundles.includes('creator') && (
-            <button 
-              className={`nav-btn ${currentView === 'creator' ? 'active' : ''}`}
-              onClick={() => setCurrentView('creator')}
-            >
-              🎨 Creator
-            </button>
+          {/* Enterprise Users: Only see Enterprise + Admin dashboards */}
+          {isEnterpriseUser && !hasRegularBundles && (
+            <>
+              <button 
+                className={`nav-btn ${currentView === 'enterprise' ? 'active' : ''}`}
+                onClick={() => setCurrentView('enterprise')}
+              >
+                👑 Enterprise Portal
+              </button>
+            </>
+          )}
+
+          {/* Regular Users: See their bundle dashboards */}
+          {hasRegularBundles && (
+            <>
+              <button 
+                className={`nav-btn ${currentView === 'bundles' ? 'active' : ''}`}
+                onClick={() => setCurrentView('bundles')}
+              >
+                📦 Bundle Overview
+              </button>
+              
+              {activeBundles.includes('starter') && (
+                <button 
+                  className={`nav-btn ${currentView === 'starter' ? 'active' : ''}`}
+                  onClick={() => setCurrentView('starter')}
+                >
+                  🆓 Free Starter
+                </button>
+              )}
+              
+              {activeBundles.includes('creator') && (
+                <button 
+                  className={`nav-btn ${currentView === 'creator' ? 'active' : ''}`}
+                  onClick={() => setCurrentView('creator')}
+                >
+                  🎨 Creator
+                </button>
+              )}
+              
+              {activeBundles.includes('ecommerce') && (
+                <button 
+                  className={`nav-btn ${currentView === 'ecommerce' ? 'active' : ''}`}
+                  onClick={() => setCurrentView('ecommerce')}
+                >
+                  🛍️ E-commerce
+                </button>
+              )}
+              
+              {activeBundles.includes('social_media') && (
+                <button 
+                  className={`nav-btn ${currentView === 'social-media' ? 'active' : ''}`}
+                  onClick={() => setCurrentView('social-media')}
+                >
+                  📱 Social Media
+                </button>
+              )}
+              
+              {activeBundles.includes('education') && (
+                <button 
+                  className={`nav-btn ${currentView === 'education' ? 'active' : ''}`}
+                  onClick={() => setCurrentView('education')}
+                >
+                  🎓 Education
+                </button>
+              )}
+              
+              {activeBundles.includes('business') && (
+                <button 
+                  className={`nav-btn ${currentView === 'business' ? 'active' : ''}`}
+                  onClick={() => setCurrentView('business')}
+                >
+                  💼 Business
+                </button>
+              )}
+              
+              {activeBundles.includes('operations') && (
+                <button 
+                  className={`nav-btn ${currentView === 'operations' ? 'active' : ''}`}
+                  onClick={() => setCurrentView('operations')}
+                >
+                  ⚙️ Operations
+                </button>
+              )}
+            </>
           )}
           
-          {activeBundles.includes('ecommerce') && (
-            <button 
-              className={`nav-btn ${currentView === 'ecommerce' ? 'active' : ''}`}
-              onClick={() => setCurrentView('ecommerce')}
-            >
-              🛍️ E-commerce
-            </button>
-          )}
-          
-          {activeBundles.includes('social_media') && (
-            <button 
-              className={`nav-btn ${currentView === 'social-media' ? 'active' : ''}`}
-              onClick={() => setCurrentView('social-media')}
-            >
-              📱 Social Media
-            </button>
-          )}
-          
-          {activeBundles.includes('education') && (
-            <button 
-              className={`nav-btn ${currentView === 'education' ? 'active' : ''}`}
-              onClick={() => setCurrentView('education')}
-            >
-              🎓 Education
-            </button>
-          )}
-          
-          {activeBundles.includes('business') && (
-            <button 
-              className={`nav-btn ${currentView === 'business' ? 'active' : ''}`}
-              onClick={() => setCurrentView('business')}
-            >
-              💼 Business
-            </button>
-          )}
-          
-          {activeBundles.includes('operations') && (
-            <button 
-              className={`nav-btn ${currentView === 'operations' ? 'active' : ''}`}
-              onClick={() => setCurrentView('operations')}
-            >
-              ⚙️ Operations
-            </button>
-          )}
-          
-          {activeBundles.includes('enterprise') && (
+          {/* Hybrid Users: Have both regular bundles AND enterprise */}
+          {isEnterpriseUser && hasRegularBundles && (
             <button 
               className={`nav-btn ${currentView === 'enterprise' ? 'active' : ''}`}
               onClick={() => setCurrentView('enterprise')}
             >
-              👑 Enterprise
+              👑 Enterprise Portal
             </button>
           )}
           
+          {/* Admin Dashboard - Available to all admin users */}
           {userRole === 'admin' && (
             <button 
               className={`nav-btn ${currentView === 'admin' ? 'active' : ''}`}
               onClick={() => setCurrentView('admin')}
             >
-              👑 Admin Console
+              🔧 Admin Console
             </button>
           )}
         </div>
