@@ -1,232 +1,484 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MEWAYZ_V2_LANDING_PAGE.css';
 
 const LandingPage = () => {
+  const [theme, setTheme] = useState('dark');
+  const [isLoading, setIsLoading] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+    
+    // Loading screen
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Animation on scroll functionality
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all elements with animate-on-scroll class
+    const animateElements = document.querySelectorAll('.animate-on-scroll');
+    animateElements.forEach(el => observer.observe(el));
+
+    return () => {
+      animateElements.forEach(el => observer.unobserve(el));
+    };
+  }, [isLoading]);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
   return (
-    <div className="landing-page">
-      {/* Header */}
-      <header className="header">
-        <div className="container">
-          <div className="logo">
-            <h1>MEWAYZ</h1>
-            <span className="version-badge">V2</span>
-          </div>
-          <nav className="nav">
-            <button 
-              onClick={() => navigate('/login')}
-              className="nav-button login"
-            >
-              Login
-            </button>
-            <button 
-              onClick={() => navigate('/register')}
-              className="nav-button register"
-            >
-              Start Free Trial
-            </button>
-          </nav>
+    <div className="landing-page" data-theme={theme}>
+      {/* Loading Screen */}
+      {isLoading && (
+        <div className="loading-screen">
+          <div className="loading-spinner"></div>
         </div>
-      </header>
+      )}
+
+      {/* Background Effects */}
+      <div className="bg-effects">
+        <div className="floating-shapes">
+          <div className="shape shape-1"></div>
+          <div className="shape shape-2"></div>
+          <div className="shape shape-3"></div>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+        <button className="mobile-menu-close" onClick={toggleMobileMenu}>×</button>
+        <div className="mobile-menu-content">
+          <div className="mobile-nav-links">
+            <a href="#features" onClick={() => scrollToSection('features')}>Features</a>
+            <a href="#pricing" onClick={() => scrollToSection('pricing')}>Pricing</a>
+            <a href="#testimonials" onClick={() => scrollToSection('testimonials')}>Reviews</a>
+            <a href="/help" target="_blank">Help</a>
+            <a href="/contact">Contact</a>
+          </div>
+          <div className="mobile-auth-actions">
+            <button onClick={() => navigate('/login')} className="mobile-login-btn">Login</button>
+            <button onClick={() => navigate('/register')} className="mobile-signup-btn">
+              Start Free Trial
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Header */}
+      <Header 
+        theme={theme}
+        toggleTheme={toggleTheme}
+        toggleMobileMenu={toggleMobileMenu}
+        scrollToSection={scrollToSection}
+        navigate={navigate}
+      />
 
       {/* Hero Section */}
-      <section className="hero">
-        <div className="container">
-          <div className="hero-content">
-            <div className="hero-badge">
-              <span>🚀</span>
-              <span>Trusted by 10,000+ Businesses Worldwide</span>
-            </div>
-            
-            <h1 className="hero-title">
-              The Complete Creator<br />
-              <span className="hero-highlight">Economy Platform</span>
-            </h1>
-            
-            <p className="hero-description">
-              Everything you need to build, manage, and scale your online business. 
-              From Instagram lead generation to multi-vendor marketplaces, courses, and AI-powered automation - all in one powerful platform.
-            </p>
-            
-            <div className="hero-buttons">
-              <button 
-                onClick={() => navigate('/register')}
-                className="hero-button primary"
-              >
-                Start Free Trial - 14 Days
-                <span>→</span>
-              </button>
-              <button className="hero-button secondary">
-                ▶ Watch Demo
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroSection navigate={navigate} />
 
       {/* Features Section */}
-      <section className="features">
-        <div className="container">
-          <div className="section-header">
-            <h2>Everything You Need to Succeed</h2>
-            <p>Choose from our comprehensive suite of business tools</p>
-          </div>
-          
-          <div className="features-grid">
-            <div className="feature-card creator">
-              <div className="feature-icon">🎨</div>
-              <h3>Creator Bundle</h3>
-              <p className="feature-price">$19/month</p>
-              <p>Professional bio links, content creation tools, and analytics.</p>
-              <div className="feature-status available">✅ Available</div>
-            </div>
-
-            <div className="feature-card ecommerce">
-              <div className="feature-icon">🛒</div>
-              <h3>E-commerce Bundle</h3>
-              <p className="feature-price">$24/month</p>
-              <p>Online store, inventory management, and payment processing.</p>
-              <div className="feature-status available">✅ Available</div>
-            </div>
-
-            <div className="feature-card social">
-              <div className="feature-icon">📱</div>
-              <h3>Social Media Bundle</h3>
-              <p className="feature-price">$29/month</p>
-              <p>Post scheduling, analytics, and multi-platform management.</p>
-              <div className="feature-status coming-soon">⏳ Coming Soon</div>
-            </div>
-
-            <div className="feature-card education">
-              <div className="feature-icon">🎓</div>
-              <h3>Education Bundle</h3>
-              <p className="feature-price">$29/month</p>
-              <p>Course creation, student management, and certificates.</p>
-              <div className="feature-status coming-soon">⏳ Coming Soon</div>
-            </div>
-
-            <div className="feature-card business">
-              <div className="feature-icon">💼</div>
-              <h3>Business Bundle</h3>
-              <p className="feature-price">$39/month</p>
-              <p>CRM, team management, and business intelligence.</p>
-              <div className="feature-status coming-soon">⏳ Coming Soon</div>
-            </div>
-
-            <div className="feature-card operations">
-              <div className="feature-icon">⚙️</div>
-              <h3>Operations Bundle</h3>
-              <p className="feature-price">$24/month</p>
-              <p>Booking system, forms, and workflow automation.</p>
-              <div className="feature-status coming-soon">⏳ Coming Soon</div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FeaturesSection />
 
       {/* Testimonials Section */}
-      <section className="testimonials">
-        <div className="container">
-          <div className="section-header">
-            <h2>Loved by Creators Worldwide</h2>
-            <p>Join thousands of successful entrepreneurs using MEWAYZ</p>
-          </div>
-          
-          <div className="testimonials-grid">
-            <div className="testimonial-card">
-              <div className="testimonial-content">
-                "MEWAYZ V2 transformed my business. The creator tools helped me grow from zero to 10k followers in just 3 months!"
-              </div>
-              <div className="testimonial-author">
-                <strong>Sarah Johnson</strong>
-                <span>Content Creator</span>
-              </div>
-            </div>
+      <TestimonialsSection />
 
-            <div className="testimonial-card">
-              <div className="testimonial-content">
-                "The e-commerce bundle is incredible. I launched my online store in minutes and made my first sale the same day."
-              </div>
-              <div className="testimonial-author">
-                <strong>Mike Chen</strong>
-                <span>Entrepreneur</span>
-              </div>
-            </div>
+      {/* Call to Action Section */}
+      <CTASection navigate={navigate} />
 
-            <div className="testimonial-card">
-              <div className="testimonial-content">
-                "Best investment I've made for my business. The ROI has been amazing - 300% increase in revenue!"
-              </div>
-              <div className="testimonial-author">
-                <strong>Emma Wilson</strong>
-                <span>Business Owner</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="cta">
-        <div className="container">
-          <div className="cta-content">
-            <h2>Ready to Transform Your Business?</h2>
-            <p>Join thousands of successful entrepreneurs who chose MEWAYZ V2</p>
-            <div className="cta-buttons">
-              <button 
-                onClick={() => navigate('/register')}
-                className="cta-button primary"
-              >
-                Start Your Free Trial Today
-              </button>
-              <button className="cta-button secondary">
-                Schedule a Demo
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Pricing Section */}
+      <PricingSection navigate={navigate} />
 
       {/* Footer */}
-      <footer className="footer">
-        <div className="container">
-          <div className="footer-content">
-            <div className="footer-brand">
-              <div className="logo">
-                <h3>MEWAYZ</h3>
-                <span className="version-badge">V2</span>
-              </div>
-              <p>The complete creator economy platform</p>
+      <Footer />
+    </div>
+  );
+};
+
+const Header = ({ theme, toggleTheme, toggleMobileMenu, scrollToSection, navigate }) => {
+  return (
+    <header className="header">
+      <nav className="nav">
+        <div className="logo">MEWAYZ</div>
+        <ul className="nav-links">
+          <li><a href="#features" onClick={() => scrollToSection('features')}>Features</a></li>
+          <li><a href="#pricing" onClick={() => scrollToSection('pricing')}>Pricing</a></li>
+          <li><a href="#testimonials" onClick={() => scrollToSection('testimonials')}>Reviews</a></li>
+          <li><a href="/help" target="_blank">Help</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+        <div className="nav-actions">
+          <button className="theme-toggle" onClick={toggleTheme}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              {theme === 'dark' ? (
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              ) : (
+                <>
+                  <circle cx="12" cy="12" r="5"/>
+                  <line x1="12" y1="1" x2="12" y2="3"/>
+                  <line x1="12" y1="21" x2="12" y2="23"/>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                  <line x1="1" y1="12" x2="3" y2="12"/>
+                  <line x1="21" y1="12" x2="23" y2="12"/>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </>
+              )}
+            </svg>
+          </button>
+          <button onClick={() => navigate('/login')} className="btn btn-secondary">Login</button>
+          <button onClick={() => navigate('/register')} className="btn btn-primary">
+            Start Free Trial
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M7 17L17 7M17 7H7M17 7V17"/>
+            </svg>
+          </button>
+          <button className="mobile-menu-toggle" onClick={toggleMobileMenu}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+  );
+};
+
+const HeroSection = ({ navigate }) => {
+  return (
+    <section className="hero">
+      <div className="hero-badge">
+        <span className="emoji">🚀</span> 
+        <span className="text-content">Trusted by 10,000+ Businesses Worldwide</span>
+      </div>
+      <h1>
+        The Complete Creator<br />
+        <span className="gradient-text">Economy Platform</span>
+      </h1>
+      <p>Everything you need to build, manage, and scale your online business. From Instagram lead generation to multi-vendor marketplaces, courses, and AI-powered automation - all in one powerful platform.</p>
+      <div className="hero-actions">
+        <button onClick={() => navigate('/register')} className="btn btn-primary">
+          Start Free Trial - 14 Days
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+          </svg>
+        </button>
+        <button onClick={() => scrollToSection('demo')} className="btn btn-secondary">
+          Watch 2-Min Demo
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polygon points="5,3 19,12 5,21"/>
+          </svg>
+        </button>
+      </div>
+      <div className="hero-stats">
+        <div className="stat">
+          <span className="stat-number">10K+</span>
+          <span className="stat-label">Active Users</span>
+        </div>
+        <div className="stat">
+          <span className="stat-number">$2.5M+</span>
+          <span className="stat-label">Revenue Generated</span>
+        </div>
+        <div className="stat">
+          <span className="stat-number">99.9%</span>
+          <span className="stat-label">Uptime SLA</span>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const FeaturesSection = () => {
+  const features = [
+    {
+      icon: '🔍',
+      title: 'Instagram Lead Generation',
+      description: 'Advanced Instagram database with 50M+ profiles. Filter by engagement rate, follower count, location, and hashtags. Export qualified leads with contact discovery.',
+      gradient: '135deg, #667eea 0%, #764ba2 100%'
+    },
+    {
+      icon: '🔗',
+      title: 'Bio Link Builder',
+      description: 'Create stunning bio link pages with custom domains, analytics tracking, payment integration, and unlimited links. Convert followers to customers instantly.',
+      gradient: '135deg, #f093fb 0%, #f5576c 100%'
+    },
+    {
+      icon: '🎓',
+      title: 'Course Platform',
+      description: 'Complete learning management system with video hosting, progress tracking, certificates, live sessions, and community features. Monetize your expertise.',
+      gradient: '135deg, #fa709a 0%, #fee140 100%'
+    },
+    {
+      icon: '🛍️',
+      title: 'Multi-Vendor Marketplace',
+      description: 'Build your own marketplace like Amazon or Etsy. Vendor management, commission tracking, payment processing, and order fulfillment - all automated.',
+      gradient: '135deg, #4facfe 0%, #00f2fe 100%'
+    },
+    {
+      icon: '👥',
+      title: 'CRM & Automation',
+      description: 'Advanced customer relationship management with lead scoring, email sequences, SMS marketing, and AI-powered follow-ups. Never lose a lead again.',
+      gradient: '135deg, #a8edea 0%, #fed6e3 100%'
+    },
+    {
+      icon: '📊',
+      title: 'Business Analytics',
+      description: 'Real-time insights across all your business channels. Track revenue, conversion rates, customer lifetime value, and ROI with beautiful visualizations.',
+      gradient: '135deg, #667eea 0%, #764ba2 100%'
+    }
+  ];
+
+  return (
+    <section className="features" id="features">
+      <div className="section-header">
+        <div className="section-badge">
+          <span className="emoji">⚡</span> 
+          <span className="text-content">6 Powerful Tools in One Platform</span>
+        </div>
+        <h2>Everything You Need to Succeed</h2>
+        <p>Choose from our comprehensive suite of business tools</p>
+      </div>
+      
+      <div className="features-grid">
+        {features.map((feature, index) => (
+          <div key={index} className="feature-card animate-on-scroll">
+            <div className="feature-icon" style={{background: `linear-gradient(${feature.gradient})`}}>
+              {feature.icon}
             </div>
-            <div className="footer-links">
-              <div className="footer-column">
-                <h4>Product</h4>
-                <a href="#features">Features</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#demo">Demo</a>
-              </div>
-              <div className="footer-column">
-                <h4>Company</h4>
-                <a href="#about">About</a>
-                <a href="#blog">Blog</a>
-                <a href="#careers">Careers</a>
-              </div>
-              <div className="footer-column">
-                <h4>Support</h4>
-                <a href="#help">Help Center</a>
-                <a href="#contact">Contact</a>
-                <a href="#status">Status</a>
+            <h3>{feature.title}</h3>
+            <p>{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const TestimonialsSection = () => {
+  const testimonials = [
+    {
+      content: "MEWAYZ V2 transformed my business. The creator tools helped me grow from zero to 10k followers in just 3 months!",
+      author: "Sarah Johnson",
+      role: "Content Creator",
+      avatar: "👩‍💼"
+    },
+    {
+      content: "The e-commerce bundle is incredible. I launched my online store in minutes and made my first sale the same day.",
+      author: "Mike Chen",
+      role: "Entrepreneur", 
+      avatar: "👨‍💻"
+    },
+    {
+      content: "Best investment I've made for my business. The ROI has been amazing - 300% increase in revenue!",
+      author: "Emma Wilson",
+      role: "Business Owner",
+      avatar: "👩‍🚀"
+    }
+  ];
+
+  return (
+    <section className="testimonials" id="testimonials">
+      <div className="section-header">
+        <div className="section-badge">
+          <span className="emoji">💬</span> 
+          <span className="text-content">Loved by Creators Worldwide</span>
+        </div>
+        <h2>What Our Users Say</h2>
+        <p>Join thousands of successful entrepreneurs using MEWAYZ</p>
+      </div>
+      
+      <div className="testimonials-grid">
+        {testimonials.map((testimonial, index) => (
+          <div key={index} className="testimonial-card animate-on-scroll">
+            <div className="testimonial-content">
+              "{testimonial.content}"
+            </div>
+            <div className="testimonial-author">
+              <div className="author-avatar">{testimonial.avatar}</div>
+              <div className="author-info">
+                <strong>{testimonial.author}</strong>
+                <span>{testimonial.role}</span>
               </div>
             </div>
           </div>
-          <div className="footer-bottom">
-            <p>&copy; 2024 MEWAYZ V2. All rights reserved.</p>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const CTASection = ({ navigate }) => {
+  return (
+    <section className="cta">
+      <div className="cta-content">
+        <h2>Ready to Transform Your Business?</h2>
+        <p>Join thousands of successful entrepreneurs who chose MEWAYZ V2</p>
+        <div className="cta-buttons">
+          <button onClick={() => navigate('/register')} className="cta-button primary">
+            Start Your Free Trial Today
+          </button>
+          <button className="cta-button secondary">
+            Schedule a Demo
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const PricingSection = ({ navigate }) => {
+  const pricingBundles = [
+    {
+      id: 'creator',
+      name: 'Creator Bundle',
+      price: 19,
+      description: 'Perfect for content creators and influencers',
+      features: ['Bio Link Builder', 'Website Builder', 'SEO Tools', 'AI Content Creation', 'Template Marketplace'],
+      popular: false
+    },
+    {
+      id: 'ecommerce',
+      name: 'E-commerce Bundle', 
+      price: 24,
+      description: 'Complete online store solution',
+      features: ['Online Store', 'Multi-vendor Support', 'Payment Processing', 'Inventory Management', 'Analytics'],
+      popular: true
+    },
+    {
+      id: 'business',
+      name: 'Business Bundle',
+      price: 39,
+      description: 'Advanced CRM and automation',
+      features: ['CRM System', 'Email Marketing', 'Lead Management', 'Workflow Automation', 'Business Analytics'],
+      popular: false
+    }
+  ];
+
+  return (
+    <section className="pricing" id="pricing">
+      <div className="section-header">
+        <div className="section-badge">
+          <span className="emoji">💎</span> 
+          <span className="text-content">Simple, Transparent Pricing</span>
+        </div>
+        <h2>Choose Your Perfect Bundle</h2>
+        <p>Start with any bundle and upgrade anytime</p>
+      </div>
+      
+      <div className="pricing-grid">
+        {pricingBundles.map((bundle) => (
+          <div key={bundle.id} className={`pricing-card ${bundle.popular ? 'popular' : ''}`}>
+            {bundle.popular && <div className="popular-badge">Most Popular</div>}
+            <div className="pricing-header">
+              <h3>{bundle.name}</h3>
+              <div className="pricing-price">
+                <span className="currency">$</span>
+                <span className="amount">{bundle.price}</span>
+                <span className="period">/month</span>
+              </div>
+              <p>{bundle.description}</p>
+            </div>
+            <div className="pricing-features">
+              {bundle.features.map((feature, index) => (
+                <div key={index} className="feature-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="20,6 9,17 4,12"/>
+                  </svg>
+                  {feature}
+                </div>
+              ))}
+            </div>
+            <button 
+              onClick={() => navigate('/onboarding')} 
+              className="pricing-button"
+            >
+              Get Started
+            </button>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const Footer = () => {
+  return (
+    <footer className="footer">
+      <div className="footer-content">
+        <div className="footer-brand">
+          <div className="logo">
+            <h3>MEWAYZ</h3>
+            <span className="version-badge">V2</span>
+          </div>
+          <p>The complete creator economy platform</p>
+        </div>
+        <div className="footer-links">
+          <div className="footer-column">
+            <h4>Product</h4>
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#demo">Demo</a>
+          </div>
+          <div className="footer-column">
+            <h4>Company</h4>
+            <a href="#about">About</a>
+            <a href="#blog">Blog</a>
+            <a href="#careers">Careers</a>
+          </div>
+          <div className="footer-column">
+            <h4>Support</h4>
+            <a href="#help">Help Center</a>
+            <a href="#contact">Contact</a>
+            <a href="#status">Status</a>
           </div>
         </div>
-      </footer>
-    </div>
+      </div>
+      <div className="footer-bottom">
+        <p>&copy; 2024 MEWAYZ V2. All rights reserved.</p>
+      </div>
+    </footer>
   );
 };
 
