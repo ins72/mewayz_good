@@ -176,7 +176,7 @@ const PaymentForm = ({
                 }
               },
               hidePostalCode: true,
-            }}}
+            }}
             className="card-element"
           />
         </div>
