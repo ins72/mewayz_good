@@ -151,7 +151,8 @@ const PaymentForm = ({
     }
 
     try {
-      // Create payment method
+      // STEP 1: Create payment method and save card data
+      console.log('Step 1: Creating payment method...');
       const { error: methodError, paymentMethod: method } = await stripe.createPaymentMethod({
         type: 'card',
         card: cardElement,
@@ -185,8 +186,11 @@ const PaymentForm = ({
         return;
       }
 
-      // Create subscription via backend
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/payments/create-subscription`, {
+      console.log('✅ Payment method created:', method.id);
+
+      // STEP 2: Save card and customer data to backend
+      console.log('Step 2: Saving card and customer data...');
+      const saveCardResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/payments/save-card-and-customer`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -195,18 +199,51 @@ const PaymentForm = ({
         body: JSON.stringify({
           payment_method_id: method.id,
           bundles: selectedBundles,
-          payment_interval: paymentMethod, // 'monthly' or 'yearly'
+          payment_interval: paymentMethod,
           customer_info: customerInfo
         })
       });
 
-      const subscriptionData = await response.json();
+      const saveCardData = await saveCardResponse.json();
 
-      if (response.ok) {
-        if (subscriptionData.requires_action) {
+      if (!saveCardResponse.ok) {
+        let errorMessage = saveCardData.detail || 'Failed to save card information. Please try again.';
+        
+        if (saveCardData.detail?.includes('Authentication')) {
+          errorMessage = 'Authentication failed. Please log in again.';
+        } else if (saveCardData.detail?.includes('Card error')) {
+          errorMessage = saveCardData.detail.replace('Card error: ', '');
+        }
+        
+        setPaymentError(errorMessage);
+        setProcessing(false);
+        if (onPaymentError) onPaymentError(new Error(saveCardData.detail));
+        return;
+      }
+
+      console.log('✅ Card and customer data saved:', saveCardData.saved_payment_id);
+
+      // STEP 3: Process payment using saved data
+      console.log('Step 3: Processing payment...');
+      const processPaymentResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/payments/process-saved-payment`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        },
+        body: JSON.stringify({
+          saved_payment_id: saveCardData.saved_payment_id
+        })
+      });
+
+      const paymentData = await processPaymentResponse.json();
+
+      if (processPaymentResponse.ok) {
+        if (paymentData.requires_action) {
+          console.log('Payment requires 3D Secure authentication...');
           // Handle 3D Secure authentication
           const { error: confirmError } = await stripe.confirmCardPayment(
-            subscriptionData.payment_intent_client_secret
+            paymentData.payment_intent_client_secret
           );
 
           if (confirmError) {
@@ -227,27 +264,29 @@ const PaymentForm = ({
             setPaymentError(errorMessage);
             if (onPaymentError) onPaymentError(confirmError);
           } else {
+            console.log('🎉 Payment successful after 3D Secure!');
             setPaymentSuccess(true);
-            if (onPaymentSuccess) onPaymentSuccess(subscriptionData);
+            if (onPaymentSuccess) onPaymentSuccess(paymentData);
           }
         } else {
+          console.log('🎉 Payment successful!');
           setPaymentSuccess(true);
-          if (onPaymentSuccess) onPaymentSuccess(subscriptionData);
+          if (onPaymentSuccess) onPaymentSuccess(paymentData);
         }
       } else {
-        let errorMessage = subscriptionData.message || 'Payment failed. Please try again.';
+        let errorMessage = paymentData.detail || 'Payment failed. Please try again.';
         
         // Handle common backend errors
-        if (subscriptionData.message?.includes('Authentication')) {
+        if (paymentData.detail?.includes('Authentication')) {
           errorMessage = 'Authentication failed. Please log in again.';
-        } else if (subscriptionData.message?.includes('Card error')) {
-          errorMessage = subscriptionData.message.replace('Card error: ', '');
-        } else if (subscriptionData.message?.includes('Rate limit')) {
+        } else if (paymentData.detail?.includes('Stripe error')) {
+          errorMessage = paymentData.detail.replace('Stripe error: ', '');
+        } else if (paymentData.detail?.includes('Rate limit')) {
           errorMessage = 'Too many attempts. Please wait a moment and try again.';
         }
         
         setPaymentError(errorMessage);
-        if (onPaymentError) onPaymentError(new Error(subscriptionData.message));
+        if (onPaymentError) onPaymentError(new Error(paymentData.detail));
       }
     } catch (error) {
       console.error('Payment error:', error);
