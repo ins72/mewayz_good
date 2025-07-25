@@ -475,6 +475,7 @@ const OnboardingWizard = () => {
               pricingBundles={pricingBundles}
               handleBundleSelect={handleBundleSelect}
               calculateTotalPrice={calculateTotalPrice}
+              handleInputChange={handleInputChange}
             />
           )}
           
