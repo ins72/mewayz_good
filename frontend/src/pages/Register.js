@@ -66,7 +66,7 @@ const Register = () => {
       if (response.ok) {
         setSuccess(true);
         setTimeout(() => {
-          navigate('/login');
+          navigate('/onboarding');
         }, 2000);
       } else {
         setError(data.detail || 'Registration failed. Please try again.');
