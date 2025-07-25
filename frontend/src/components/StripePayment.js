@@ -285,6 +285,8 @@ const PaymentForm = ({
                   fontSize: '16px',
                   color: '#ffffff',
                   backgroundColor: '#18181b',
+                  fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                  fontSmoothing: 'antialiased',
                   '::placeholder': {
                     color: '#a1a1aa',
                   },
@@ -296,9 +298,16 @@ const PaymentForm = ({
                 }
               },
               hidePostalCode: true,
+              disableLink: false,
+              iconStyle: 'default'
             }}
             className="card-element"
           />
+          {cardError && (
+            <div className="card-element-error">
+              {cardError}
+            </div>
+          )}
         </div>
 
         {(paymentError || cardError) && (
