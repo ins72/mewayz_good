@@ -422,10 +422,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-brand">
-          <div className="logo">
-            <h3>MEWAYZ</h3>
-            <span className="version-badge">V2</span>
-          </div>
+          <Logo size="medium" clickable={false} />
           <p>The complete creator economy platform</p>
         </div>
         <div className="footer-links">
