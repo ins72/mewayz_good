@@ -15,6 +15,7 @@ from server import api_router as basic_router
 from api.api_v1.api import api_router as auth_router
 from api.bundle_management import router as bundle_router
 from api.bundle_services import router as bundle_services_router
+from api.comprehensive_bundle_services import router as comprehensive_services_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -49,6 +50,7 @@ app.include_router(basic_router)
 app.include_router(auth_router, prefix="/api/v1")
 app.include_router(bundle_router)  # Bundle management routes
 app.include_router(bundle_services_router)  # Bundle-specific services routes
+app.include_router(comprehensive_services_router)  # Comprehensive services integration
 
 # Health check endpoint
 @app.get("/api/health")
