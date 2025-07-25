@@ -4,7 +4,7 @@ import StripePayment from '../components/StripePayment';
 import './OnboardingWizard.css';
 
 const OnboardingWizard = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(4); // Show professional bundles
   const [formData, setFormData] = useState({
     workspaceName: '',
     industry: '',
