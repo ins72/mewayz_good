@@ -4,14 +4,41 @@
   background: var(--bg-primary);
   color: var(--text-primary);
   padding: var(--space-md);
-  max-width: 1400px;
+  max-width: 1200px;
+  width: 80%;
   margin: 0 auto;
   overflow-x: hidden;
+}
+
+@media (max-width: 1400px) {
+  .ecommerce-dashboard {
+    width: 85%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .ecommerce-dashboard {
+    width: 90%;
+  }
 }
 
 @media (min-width: 768px) {
   .ecommerce-dashboard {
     padding: var(--space-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .ecommerce-dashboard {
+    width: 95%;
+    padding: var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .ecommerce-dashboard {
+    width: 100%;
+    padding: var(--space-sm);
   }
 }
 
