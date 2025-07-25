@@ -46,19 +46,19 @@ export default function RootLayout({
                 {/* Description no longer than 155 characters */}
                 <meta
                     name="description"
-                    content="MEWAYZ V2 - The complete creator economy platform for modern businesses"
+                    content="MEWAYZ - The complete creator economy platform for modern businesses"
                 />
                 {/* Product Name */}
                 <meta
                     name="product-name"
-                    content="MEWAYZ V2 - Creator Economy Platform"
+                    content="MEWAYZ - Creator Economy Platform"
                 />
                 {/* Twitter Card data */}
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:site" content="@mewayz" />
                 <meta
                     name="twitter:title"
-                    content="MEWAYZ V2 - Creator Economy Platform"
+                    content="MEWAYZ - Creator Economy Platform"
                 />
                 <meta
                     name="twitter:description"
@@ -72,7 +72,7 @@ export default function RootLayout({
                 {/* Open Graph data for Facebook */}
                 <meta
                     property="og:title"
-                    content="MEWAYZ V2 - Creator Economy Platform"
+                    content="MEWAYZ - Creator Economy Platform"
                 />
                 <meta property="og:type" content="Article" />
                 <meta
@@ -89,7 +89,7 @@ export default function RootLayout({
                 />
                 <meta
                     property="og:site_name"
-                    content="MEWAYZ V2"
+                    content="MEWAYZ"
                 />
                 <meta property="fb:admins" content="132951670226590" />
                 {/* Open Graph data for LinkedIn */}
