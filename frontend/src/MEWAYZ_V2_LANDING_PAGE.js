@@ -205,7 +205,12 @@ const HeroSection = ({ navigate }) => {
             <path d="M7 17L17 7M17 7H7M17 7V17"/>
           </svg>
         </button>
-        <button onClick={() => scrollToSection('demo')} className="btn btn-secondary">
+        <button onClick={() => {
+          const element = document.getElementById('demo');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }} className="btn btn-secondary">
           Watch 2-Min Demo
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polygon points="5,3 19,12 5,21"/>
