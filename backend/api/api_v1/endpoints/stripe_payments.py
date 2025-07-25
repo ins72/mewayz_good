@@ -33,14 +33,15 @@ async def create_subscription(
 ):
     """Create a Stripe subscription for selected bundles"""
     try:
-        # Bundle pricing (in cents)
+        # Bundle pricing (in cents) - Updated to match MEWAYZ V2 Smart Launch Strategy
         bundle_prices = {
-            'creator': {'monthly': 1900, 'yearly': 19000},     # $19/month, $190/year
-            'ecommerce': {'monthly': 2400, 'yearly': 24000},   # $24/month, $240/year
-            'social_media': {'monthly': 2900, 'yearly': 29000}, # $29/month, $290/year
-            'education': {'monthly': 2900, 'yearly': 29000},   # $29/month, $290/year
-            'business': {'monthly': 3900, 'yearly': 39000},    # $39/month, $390/year
-            'operations': {'monthly': 2400, 'yearly': 24000}   # $24/month, $240/year
+            'free_starter': {'monthly': 0, 'yearly': 0},         # Free forever
+            'creator': {'monthly': 1900, 'yearly': 19000},       # $19/month, $190/year
+            'ecommerce': {'monthly': 2400, 'yearly': 24000},     # $24/month, $240/year
+            'social_media': {'monthly': 2900, 'yearly': 29000},  # $29/month, $290/year
+            'education': {'monthly': 2900, 'yearly': 29000},     # $29/month, $290/year
+            'business': {'monthly': 3900, 'yearly': 39000},      # $39/month, $390/year
+            'operations': {'monthly': 2400, 'yearly': 24000}     # $24/month, $240/year
         }
 
         # Calculate total amount
