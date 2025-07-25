@@ -1,74 +1,135 @@
-/* MEWAYZ V2 Authentication - Professional Dark Theme */
+/* MEWAYZ V2 Authentication - Professional Dark Theme (Landing Page Consistent) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Use the same CSS variables as landing page for consistency */
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #12121a;
+  --bg-card: rgba(18, 18, 26, 0.8);
+  --bg-glass: rgba(255, 255, 255, 0.03);
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  
+  /* Enhanced gradients - same as landing page */
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  
+  --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.15);
+  --shadow-card: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-light: rgba(255, 255, 255, 0.15);
+  
+  --animation-speed: 0.3s;
+  --animation-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
 
 .auth-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0a0a0a 0%, #111111 100%);
+  background: var(--bg-primary);
   padding: 20px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  /* Add same animated background as landing page */
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+  animation: floatBackground 20s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes floatBackground {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(1deg); }
 }
 
 .auth-card {
-  background: rgba(17, 17, 17, 0.9);
+  background: var(--bg-card);
   backdrop-filter: blur(20px);
-  border-radius: 16px;
+  border-radius: 24px;
   padding: 48px;
   width: 100%;
-  max-width: 400px;
-  box-shadow: 
-    0 20px 25px -5px rgba(0, 0, 0, 0.3),
-    0 10px 10px -5px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 420px;
+  box-shadow: var(--shadow-card), var(--shadow-glow);
+  border: 1px solid var(--border-light);
+  position: relative;
+  z-index: 2;
+  
+  /* Add subtle animation */
+  animation: authCardFloat 6s ease-in-out infinite;
+}
+
+@keyframes authCardFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
 }
 
 .auth-header {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 
 .auth-logo {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin-bottom: 24px;
+  gap: 12px;
+  margin-bottom: 32px;
 }
 
 .auth-logo h1 {
-  font-size: 32px;
-  font-weight: 700;
+  font-size: 36px;
+  font-weight: 800;
   margin: 0;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  letter-spacing: -0.02em;
 }
 
 .version-badge {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: var(--gradient-primary);
   color: white;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  box-shadow: var(--shadow-glow);
 }
 
 .auth-header h2 {
-  color: #ffffff;
-  font-size: 24px;
-  font-weight: 600;
-  margin: 0 0 8px 0;
+  color: var(--text-primary);
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.01em;
 }
 
 .auth-header p {
-  color: #a1a1aa;
-  font-size: 14px;
+  color: var(--text-secondary);
+  font-size: 15px;
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.6;
+  font-weight: 400;
 }
 
 .auth-form {
