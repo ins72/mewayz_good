@@ -242,9 +242,21 @@ const OnboardingWizard = () => {
   };
 
   const handleBundleSelect = (bundleId) => {
-    const newBundles = formData.selectedBundles.includes(bundleId)
-      ? formData.selectedBundles.filter(b => b !== bundleId)
-      : [...formData.selectedBundles, bundleId];
+    // Handle free bundle selection
+    if (bundleId === 'free_starter') {
+      setFormData({
+        ...formData,
+        selectedBundles: ['free_starter']
+      });
+      return;
+    }
+
+    // Handle paid bundle selection (remove free if selected)
+    const currentBundles = formData.selectedBundles.filter(b => b !== 'free_starter');
+    const newBundles = currentBundles.includes(bundleId)
+      ? currentBundles.filter(b => b !== bundleId)
+      : [...currentBundles, bundleId];
+    
     setFormData({
       ...formData,
       selectedBundles: newBundles
