@@ -59,8 +59,15 @@ function App() {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/enterprise" element={<Enterprise />} />
           
-          {/* Temporarily make onboarding public for development */}
-          <Route path="/onboarding" element={<OnboardingWizard />} />
+          {/* Protected Routes */}
+          <Route 
+            path="/onboarding" 
+            element={
+              <WorkspaceRoute requiresWorkspace={false}>
+                <OnboardingWizard />
+              </WorkspaceRoute>
+            } 
+          />
           <Route 
             path="/dashboard" 
             element={
