@@ -86,6 +86,7 @@ function App() {
           {/* Bundle Dashboards */}
           <Route path="/dashboard/creator" element={<CreatorBundleDashboard />} />
           <Route path="/dashboard/bundles" element={<BundleDashboard />} />
+          <Route path="/dashboard/bio-links" element={<BioLinkBuilder />} />
           
           <Route 
             path="/dashboard" 
