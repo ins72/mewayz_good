@@ -175,11 +175,31 @@
 }
 
 .grid-container {
-  max-width: 1400px;
+  max-width: 1200px;
+  width: 80%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
+}
+
+@media (max-width: 1400px) {
+  .grid-container {
+    width: 85%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .grid-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    width: 95%;
+    grid-template-columns: 1fr;
+  }
 }
 
 .pricing-card {
