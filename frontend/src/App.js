@@ -83,6 +83,14 @@ function App() {
 
           {/* Protected Routes */}
           <Route 
+            path="/invitation" 
+            element={
+              <ProtectedRoute>
+                <InvitationHandler />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
             path="/onboarding" 
             element={
               <WorkspaceRoute requiresWorkspace={false}>
