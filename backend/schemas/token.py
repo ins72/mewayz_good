@@ -26,7 +26,7 @@ class Token(BaseModel):
 
 
 class TokenPayload(BaseModel):
-    sub: ObjectId | None = None
+    sub: str | None = None
     refresh: bool | None = False
     totp: bool | None = False
 
