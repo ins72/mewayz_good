@@ -175,8 +175,8 @@ const PaymentForm = ({
                   iconColor: '#ef4444',
                 }
               },
-              hidePostalCode: false,
-            }}
+              hidePostalCode: true,
+            }}}
             className="card-element"
           />
         </div>
