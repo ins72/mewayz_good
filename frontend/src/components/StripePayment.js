@@ -74,7 +74,24 @@ const PaymentForm = ({
       });
 
       if (methodError) {
-        setPaymentError(methodError.message);
+        let errorMessage = methodError.message;
+        
+        // Provide user-friendly error messages for common card issues
+        if (methodError.code === 'incomplete_number') {
+          errorMessage = 'Your card number is incomplete. Please check and try again.';
+        } else if (methodError.code === 'incomplete_cvc') {
+          errorMessage = 'Your card security code is incomplete. Please check and try again.';
+        } else if (methodError.code === 'incomplete_expiry') {
+          errorMessage = 'Your card expiry date is incomplete. Please check and try again.';
+        } else if (methodError.code === 'invalid_number') {
+          errorMessage = 'Your card number is invalid. Please check and try again.';
+        } else if (methodError.code === 'invalid_expiry_month' || methodError.code === 'invalid_expiry_year') {
+          errorMessage = 'Your card expiry date is invalid. Please check and try again.';
+        } else if (methodError.code === 'invalid_cvc') {
+          errorMessage = 'Your card security code is invalid. Please check and try again.';
+        }
+        
+        setPaymentError(errorMessage);
         setProcessing(false);
         if (onPaymentError) onPaymentError(methodError);
         return;
