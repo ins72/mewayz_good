@@ -166,15 +166,17 @@
 .ecommerce-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: var(--space-xl);
+  gap: var(--space-lg);
+  align-items: start;
 }
 
 .dashboard-card {
   background: var(--bg-glass);
   border: 1px solid var(--border-primary);
-  border-radius: var(--radius-xl);
-  padding: var(--space-2xl);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
   transition: all var(--transition-normal);
+  height: fit-content;
 }
 
 .dashboard-card:hover {
