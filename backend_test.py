@@ -1304,6 +1304,14 @@ def run_all_tests():
             if results[test_name]:
                 passed += 1
     
+    print("\n🎯 MEWAYZ V2 ENHANCED FEATURES TESTS (Review Request Focus):")
+    for test_name in mewayz_v2_tests:
+        if test_name in results:
+            status = "✅ PASS" if results[test_name] else "❌ FAIL"
+            print(f"   {status} {test_name}")
+            if results[test_name]:
+                passed += 1
+    
     print("\n💳 STRIPE PAYMENT INTEGRATION TESTS:")
     for test_name in payment_tests:
         if test_name in results:
