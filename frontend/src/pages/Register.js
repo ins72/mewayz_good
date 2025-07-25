@@ -135,8 +135,7 @@ const Register = () => {
       <div className="auth-card">
         <div className="auth-header">
           <div className="auth-logo">
-            <h1>MEWAYZ</h1>
-            <span className="version-badge">V2</span>
+            <Logo size="large" />
           </div>
           <h2>Create your account</h2>
           <p>Start your journey with MEWAYZ V2.</p>
