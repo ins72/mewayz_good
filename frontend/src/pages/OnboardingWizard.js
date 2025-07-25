@@ -415,7 +415,7 @@ const OnboardingWizard = () => {
       <div className="wizard-container">
         {/* Header */}
         <div className="wizard-header">
-          <div className="logo">MEWAYZ V2</div>
+          <Logo size="medium" />
           <h1 className="wizard-title">{steps[currentStep - 1].title}</h1>
           <p className="wizard-subtitle">{steps[currentStep - 1].description}</p>
         </div>
