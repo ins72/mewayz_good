@@ -18,11 +18,31 @@
 
 .nav-container {
   max-width: 1200px;
+  width: 80%;
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+@media (max-width: 1400px) {
+  .nav-container {
+    width: 85%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .nav-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    width: 95%;
+    padding: 0 1rem;
+  }
 }
 
 .nav-logo a {
