@@ -4,7 +4,7 @@ import StripePayment from '../components/StripePayment';
 import './OnboardingWizard.css';
 
 const OnboardingWizard = () => {
-  const [currentStep, setCurrentStep] = useState(4); // Temporarily start at step 4 to showcase bundles
+  const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     workspaceName: 'My Awesome Workspace', // Pre-fill for demo
     industry: 'technology',
