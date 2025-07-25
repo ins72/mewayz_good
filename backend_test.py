@@ -1235,6 +1235,14 @@ def run_all_tests():
         ("Create Workspace", test_create_workspace),
         ("Get User Workspaces", test_get_user_workspaces),
         
+        # MEWAYZ V2 Enhanced Features Tests (Review Request Focus)
+        ("MEWAYZ V2 Bundle Pricing System", test_mewayz_v2_bundle_pricing_system),
+        ("Multi-Bundle Discount Logic", test_multi_bundle_discount_logic),
+        ("Payment Method Management Endpoints", test_payment_method_management_endpoints),
+        ("Subscription Management Workflows", test_subscription_management_workflows),
+        ("Bundle Combinations Pricing", test_bundle_combinations_pricing),
+        ("Data Validation and Persistence", test_data_validation_and_persistence),
+        
         # Stripe Payment Integration Tests
         ("Bundle Pricing Calculation", test_stripe_subscription_pricing_calculation),
         ("Stripe Subscription Without Auth", test_stripe_subscription_without_auth),
