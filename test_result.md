@@ -219,20 +219,17 @@ test_plan:
         agent: "testing"
         comment: "✅ TESTED: Authentication system is fully functional and working perfectly. All 12 backend tests passed (100% success rate). Fixed missing argon2_cffi dependency for password hashing. Comprehensive testing completed: ✅ User registration (POST /api/v1/users/) - Creates users with secure password hashing ✅ OAuth2 login (POST /api/v1/login/oauth) - Returns JWT access and refresh tokens ✅ Protected endpoints properly reject unauthenticated requests (401) ✅ Authenticated requests work correctly with valid JWT tokens ✅ Duplicate email registration properly rejected (400) ✅ Invalid login credentials properly rejected ✅ Invalid JWT tokens properly rejected (403) ✅ All authentication endpoints accessible at /api/v1/ with proper routing. The authentication system includes comprehensive features: JWT tokens, OAuth2 compatibility, TOTP support, magic link login, password reset, user management, and proper security measures. MongoDB integration working perfectly with user data persistence."
 
-  - task: "Login/Register Frontend Pages"
+  - task: "Authentication Flow & Route Protection"
     implemented: true
     working: true
-    file: "frontend/src/pages/Login.js"
+    file: "frontend/src/App.js"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
     status_history:
-      - working: "NA"
-        agent: "main"
-        comment: "Ready to create Odoo-style login/register pages once backend authentication is integrated. Will use existing user creation endpoint and OAuth2 login."
       - working: true
         agent: "main"
-        comment: "Successfully created Odoo-style login and register pages with React Router navigation. Includes Login.js, Register.js, Dashboard.js with professional CSS styling. Authentication flow integrated with backend API endpoints. Login page handles OAuth2 login, register page handles user creation, dashboard shows user bundles. All navigation working properly."
+        comment: "Fixed authentication flow logic: Register → auto-login → Onboarding (workspace creation) → Dashboard. Login checks workspace existence and redirects appropriately. Onboarding is now properly protected requiring authentication. Added workspace status tracking in localStorage. All route protection working correctly."
 
 frontend:
   - task: "Landing Page Integration"
