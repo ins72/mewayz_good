@@ -125,6 +125,15 @@ const Dashboard = () => {
             </button>
           )}
           
+          {activeBundles.includes('enterprise') && (
+            <button 
+              className={`nav-btn ${currentView === 'enterprise' ? 'active' : ''}`}
+              onClick={() => setCurrentView('enterprise')}
+            >
+              👑 Enterprise
+            </button>
+          )}
+          
           {userRole === 'admin' && (
             <button 
               className={`nav-btn ${currentView === 'admin' ? 'active' : ''}`}
