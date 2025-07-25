@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import PublicLayout from './components/PublicLayout';
 import Logo from './components/Logo';
 import './MEWAYZ_V2_LANDING_PAGE.css';
 
