@@ -13,6 +13,7 @@ from server import api_router as basic_router
 
 # Import MongoDB Labs authentication system
 from api.api_v1.api import api_router as auth_router
+from api.bundle_management import router as bundle_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
