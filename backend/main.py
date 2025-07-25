@@ -53,7 +53,20 @@ async def health_check():
     return {
         "status": "healthy",
         "app_name": "MEWAYZ V2",
-        "version": "2.0.0"
+        "version": "2.0.0",
+        "environment": "production" if os.getenv("MONGO_URL", "").startswith("mongodb+srv://") else "development",
+        "database_configured": bool(os.getenv("MONGO_URL")),
+        "cors_origins": ["http://localhost:3000", "https://test.mewayz.com", "https://preview-launch-1.emergent.host"]
+    }
+
+# Connectivity test endpoint
+@app.get("/api/test")
+async def connectivity_test():
+    """Simple connectivity test"""
+    return {
+        "message": "Backend is accessible",
+        "timestamp": "2025-01-25",
+        "cors_enabled": True
     }
 
 # Root endpoint
