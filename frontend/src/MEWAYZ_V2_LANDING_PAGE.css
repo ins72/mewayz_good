@@ -306,7 +306,34 @@
   padding: 8rem 2rem 6rem;
   position: relative;
   max-width: 1200px;
+  width: 80%;
   margin: 0 auto;
+}
+
+@media (max-width: 1400px) {
+  .hero {
+    width: 85%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .hero {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    width: 95%;
+    padding: 4rem 1rem 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    width: 100%;
+    padding: 3rem 1rem 2rem;
+  }
 }
 
 .hero-badge {
