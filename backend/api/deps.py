@@ -5,6 +5,7 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from pydantic import ValidationError
 from motor.core import AgnosticDatabase
+from odmantic import ObjectId
 
 from crud.crud_user import user as crud_user
 from crud.crud_token import token as crud_token
