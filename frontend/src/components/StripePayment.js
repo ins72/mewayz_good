@@ -70,6 +70,14 @@ const PaymentForm = ({
       return;
     }
 
+    const cardElement = elements.getElement(CardElement);
+    
+    // Check if card information is complete
+    if (!cardComplete) {
+      setPaymentError('Please complete all card information before submitting.');
+      return;
+    }
+
     setProcessing(true);
     setPaymentError('');
     
@@ -77,8 +85,6 @@ const PaymentForm = ({
     if (paymentError) {
       setRetryCount(prev => prev + 1);
     }
-
-    const cardElement = elements.getElement(CardElement);
 
     try {
       // Create payment method
