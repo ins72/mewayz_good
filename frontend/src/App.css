@@ -159,21 +159,36 @@ body {
 
 /* Professional responsive design - Mobile First */
 .container {
-  width: 100%;
+  width: 80%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--space-md);
 }
 
-@media (min-width: 640px) {
+@media (max-width: 1400px) {
   .container {
+    width: 85%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    width: 90%;
     padding: 0 var(--space-lg);
   }
 }
 
-@media (min-width: 1024px) {
+@media (max-width: 768px) {
   .container {
-    padding: 0 var(--space-xl);
+    width: 95%;
+    padding: 0 var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 100%;
+    padding: 0 var(--space-sm);
   }
 }
 
