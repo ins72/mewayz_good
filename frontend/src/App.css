@@ -1,51 +1,55 @@
-/* MEWAYZ V2 - Odoo Clone Styles */
+/* MEWAYZ V2 - Ultra-Professional App Styles */
 
+/* Reset and use our professional global styles */
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  /* Use Inter font from our global styles */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f9fafb;
+  /* Use our professional dark background */
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
 }
 
 .App {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: var(--bg-primary);
 }
 
-/* Custom scrollbar for sidebar */
+/* Professional scrollbar using our design system */
 .sidebar-scroll::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 .sidebar-scroll::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--bg-secondary);
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb {
-  background: #d1d5db;
-  border-radius: 3px;
+  background: var(--border-primary);
+  border-radius: var(--radius-sm);
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
+  background: var(--border-accent);
 }
 
-/* Smooth transitions */
+/* Professional transitions using our system */
 .transition-all {
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
 }
 
-/* Custom gradient backgrounds */
+/* Professional gradient backgrounds */
 .gradient-purple {
-  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  background: var(--gradient-primary);
 }
 
 .gradient-blue {
@@ -53,24 +57,24 @@ body {
 }
 
 .gradient-green {
-  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  background: var(--gradient-secondary);
 }
 
-/* Hover effects */
+/* Professional hover effects */
 .hover-lift {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .hover-lift:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-lg);
 }
 
-/* Card animations */
+/* Professional card animations */
 .card-enter {
   opacity: 0;
-  transform: translateY(20px);
-  animation: cardEnter 0.5s ease forwards;
+  transform: translateY(30px);
+  animation: cardEnter 0.6s ease forwards;
 }
 
 @keyframes cardEnter {
@@ -80,11 +84,16 @@ body {
   }
 }
 
-/* Loading states */
+/* Professional loading states */
 .loading-shimmer {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(
+    90deg, 
+    rgba(255, 255, 255, 0.02) 25%, 
+    rgba(255, 255, 255, 0.05) 50%, 
+    rgba(255, 255, 255, 0.02) 75%
+  );
   background-size: 200% 100%;
-  animation: loading 1.5s infinite;
+  animation: loading 2s infinite;
 }
 
 @keyframes loading {
@@ -96,24 +105,114 @@ body {
   }
 }
 
-/* Custom focus styles */
+/* Professional focus styles */
 .focus-ring:focus {
   outline: none;
-  ring: 2px;
-  ring-color: #8b5cf6;
-  ring-offset: 2px;
+  box-shadow: 0 0 0 2px var(--accent-primary);
+  border-radius: var(--radius-sm);
 }
 
-/* Responsive design helpers */
+/* Professional page transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: pageEnter 0.5s ease forwards;
+}
+
+@keyframes pageEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Professional error states */
+.error-boundary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+.error-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.error-message {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xl);
+  max-width: 600px;
+}
+
+.error-actions {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Professional responsive design */
 @media (max-width: 640px) {
   .mobile-hidden {
     display: none;
   }
+  
+  body {
+    font-size: 14px;
+  }
 }
 
-/* Print styles */
+@media (max-width: 480px) {
+  .App {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Professional print styles */
 @media print {
   .no-print {
     display: none;
   }
+  
+  body {
+    background: white;
+    color: black;
+  }
 }
+
+/* Professional utility classes */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.min-h-screen { min-height: 100vh; }
+
+.p-4 { padding: var(--space-lg); }
+.p-6 { padding: var(--space-xl); }
+.p-8 { padding: var(--space-2xl); }
+
+.m-4 { margin: var(--space-lg); }
+.m-6 { margin: var(--space-xl); }
+.m-8 { margin: var(--space-2xl); }
+
+.mb-4 { margin-bottom: var(--space-lg); }
+.mb-6 { margin-bottom: var(--space-xl); }
+.mb-8 { margin-bottom: var(--space-2xl); }
+
+.rounded { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
