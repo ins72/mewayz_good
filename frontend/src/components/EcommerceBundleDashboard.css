@@ -3,9 +3,10 @@
   min-height: 100vh;
   background: var(--bg-primary);
   color: var(--text-primary);
-  padding: var(--space-2xl);
-  max-width: 1800px;
+  padding: var(--space-lg);
+  max-width: 1400px;
   margin: 0 auto;
+  overflow-x: hidden;
 }
 
 /* Dashboard Header */
