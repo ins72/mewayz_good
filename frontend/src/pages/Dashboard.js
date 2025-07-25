@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import BundleDashboard from '../components/BundleDashboard';
 import CreatorBundleDashboard from '../components/CreatorBundleDashboard';
+import EcommerceBundleDashboard from '../components/EcommerceBundleDashboard';
+import SocialMediaBundleDashboard from '../components/SocialMediaBundleDashboard';
+import EducationBundleDashboard from '../components/EducationBundleDashboard';
+import BusinessBundleDashboard from '../components/BusinessBundleDashboard';
+import OperationsBundleDashboard from '../components/OperationsBundleDashboard';
 import AdminDashboard from '../components/AdminDashboard';
 import NotificationSystem from '../components/NotificationSystem';
 import './Dashboard.css';
@@ -12,7 +17,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     // Simulate fetching user bundles and role
-    setActiveBundles(['creator', 'ecommerce']);
+    setActiveBundles(['creator', 'ecommerce', 'business']);
     
     // Check if user is admin (in a real app, this would come from JWT token or API)
     const token = localStorage.getItem('access_token');
@@ -36,6 +41,16 @@ const Dashboard = () => {
         return <BundleDashboard />;
       case 'creator':
         return <CreatorBundleDashboard />;
+      case 'ecommerce':
+        return <EcommerceBundleDashboard />;
+      case 'social-media':
+        return <SocialMediaBundleDashboard />;
+      case 'education':
+        return <EducationBundleDashboard />;
+      case 'business':
+        return <BusinessBundleDashboard />;
+      case 'operations':
+        return <OperationsBundleDashboard />;
       default:
         return <BundleDashboard />;
     }
