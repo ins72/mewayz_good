@@ -14,7 +14,7 @@ The deployed frontend is still using the development backend URL instead of the 
 
 **Current (Wrong):**
 ```
-REACT_APP_BACKEND_URL=https://ce76d38c-983a-445e-a145-0113aa069f64.preview.emergentagent.com
+REACT_APP_BACKEND_URL=https://5c775926-09e5-4cb3-b279-9f625e4972ad.preview.emergentagent.com
 ```
 
 **Should Be (Fixed):**
