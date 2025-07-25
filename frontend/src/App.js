@@ -56,6 +56,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/help" element={<Help />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/enterprise" element={<Enterprise />} />
           
           {/* Protected Routes */}
           <Route 
