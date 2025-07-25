@@ -434,10 +434,10 @@
 }
 
 .item-count {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--accent-primary);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.2rem;
 }
 
 .item-action {
