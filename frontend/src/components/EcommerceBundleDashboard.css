@@ -105,14 +105,15 @@
 }
 
 .metric-icon {
-  width: 80px;
-  height: 80px;
-  border-radius: var(--radius-xl);
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
   background: var(--gradient-primary);
+  flex-shrink: 0;
 }
 
 .metric-card.sales .metric-icon {
