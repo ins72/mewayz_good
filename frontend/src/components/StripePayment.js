@@ -230,6 +230,7 @@ const PaymentForm = ({
         <div className="card-element-container">
           <label>Card Details</label>
           <CardElement
+            onChange={handleCardChange}
             options={{
               style: {
                 base: {
