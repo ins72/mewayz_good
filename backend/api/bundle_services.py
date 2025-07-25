@@ -384,7 +384,7 @@ async def get_crm_contacts(
 ):
     """Get user's CRM contacts (Business Bundle required)"""
     try:
-        user_id = current_user.get("id") or current_user.get("user_id")
+        user_id = str(current_user.id)
         await check_bundle_access(user_id, "crm_service", bundle_manager)
         
         result = await crm_service.list_crms(
