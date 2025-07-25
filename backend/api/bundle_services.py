@@ -236,7 +236,7 @@ async def create_ecommerce_store(
 ):
     """Create a new e-commerce store (E-commerce Bundle required)"""
     try:
-        user_id = current_user.get("id") or current_user.get("user_id")
+        user_id = str(current_user.id)
         await check_bundle_access(user_id, "complete_ecommerce_service", bundle_manager)
         
         # Prepare store data
