@@ -1811,6 +1811,16 @@ def run_all_tests():
         ("Bundle Combinations Pricing", test_bundle_combinations_pricing),
         ("Data Validation and Persistence", test_data_validation_and_persistence),
         
+        # Phase 3 & 4: Bundle Services Integration Tests (Review Request Focus)
+        ("Bundle Services Health Check", test_bundle_services_health_check),
+        ("Creator Bundle Bio Links Without Auth", test_creator_bundle_bio_links_without_auth),
+        ("Creator Bundle Bio Links With Auth", test_creator_bundle_bio_links_with_auth),
+        ("E-commerce Bundle Stores With Auth", test_ecommerce_bundle_stores_with_auth),
+        ("Business Bundle CRM With Auth", test_business_bundle_crm_with_auth),
+        ("Bundle Access Control Integration", test_bundle_access_control_integration),
+        ("Bundle Activation for Services", test_bundle_activation_for_services),
+        ("Cross-Bundle Integration", test_cross_bundle_integration),
+        
         # Stripe Payment Integration Tests
         ("Bundle Pricing Calculation", test_stripe_subscription_pricing_calculation),
         ("Stripe Subscription Without Auth", test_stripe_subscription_without_auth),
