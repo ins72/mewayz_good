@@ -8,8 +8,10 @@ import {
 } from '@stripe/react-stripe-js';
 import './StripePayment.css';
 
-// Load Stripe
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+// Load Stripe with explicit configuration
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY, {
+  locale: 'en'
+});
 
 console.log('Stripe publishable key:', process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
@@ -22,6 +24,29 @@ const StripePayment = ({
   customerInfo,
   disabled = false
 }) => {
+  // Simple wrapper that ensures Stripe loads before rendering form
+  const [stripeLoaded, setStripeLoaded] = useState(false);
+
+  useEffect(() => {
+    stripePromise.then(() => {
+      setStripeLoaded(true);
+      console.log('Stripe loaded successfully');
+    }).catch((error) => {
+      console.error('Stripe failed to load:', error);
+    });
+  }, []);
+
+  if (!stripeLoaded) {
+    return (
+      <div className="stripe-payment-form">
+        <div className="loading-stripe">
+          <div className="spinner"></div>
+          <p>Loading payment form...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Elements stripe={stripePromise}>
       <PaymentForm
