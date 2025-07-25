@@ -95,6 +95,12 @@
   flex-shrink: 0;
 }
 
+.retry-info {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
 .payment-button {
   background: var(--gradient-primary);
   color: white;
