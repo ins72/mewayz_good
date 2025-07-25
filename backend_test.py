@@ -807,9 +807,10 @@ def run_all_tests():
     print("=" * 60)
     
     # Initialize global variables for test data sharing
-    global test_user_credentials, access_token
+    global test_user_credentials, access_token, test_workspace_data
     test_user_credentials = None
     access_token = None
+    test_workspace_data = None
     
     tests = [
         # Basic API Tests
@@ -827,6 +828,19 @@ def run_all_tests():
         ("Protected Endpoint Without Auth", test_protected_endpoint_without_auth),
         ("Protected Endpoint With Auth", test_protected_endpoint_with_auth),
         ("Duplicate User Registration", test_duplicate_user_registration),
+        
+        # Workspace Management Tests
+        ("Workspace Creation Without Auth", test_workspace_creation_without_auth),
+        ("Create Workspace", test_create_workspace),
+        ("Get User Workspaces", test_get_user_workspaces),
+        
+        # Stripe Payment Integration Tests
+        ("Bundle Pricing Calculation", test_stripe_subscription_pricing_calculation),
+        ("Stripe Subscription Without Auth", test_stripe_subscription_without_auth),
+        ("Stripe Create Subscription", test_stripe_create_subscription),
+        
+        # Complete Onboarding Flow Test
+        ("Complete Onboarding Flow", test_complete_onboarding_flow),
     ]
     
     results = {}
@@ -850,6 +864,9 @@ def run_all_tests():
     basic_tests = ["Root Endpoint", "Health Check", "Bundle Pricing", "Get Status Checks", "Create Status Check"]
     auth_tests = ["Auth API Root", "Users Tester Endpoint", "User Registration", "OAuth2 Login", 
                   "Protected Endpoint Without Auth", "Protected Endpoint With Auth", "Duplicate User Registration"]
+    workspace_tests = ["Workspace Creation Without Auth", "Create Workspace", "Get User Workspaces"]
+    payment_tests = ["Bundle Pricing Calculation", "Stripe Subscription Without Auth", "Stripe Create Subscription"]
+    flow_tests = ["Complete Onboarding Flow"]
     
     print("🔧 BASIC API TESTS:")
     for test_name in basic_tests:
@@ -867,10 +884,34 @@ def run_all_tests():
             if results[test_name]:
                 passed += 1
     
+    print("\n🏢 WORKSPACE MANAGEMENT TESTS:")
+    for test_name in workspace_tests:
+        if test_name in results:
+            status = "✅ PASS" if results[test_name] else "❌ FAIL"
+            print(f"   {status} {test_name}")
+            if results[test_name]:
+                passed += 1
+    
+    print("\n💳 STRIPE PAYMENT INTEGRATION TESTS:")
+    for test_name in payment_tests:
+        if test_name in results:
+            status = "✅ PASS" if results[test_name] else "❌ FAIL"
+            print(f"   {status} {test_name}")
+            if results[test_name]:
+                passed += 1
+    
+    print("\n🔄 COMPLETE ONBOARDING FLOW TESTS:")
+    for test_name in flow_tests:
+        if test_name in results:
+            status = "✅ PASS" if results[test_name] else "❌ FAIL"
+            print(f"   {status} {test_name}")
+            if results[test_name]:
+                passed += 1
+    
     print(f"\n📈 Overall: {passed}/{total} tests passed ({passed/total*100:.1f}%)")
     
     if passed == total:
-        print("🎉 All tests passed! Backend with authentication system is fully functional.")
+        print("🎉 All tests passed! MEWAYZ V2 onboarding and payment system is fully functional.")
         return True
     else:
         print("⚠️  Some tests failed. Check individual test results above.")
