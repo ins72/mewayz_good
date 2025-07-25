@@ -231,6 +231,18 @@ test_plan:
         agent: "main"
         comment: "Fixed authentication flow logic: Register → auto-login → Onboarding (workspace creation) → Dashboard. Login checks workspace existence and redirects appropriately. Onboarding is now properly protected requiring authentication. Added workspace status tracking in localStorage. All route protection working correctly."
 
+  - task: "Stripe Payment Integration & Card Storage"
+    implemented: false
+    working: false
+    file: "backend/api/api_v1/endpoints/stripe_payments.py"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "User reported payment issues: 1) Need to save card details for future purchases, 2) Payment failing with ZIP code requirement, 3) Need better failed payment handling. Backend logs show Stripe API error 'parameter_unknown: product_data[description]' and frontend CardElement forcing ZIP entry with hidePostalCode: false. Working on fixes."
+
 frontend:
   - task: "Landing Page Integration"
     implemented: true
