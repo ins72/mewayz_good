@@ -619,22 +619,58 @@ const BundlesStep = ({ formData, pricingBundles, handleBundleSelect, calculateTo
   
   return (
     <div className="bundles-step">
+      <div className="pricing-header">
+        <h2>Choose Your Perfect Bundle</h2>
+        <p>Start with our Free Starter plan or unlock powerful features with our premium bundles</p>
+        <div className="payment-toggle">
+          <label className="toggle-label">
+            <input
+              type="radio"
+              name="paymentMethod"
+              value="monthly"
+              checked={formData.paymentMethod === 'monthly'}
+              onChange={handleInputChange}
+            />
+            Monthly
+          </label>
+          <label className="toggle-label">
+            <input
+              type="radio"
+              name="paymentMethod"
+              value="yearly"
+              checked={formData.paymentMethod === 'yearly'}
+              onChange={handleInputChange}
+            />
+            Yearly <span className="save-badge">Save up to 20%</span>
+          </label>
+        </div>
+      </div>
+      
       <div className="bundles-grid">
         {pricingBundles.map(bundle => (
           <div 
             key={bundle.id}
-            className={`bundle-card ${formData.selectedBundles.includes(bundle.id) ? 'selected' : ''}`}
+            className={`bundle-card ${formData.selectedBundles.includes(bundle.id) ? 'selected' : ''} ${bundle.isFree ? 'free-bundle' : ''}`}
             onClick={() => handleBundleSelect(bundle.id)}
           >
             {bundle.badge && <div className="bundle-badge">{bundle.badge}</div>}
             <div className="bundle-header">
               <h3>{bundle.name}</h3>
               <div className="bundle-price">
-                <span className="currency">$</span>
-                <span className="amount">{formData.paymentMethod === 'monthly' ? bundle.monthlyPrice : bundle.yearlyPrice}</span>
-                <span className="period">/{formData.paymentMethod === 'monthly' ? 'mo' : 'yr'}</span>
+                {bundle.isFree ? (
+                  <span className="free-price">Free</span>
+                ) : (
+                  <>
+                    <span className="currency">$</span>
+                    <span className="amount">{formData.paymentMethod === 'monthly' ? bundle.monthlyPrice : bundle.yearlyPrice}</span>
+                    <span className="period">/{formData.paymentMethod === 'monthly' ? 'mo' : 'yr'}</span>
+                  </>
+                )}
               </div>
-              <p>{bundle.description}</p>
+              <p className="bundle-description">{bundle.description}</p>
+              {bundle.savings && formData.paymentMethod === 'yearly' && (
+                <div className="yearly-savings">{bundle.savings}</div>
+              )}
             </div>
             
             <div className="bundle-features">
@@ -647,7 +683,7 @@ const BundlesStep = ({ formData, pricingBundles, handleBundleSelect, calculateTo
                 </div>
               ))}
               {bundle.features.length > 4 && (
-                <div className="feature-item">
+                <div className="feature-item more-features">
                   <span>+{bundle.features.length - 4} more features</span>
                 </div>
               )}
@@ -664,25 +700,49 @@ const BundlesStep = ({ formData, pricingBundles, handleBundleSelect, calculateTo
       
       {formData.selectedBundles.length > 0 && (
         <div className="pricing-summary">
-          <h3>Pricing Summary</h3>
-          <div className="summary-row">
-            <span>Base Price:</span>
-            <span>${pricing.basePrice}/{formData.paymentMethod === 'monthly' ? 'mo' : 'yr'}</span>
-          </div>
-          {pricing.discount > 0 && (
+          {pricing.isFree ? (
+            <div className="free-summary">
+              <h3>🎉 Free Forever Plan Selected!</h3>
+              <p>Start building with our Free Starter plan - no payment required</p>
+            </div>
+          ) : (
             <>
-              <div className="summary-row discount">
-                <span>Multi-Bundle Discount ({Math.round(pricing.discount * 100)}%):</span>
-                <span>-${pricing.savings.toFixed(2)}</span>
+              <h3>Pricing Summary</h3>
+              <div className="summary-row">
+                <span>Base Price:</span>
+                <span>${pricing.basePrice}/{formData.paymentMethod === 'monthly' ? 'mo' : 'yr'}</span>
               </div>
-              <div className="summary-row total">
-                <span>Total:</span>
-                <span>${pricing.discountedPrice.toFixed(2)}/{formData.paymentMethod === 'monthly' ? 'mo' : 'yr'}</span>
-              </div>
+              {pricing.discount > 0 && (
+                <>
+                  <div className="summary-row discount">
+                    <span>Multi-Bundle Discount ({Math.round(pricing.discount * 100)}%):</span>
+                    <span>-${pricing.savings.toFixed(2)}</span>
+                  </div>
+                  <div className="summary-row total">
+                    <span>Total:</span>
+                    <span>${pricing.discountedPrice.toFixed(2)}/{formData.paymentMethod === 'monthly' ? 'mo' : 'yr'}</span>
+                  </div>
+                </>
+              )}
+              {formData.selectedBundles.length >= 2 && (
+                <div className="multi-bundle-note">
+                  <p>🎁 You're getting {Math.round(pricing.discount * 100)}% off with our multi-bundle discount!</p>
+                </div>
+              )}
             </>
           )}
         </div>
       )}
+      
+      <div className="enterprise-option">
+        <div className="enterprise-card">
+          <h4>Need More? Try Enterprise</h4>
+          <p>Custom solutions with revenue-share pricing (15% of platform revenue, min $99/month)</p>
+          <button className="enterprise-link" onClick={() => window.open('/enterprise', '_blank')}>
+            Learn More About Enterprise →
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
