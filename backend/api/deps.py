@@ -48,7 +48,9 @@ async def get_current_user(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Could not validate credentials",
         )
-    user = await crud_user.get(db, id=token_data.sub)
+    # Convert string ID to ObjectId
+    user_id = ObjectId(token_data.sub)
+    user = await crud_user.get(db, id=user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
