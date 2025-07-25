@@ -72,8 +72,9 @@ async def validate_magic_link(
     Second step of a 'magic link' login.
     """
     claim_in = deps.get_magic_token(token=obj_in.claim)
-    # Get the user
-    user = await crud_user.get(db, id=ObjectId(magic_in.sub))
+    # Get the user - convert string to ObjectId
+    user_id = OdmanticObjectId(magic_in.sub)
+    user = await crud_user.get(db, id=user_id)
     # Test the claims
     if (
         (claim_in.sub == magic_in.sub)
