@@ -30,6 +30,24 @@ const OnboardingWizard = () => {
 
   const pricingBundles = [
     {
+      id: 'free_starter',
+      name: 'Free Starter',
+      description: 'Perfect for testing the platform and personal use',
+      monthlyPrice: 0,
+      yearlyPrice: 0,
+      features: [
+        '1 Bio Link Page (with 5 external links allowed)',
+        'Basic Form Builder (1 form, 50 submissions/month)',
+        'Simple Analytics (7 days data retention)',
+        'Template Marketplace: Buy templates only (cannot sell)',
+        'Mewayz Branding: Required on all external-facing content',
+        'Support: Community support only'
+      ],
+      badge: 'Free Forever',
+      launchSpecial: 'Always free - perfect for getting started',
+      isFree: true
+    },
+    {
       id: 'creator',
       name: 'Creator Bundle',
       description: 'Perfect for content creators and influencers',
@@ -44,8 +62,9 @@ const OnboardingWizard = () => {
         'Remove Mewayz Branding',
         'Email Support'
       ],
-      badge: null,
-      launchSpecial: 'First 1000 users get 3 months for $9/month'
+      badge: 'Popular Choice',
+      launchSpecial: 'First 1000 users get 3 months for $9/month',
+      savings: 'Save $38/year'
     },
     {
       id: 'ecommerce',
@@ -62,13 +81,14 @@ const OnboardingWizard = () => {
         'Basic Analytics',
         'Priority Email Support'
       ],
-      badge: 'Most Popular',
-      launchSpecial: 'First 500 users get 2 months free'
+      badge: 'Best for Sales',
+      launchSpecial: 'First 500 users get 2 months free',
+      savings: 'Save $48/year'
     },
     {
       id: 'social_media',
       name: 'Social Media Bundle',
-      description: 'Advanced social media management',
+      description: 'Advanced social media management and growth',
       monthlyPrice: 29,
       yearlyPrice: 290,
       features: [
@@ -79,13 +99,32 @@ const OnboardingWizard = () => {
         'Hashtag Research (trending hashtags)',
         'Priority Support'
       ],
-      badge: null,
-      launchSpecial: 'First 2 weeks free trial'
+      badge: 'Growth Focused',
+      launchSpecial: 'First 2 weeks free trial',
+      savings: 'Save $58/year'
+    },
+    {
+      id: 'education',
+      name: 'Education Bundle',
+      description: 'Complete course platform and student management',
+      monthlyPrice: 29,
+      yearlyPrice: 290,
+      features: [
+        'Complete Course Platform (unlimited students)',
+        'Template Marketplace (create & sell course templates)',
+        'Student Management (progress tracking, certificates)',
+        'Live Streaming (basic streaming capabilities)',
+        'Community Features (student discussions)',
+        'Priority Support'
+      ],
+      badge: 'Learning Hub',
+      launchSpecial: 'First month free',
+      savings: 'Save $58/year'
     },
     {
       id: 'business',
       name: 'Business Bundle',
-      description: 'Advanced CRM and business tools',
+      description: 'Advanced CRM and business automation tools',
       monthlyPrice: 39,
       yearlyPrice: 390,
       features: [
@@ -97,8 +136,27 @@ const OnboardingWizard = () => {
         'Business Analytics (detailed reporting)',
         'Phone + Email Support'
       ],
-      badge: 'Best Value',
-      launchSpecial: '50% off first 3 months'
+      badge: 'Most Powerful',
+      launchSpecial: '50% off first 3 months',
+      savings: 'Save $78/year'
+    },
+    {
+      id: 'operations',
+      name: 'Operations Bundle',
+      description: 'Booking, financial management and business operations',
+      monthlyPrice: 24,
+      yearlyPrice: 240,
+      features: [
+        'Booking & Appointments (unlimited bookings)',
+        'Financial Management (invoicing, expenses)',
+        'Advanced Form Builder (unlimited forms)',
+        'Survey & Feedback Tools (advanced surveys)',
+        'Basic Reporting',
+        'Email Support'
+      ],
+      badge: 'Efficiency Pro',
+      launchSpecial: 'First month free',
+      savings: 'Save $48/year'
     }
   ];
 
