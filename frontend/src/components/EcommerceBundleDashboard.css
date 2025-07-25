@@ -334,20 +334,21 @@
 .product-name {
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.2rem;
+  font-size: 0.9rem;
 }
 
 .product-sku {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
   font-family: 'JetBrains Mono', monospace;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.2rem;
 }
 
 .product-stats {
   display: flex;
-  gap: var(--space-md);
-  font-size: 0.8rem;
+  gap: var(--space-sm);
+  font-size: 0.75rem;
 }
 
 .sales-count {
