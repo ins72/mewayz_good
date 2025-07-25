@@ -1,19 +1,20 @@
-/* Odoo-inspired Dashboard Styles for MEWAYZ V2 */
+/* MEWAYZ V2 Dashboard - Professional Dark Theme */
 
 .dashboard-container {
   min-height: 100vh;
-  background: #f8fafc;
+  background: #0a0a0a;
+  color: #ffffff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .dashboard-header {
-  background: white;
-  border-bottom: 1px solid #e2e8f0;
+  background: #111111;
+  border-bottom: 1px solid #333333;
   padding: 16px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .header-left .logo {
@@ -25,7 +26,7 @@
 .header-left .logo h1 {
   font-size: 24px;
   font-weight: 700;
-  color: #2d3748;
+  color: #ffffff;
   margin: 0;
   background: linear-gradient(135deg, #667eea, #764ba2);
   -webkit-background-clip: text;
@@ -58,19 +59,19 @@
 
 .user-name {
   font-weight: 600;
-  color: #2d3748;
+  color: #ffffff;
   font-size: 14px;
 }
 
 .user-email {
   font-size: 12px;
-  color: #718096;
+  color: #a1a1aa;
 }
 
 .logout-btn {
-  background: #e2e8f0;
-  color: #4a5568;
-  border: none;
+  background: #333333;
+  color: #ffffff;
+  border: 1px solid #555555;
   padding: 8px 16px;
   border-radius: 6px;
   font-size: 14px;
@@ -80,7 +81,8 @@
 }
 
 .logout-btn:hover {
-  background: #cbd5e0;
+  background: #444444;
+  border-color: #666666;
 }
 
 .dashboard-main {
@@ -97,13 +99,13 @@
 .welcome-section h2 {
   font-size: 32px;
   font-weight: 700;
-  color: #2d3748;
+  color: #ffffff;
   margin: 0 0 8px 0;
 }
 
 .welcome-section p {
   font-size: 16px;
-  color: #718096;
+  color: #a1a1aa;
   margin: 0;
 }
 
@@ -115,18 +117,19 @@
 }
 
 .bundle-card {
-  background: white;
+  background: #111111;
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid #333333;
   transition: all 0.2s ease;
   position: relative;
 }
 
 .bundle-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  border-color: #555555;
 }
 
 .bundle-card::before {
@@ -173,7 +176,7 @@
 .bundle-header h3 {
   font-size: 18px;
   font-weight: 600;
-  color: #2d3748;
+  color: #ffffff;
   margin: 0;
 }
 
@@ -181,9 +184,10 @@
   font-size: 16px;
   font-weight: 700;
   color: #667eea;
-  background: #edf2f7;
+  background: #1a1a1a;
   padding: 4px 12px;
   border-radius: 6px;
+  border: 1px solid #333333;
 }
 
 .bundle-description {
@@ -191,7 +195,7 @@
 }
 
 .bundle-description p {
-  color: #718096;
+  color: #a1a1aa;
   font-size: 14px;
   line-height: 1.5;
   margin: 0;
@@ -209,7 +213,7 @@
 }
 
 .bundle-status.available span {
-  color: #38a169;
+  color: #48bb78;
 }
 
 .bundle-status.coming-soon span {
@@ -235,11 +239,12 @@
 }
 
 .bundle-action-btn:disabled {
-  background: #e2e8f0;
-  color: #a0aec0;
+  background: #333333;
+  color: #666666;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+  border: 1px solid #444444;
 }
 
 .quick-stats {
@@ -249,18 +254,18 @@
 }
 
 .stat-card {
-  background: white;
+  background: #111111;
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid #333333;
   text-align: center;
 }
 
 .stat-card h4 {
   font-size: 14px;
   font-weight: 600;
-  color: #718096;
+  color: #a1a1aa;
   margin: 0 0 8px 0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -269,13 +274,13 @@
 .stat-value {
   font-size: 24px;
   font-weight: 700;
-  color: #2d3748;
+  color: #ffffff;
   margin: 0 0 4px 0;
 }
 
 .stat-label {
   font-size: 12px;
-  color: #a0aec0;
+  color: #666666;
   margin: 0;
 }
 
@@ -286,12 +291,13 @@
   justify-content: center;
   min-height: 100vh;
   gap: 16px;
+  background: #0a0a0a;
 }
 
 .spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid #e2e8f0;
+  border: 4px solid #333333;
   border-top: 4px solid #667eea;
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -303,7 +309,7 @@
 }
 
 .loading-spinner p {
-  color: #718096;
+  color: #a1a1aa;
   font-size: 14px;
 }
 
