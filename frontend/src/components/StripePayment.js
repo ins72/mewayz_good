@@ -11,6 +11,8 @@ import './StripePayment.css';
 // Load Stripe
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
+console.log('Stripe publishable key:', process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+
 const StripePayment = ({ 
   totalAmount, 
   selectedBundles, 
