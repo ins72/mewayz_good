@@ -497,22 +497,58 @@
   gap: 2rem;
   max-width: 600px;
   margin: 0 auto;
+  animation: statsReveal 0.8s ease-out 0.6s forwards;
+  opacity: 0;
+}
+
+@keyframes statsReveal {
+  0% { 
+    opacity: 0; 
+    transform: translateY(20px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
 }
 
 .stat {
   text-align: center;
+  padding: 1rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.stat:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .stat-number {
   display: block;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.3s ease;
 }
 
 .stat-label {
   font-size: 0.875rem;
   color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 @media (max-width: 768px) {
