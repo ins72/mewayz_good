@@ -34,6 +34,12 @@ const Dashboard = () => {
     }
   }, []);
 
+  // Determine user type based on bundles
+  const isEnterpriseUser = activeBundles.includes('enterprise');
+  const hasRegularBundles = activeBundles.some(bundle => 
+    ['creator', 'ecommerce', 'social_media', 'education', 'business', 'operations', 'starter'].includes(bundle)
+  );
+
   const renderDashboardContent = () => {
     switch (currentView) {
       case 'admin':
@@ -54,6 +60,8 @@ const Dashboard = () => {
         return <OperationsBundleDashboard />;
       case 'enterprise':
         return <EnterpriseBundleDashboard />;
+      case 'starter':
+        return <StarterBundleDashboard />;
       default:
         return <BundleDashboard />;
     }
