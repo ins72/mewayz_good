@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import StripePayment from '../components/StripePayment';
 import './OnboardingWizard.css';
 
 const OnboardingWizard = () => {
