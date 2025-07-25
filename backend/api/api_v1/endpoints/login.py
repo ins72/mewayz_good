@@ -1,6 +1,7 @@
 from typing import Any, Union
 
 from bson import ObjectId
+from odmantic import ObjectId as OdmanticObjectId
 
 from fastapi import APIRouter, Body, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
