@@ -24,5 +24,6 @@ async def api_root():
 api_router.include_router(login.router, prefix="/login", tags=["login"])
 api_router.include_router(users.router, prefix="/users", tags=["users"])
 api_router.include_router(proxy.router, prefix="/proxy", tags=["proxy"])
+api_router.include_router(stripe_payments.router, prefix="/payments", tags=["payments"])
 # api_router.include_router(ecommerce.router, tags=["e-commerce"])  # Temporarily disabled
 # api_router.include_router(payments.router, tags=["payments"])  # Temporarily disabled
