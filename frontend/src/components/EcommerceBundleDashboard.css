@@ -26,13 +26,28 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--space-xl);
-  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md);
   background: var(--bg-glass);
   border: 1px solid var(--border-primary);
   border-radius: var(--radius-lg);
   flex-wrap: wrap;
-  gap: var(--space-md);
+  gap: var(--space-sm);
+}
+
+@media (min-width: 768px) {
+  .ecommerce-header {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 767px) {
+  .ecommerce-header {
+    flex-direction: column;
+    text-align: center;
+  }
 }
 
 .header-content h1 {
