@@ -148,239 +148,305 @@ const Pricing = () => {
   };
 
   return (
-    <div className="pricing-page">
-      {/* Navigation Header */}
-      <nav className="pricing-nav">
-        <div className="nav-container">
-          <div className="nav-logo">
-            <Link to="/">MEWAYZ V2</Link>
+    <PublicLayout>
+      <div className="pricing-page">
+        {/* Hero Section */}
+        <section className="pricing-hero">
+          <div className="hero-container">
+            <div className="hero-badge">
+              <span>💰</span>
+              <span>Simple, Transparent Pricing</span>
+            </div>
+            
+            <h1>Choose Your Perfect Bundle</h1>
+            <p>Start with any bundle and upgrade anytime. No hidden fees, no surprises.</p>
+            
+            <div className="pricing-toggle">
+              <button 
+                className={`toggle-btn ${paymentInterval === 'monthly' ? 'active' : ''}`}
+                onClick={() => setPaymentInterval('monthly')}
+              >
+                Monthly
+              </button>
+              <button 
+                className={`toggle-btn ${paymentInterval === 'yearly' ? 'active' : ''}`}
+                onClick={() => setPaymentInterval('yearly')}
+              >
+                Yearly
+                <span className="save-badge">Save 20%</span>
+              </button>
+            </div>
           </div>
-          <div className="nav-links">
-            <Link to="/">Home</Link>
-            <Link to="/help">Help</Link>
-            <Link to="/contact">Contact</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/register" className="cta-btn">Get Started</Link>
-          </div>
-        </div>
-      </nav>
+        </section>
 
-      {/* Hero Section */}
-      <section className="pricing-hero">
-        <div className="hero-container">
-          <h1>Choose Your Perfect Plan</h1>
-          <p>Start with our free plan or unlock powerful features with our premium bundles. Mix and match for the perfect solution.</p>
-          
-          {/* Payment Toggle */}
-          <div className="payment-toggle">
-            <label className={`toggle-option ${paymentInterval === 'monthly' ? 'active' : ''}`}>
-              <input
-                type="radio"
-                value="monthly"
-                checked={paymentInterval === 'monthly'}
-                onChange={(e) => setPaymentInterval(e.target.value)}
-              />
-              Monthly
-            </label>
-            <label className={`toggle-option ${paymentInterval === 'yearly' ? 'active' : ''}`}>
-              <input
-                type="radio"
-                value="yearly"
-                checked={paymentInterval === 'yearly'}
-                onChange={(e) => setPaymentInterval(e.target.value)}
-              />
-              Yearly <span className="save-badge">Save up to 20%</span>
-            </label>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Grid */}
-      <section className="pricing-grid">
-        <div className="grid-container">
-          {pricingBundles.map((bundle, index) => (
-            <div 
-              key={bundle.id}
-              className={`pricing-card ${bundle.isFree ? 'free-card' : ''} ${bundle.isPopular ? 'popular-card' : ''}`}
-            >
-              {bundle.badge && <div className="card-badge">{bundle.badge}</div>}
-              
-              <div className="card-header">
-                <h3>{bundle.name}</h3>
-                <div className="price-display">
-                  {bundle.isFree ? (
-                    <span className="free-price">Free</span>
-                  ) : (
-                    <>
+        {/* Pricing Cards */}
+        <section className="pricing-cards">
+          <div className="cards-container">
+            <div className="pricing-grid">
+              {pricingBundles.map((bundle) => (
+                <div key={bundle.id} className={`pricing-card ${bundle.isPopular ? 'popular' : ''}`}>
+                  {bundle.badge && (
+                    <div className="card-badge">
+                      {bundle.badge}
+                    </div>
+                  )}
+                  
+                  <div className="card-header">
+                    <h3>{bundle.name}</h3>
+                    <p className="card-description">{bundle.description}</p>
+                  </div>
+                  
+                  <div className="card-pricing">
+                    <div className="price">
                       <span className="currency">$</span>
                       <span className="amount">
-                        {paymentInterval === 'monthly' ? bundle.monthlyPrice : bundle.yearlyPrice}
+                        {paymentInterval === 'monthly' ? bundle.monthlyPrice : Math.floor(bundle.yearlyPrice / 12)}
                       </span>
-                      <span className="period">/{paymentInterval === 'monthly' ? 'mo' : 'yr'}</span>
-                    </>
-                  )}
-                </div>
-                <p className="description">{bundle.description}</p>
-                {bundle.savings && paymentInterval === 'yearly' && (
-                  <div className="yearly-savings">{bundle.savings}</div>
-                )}
-              </div>
-
-              <div className="card-features">
-                {bundle.features.map((feature, idx) => (
-                  <div key={idx} className="feature-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="20,6 9,17 4,12"/>
-                    </svg>
-                    {feature}
+                      <span className="period">
+                        {bundle.isFree ? '' : '/month'}
+                      </span>
+                    </div>
+                    
+                    {paymentInterval === 'yearly' && !bundle.isFree && (
+                      <div className="yearly-price">
+                        <span className="billed-yearly">
+                          Billed yearly (${bundle.yearlyPrice})
+                        </span>
+                        {bundle.savings && (
+                          <span className="savings">{bundle.savings}</span>
+                        )}
+                      </div>
+                    )}
                   </div>
-                ))}
-              </div>
-
-              {bundle.launchSpecial && (
-                <div className="launch-offer">
-                  🎉 {bundle.launchSpecial}
+                  
+                  <div className="card-features">
+                    <ul>
+                      {bundle.features.map((feature, index) => (
+                        <li key={index}>
+                          <svg className="check-icon" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  {bundle.launchSpecial && (
+                    <div className="launch-special">
+                      <span className="special-icon">🎉</span>
+                      <span>{bundle.launchSpecial}</span>
+                    </div>
+                  )}
+                  
+                  <div className="card-action">
+                    <Link 
+                      to="/register" 
+                      className={`select-btn ${bundle.isPopular ? 'popular-btn' : bundle.isFree ? 'free-btn' : 'premium-btn'}`}
+                    >
+                      {bundle.isFree ? 'Start Free Forever' : 'Get Started'}
+                    </Link>
+                  </div>
                 </div>
-              )}
+              ))}
+            </div>
+          </div>
+        </section>
 
-              <div className="card-action">
-                {bundle.isFree ? (
-                  <Link to="/register" className="select-btn free-btn">
-                    Start Free Forever
-                  </Link>
-                ) : (
-                  <Link to="/register" className="select-btn premium-btn">
-                    Get Started
-                  </Link>
-                )}
+        {/* Multi-Bundle Discounts */}
+        <section className="bundle-discounts">
+          <div className="discounts-container">
+            <div className="section-header">
+              <h2>Multi-Bundle Savings</h2>
+              <p>Combine bundles and save big with our launch pricing strategy</p>
+            </div>
+            
+            <div className="discount-grid">
+              <div className="discount-card">
+                <div className="discount-header">
+                  <div className="discount-badge">20% OFF</div>
+                  <h3>2 Bundles</h3>
+                </div>
+                <p>Choose any 2 bundles and save 20% on your total</p>
+                <div className="example">
+                  <span className="example-label">Example:</span>
+                  <span className="calculation">Creator + E-commerce = $43/mo → $34.40/mo</span>
+                </div>
+              </div>
+              
+              <div className="discount-card featured">
+                <div className="discount-header">
+                  <div className="discount-badge popular">30% OFF</div>
+                  <h3>3 Bundles</h3>
+                </div>
+                <p>Perfect for growing businesses - 30% savings</p>
+                <div className="example">
+                  <span className="example-label">Example:</span>
+                  <span className="calculation">Creator + E-commerce + Social = $72/mo → $50.40/mo</span>
+                </div>
+              </div>
+              
+              <div className="discount-card">
+                <div className="discount-header">
+                  <div className="discount-badge">40% OFF</div>
+                  <h3>4+ Bundles</h3>
+                </div>
+                <p>Ultimate package for serious businesses</p>
+                <div className="example">
+                  <span className="example-label">Example:</span>
+                  <span className="calculation">All 6 bundles = $184/mo → $110.40/mo</span>
+                </div>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* Multi-Bundle Discounts */}
-      <section className="bundle-discounts">
-        <div className="discounts-container">
-          <h2>Multi-Bundle Savings</h2>
-          <p>Combine bundles and save big with our launch pricing strategy</p>
-          
-          <div className="discount-grid">
-            <div className="discount-card">
-              <div className="discount-badge">20% OFF</div>
-              <h3>2 Bundles</h3>
-              <p>Choose any 2 bundles and save 20% on your total</p>
-              <div className="example">
-                Example: Creator + E-commerce = $43/mo → $34.40/mo
+        {/* Enterprise Section */}
+        <section className="enterprise-section">
+          <div className="enterprise-container">
+            <div className="section-header">
+              <h2>Need Something Bigger?</h2>
+              <p>Enterprise solutions for growing businesses</p>
+            </div>
+            
+            <div className="enterprise-card">
+              <div className="enterprise-header">
+                <h3>MEWAYZ Enterprise</h3>
+                <div className="enterprise-pricing">
+                  <div className="revenue-share">
+                    <span className="percentage">15%</span>
+                    <span className="revenue-text">of platform revenue</span>
+                  </div>
+                  <div className="minimum">
+                    <span className="min-label">Minimum</span>
+                    <span className="min-price">$99/month</span>
+                  </div>
+                </div>
+                <p className="enterprise-subtitle">Pay based on your success. We grow when you grow.</p>
+              </div>
+              
+              <div className="enterprise-features">
+                <div className="feature-column">
+                  <h4>Everything Included</h4>
+                  <ul>
+                    <li>All premium bundles included</li>
+                    <li>White-label solution</li>
+                    <li>Custom domain management</li>
+                    <li>Dedicated support</li>
+                  </ul>
+                </div>
+                <div className="feature-column">
+                  <h4>Enterprise Benefits</h4>
+                  <ul>
+                    <li>API access & integrations</li>
+                    <li>Advanced analytics & reporting</li>
+                    <li>99% uptime SLA</li>
+                    <li>Revenue tracking integration</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="enterprise-action">
+                <Link to="/enterprise" className="enterprise-btn">
+                  Learn More About Enterprise
+                  <svg className="arrow-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L14.586 10l-4.293-4.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="faq-section">
+          <div className="faq-container">
+            <div className="section-header">
+              <h2>Frequently Asked Questions</h2>
+              <p>Everything you need to know about our pricing</p>
+            </div>
+            
+            <div className="faq-grid">
+              <div className="faq-item">
+                <h3>Can I change my bundle anytime?</h3>
+                <p>Yes! You can upgrade or downgrade your bundle at any time. Changes take effect immediately, and we'll prorate your billing.</p>
+              </div>
+              
+              <div className="faq-item">
+                <h3>What happens to my data if I downgrade?</h3>
+                <p>Your data is never deleted. If you downgrade, some features may be limited, but all your content remains safe and accessible.</p>
+              </div>
+              
+              <div className="faq-item">
+                <h3>Are there any setup fees?</h3>
+                <p>No setup fees, no hidden costs. You only pay for the bundles you select, with transparent pricing and no surprises.</p>
+              </div>
+              
+              <div className="faq-item">
+                <h3>Can I use multiple bundles together?</h3>
+                <p>Absolutely! Our platform is designed for bundle combinations. Plus, you get increasing discounts for multiple bundles.</p>
+              </div>
+              
+              <div className="faq-item">
+                <h3>What payment methods do you accept?</h3>
+                <p>We accept all major credit cards, PayPal, and offer invoice billing for enterprise customers.</p>
+              </div>
+              
+              <div className="faq-item">
+                <h3>Is there a free trial?</h3>
+                <p>Yes! We offer a 14-day free trial for all paid bundles. No credit card required to start.</p>
               </div>
             </div>
             
-            <div className="discount-card featured">
-              <div className="discount-badge">30% OFF</div>
-              <h3>3 Bundles</h3>
-              <p>Perfect for growing businesses - 30% savings</p>
-              <div className="example">
-                Example: Creator + E-commerce + Social = $72/mo → $50.40/mo
-              </div>
-            </div>
-            
-            <div className="discount-card">
-              <div className="discount-badge">40% OFF</div>
-              <h3>4+ Bundles</h3>
-              <p>Ultimate package for serious businesses</p>
-              <div className="example">
-                All 6 bundles = $184/mo → $110.40/mo
+            <div className="faq-cta">
+              <h3>Still have questions?</h3>
+              <div className="cta-links">
+                <Link to="/help" className="help-link">Visit Help Center</Link>
+                <span className="divider">or</span>
+                <Link to="/contact" className="contact-link">Contact Support</Link>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Enterprise Section */}
-      <section className="enterprise-section">
-        <div className="enterprise-container">
-          <h2>Need Something Bigger?</h2>
-          <div className="enterprise-card">
-            <h3>MEWAYZ Enterprise</h3>
-            <div className="enterprise-pricing">
-              <span className="revenue-share">15%</span>
-              <span className="pricing-text">of platform revenue</span>
-              <span className="minimum">Min. $99/month</span>
-            </div>
-            <p>Pay based on your success. We grow when you grow.</p>
-            
-            <div className="enterprise-features">
-              <div className="feature-column">
-                <h4>Everything Included</h4>
-                <ul>
-                  <li>All premium bundles included</li>
-                  <li>White-label solution</li>
-                  <li>Custom domain management</li>
-                  <li>Dedicated support</li>
-                </ul>
+        {/* Final CTA */}
+        <section className="final-cta">
+          <div className="cta-container">
+            <div className="cta-content">
+              <h2>Ready to Get Started?</h2>
+              <p>Join thousands of creators, businesses, and entrepreneurs building their success with MEWAYZ V2</p>
+              
+              <div className="cta-buttons">
+                <Link to="/register" className="primary-cta">
+                  Start Free Trial
+                  <svg className="arrow-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L14.586 10l-4.293-4.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                  </svg>
+                </Link>
+                <Link to="/contact" className="secondary-cta">
+                  Talk to Sales
+                </Link>
               </div>
-              <div className="feature-column">
-                <h4>Enterprise Benefits</h4>
-                <ul>
-                  <li>API access & integrations</li>
-                  <li>Advanced analytics & reporting</li>
-                  <li>99% uptime SLA</li>
-                  <li>Revenue tracking integration</li>
-                </ul>
+              
+              <div className="trust-indicators">
+                <div className="indicator">
+                  <span className="indicator-icon">🔒</span>
+                  <span>SSL Encrypted</span>
+                </div>
+                <div className="indicator">
+                  <span className="indicator-icon">💳</span>
+                  <span>Secure Payment</span>
+                </div>
+                <div className="indicator">
+                  <span className="indicator-icon">🚫</span>
+                  <span>No Hidden Fees</span>
+                </div>
               </div>
             </div>
-            
-            <Link to="/enterprise" className="enterprise-btn">
-              Learn More About Enterprise →
-            </Link>
           </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="pricing-faq">
-        <div className="faq-container">
-          <h2>Frequently Asked Questions</h2>
-          <div className="faq-grid">
-            <div className="faq-item">
-              <h3>Can I change plans anytime?</h3>
-              <p>Yes! You can upgrade, downgrade, or change your bundle combination at any time. Changes take effect immediately.</p>
-            </div>
-            <div className="faq-item">
-              <h3>What happens to my data if I downgrade?</h3>
-              <p>Your data is never deleted. If you downgrade, some features may be limited, but all your content remains safe.</p>
-            </div>
-            <div className="faq-item">
-              <h3>Are there any setup fees?</h3>
-              <p>No setup fees, no hidden costs. You only pay for the bundles you select, with transparent pricing.</p>
-            </div>
-            <div className="faq-item">
-              <h3>Can I use multiple bundles together?</h3>
-              <p>Absolutely! Our platform is designed for bundle combinations. Plus, you get increasing discounts for multiple bundles.</p>
-            </div>
-          </div>
-          
-          <div className="faq-cta">
-            <p>Still have questions?</p>
-            <Link to="/help" className="help-link">Visit our Help Center</Link>
-            <span> or </span>
-            <Link to="/contact" className="contact-link">Contact Support</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer CTA */}
-      <section className="pricing-footer-cta">
-        <div className="cta-container">
-          <h2>Ready to Get Started?</h2>
-          <p>Join thousands of creators, businesses, and entrepreneurs building their success with MEWAYZ V2</p>
-          <div className="cta-buttons">
-            <Link to="/register" className="primary-cta">Start Free Trial</Link>
-            <Link to="/contact" className="secondary-cta">Talk to Sales</Link>
-          </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </PublicLayout>
   );
 };
 
