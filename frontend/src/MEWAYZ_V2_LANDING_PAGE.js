@@ -55,70 +55,64 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="landing-page">
-      {/* Loading Screen */}
-      {isLoading && (
-        <div className="loading-screen">
-          <div className="loading-spinner"></div>
-        </div>
-      )}
-
-      {/* Background Effects */}
-      <div className="bg-effects">
-        <div className="floating-shapes">
-          <div className="shape shape-1"></div>
-          <div className="shape shape-2"></div>
-          <div className="shape shape-3"></div>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
-        <button className="mobile-menu-close" onClick={toggleMobileMenu}>×</button>
-        <div className="mobile-menu-content">
-          <div className="mobile-nav-links">
-            <Link to="/features">Features</Link>
-            <Link to="/pricing">Pricing</Link>
-            <a href="#testimonials" onClick={() => scrollToSection('testimonials')}>Reviews</a>
-            <Link to="/help">Help</Link>
-            <Link to="/contact">Contact</Link>
+    <PublicLayout>
+      <div className="landing-page">
+        {/* Loading Screen */}
+        {isLoading && (
+          <div className="loading-screen">
+            <div className="loading-spinner"></div>
           </div>
-          <div className="mobile-auth-actions">
-            <button onClick={() => navigate('/login')} className="mobile-login-btn">Login</button>
-            <button onClick={() => navigate('/register')} className="mobile-signup-btn">
-              Start Free Trial
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M7 17L17 7M17 7H7M17 7V17"/>
-              </svg>
-            </button>
+        )}
+
+        {/* Background Effects */}
+        <div className="bg-effects">
+          <div className="floating-shapes">
+            <div className="shape shape-1"></div>
+            <div className="shape shape-2"></div>
+            <div className="shape shape-3"></div>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+          <button className="mobile-menu-close" onClick={toggleMobileMenu}>×</button>
+          <div className="mobile-menu-content">
+            <div className="mobile-nav-links">
+              <Link to="/features">Features</Link>
+              <Link to="/pricing">Pricing</Link>
+              <a href="#testimonials" onClick={() => scrollToSection('testimonials')}>Reviews</a>
+              <Link to="/help">Help</Link>
+              <Link to="/contact">Contact</Link>
+            </div>
+            <div className="mobile-auth-actions">
+              <button onClick={() => navigate('/login')} className="mobile-login-btn">Login</button>
+              <button onClick={() => navigate('/register')} className="mobile-signup-btn">
+                Start Free Trial
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Hero Section */}
+        <HeroSection navigate={navigate} />
+
+        {/* Features Section */}
+        <FeaturesSection />
+
+        {/* Testimonials Section */}
+        <TestimonialsSection />
+
+        {/* Call to Action Section */}
+        <CTASection navigate={navigate} />
+
+        {/* Pricing Section */}
+        <PricingSection navigate={navigate} />
       </div>
-
-      {/* Header */}
-      <Header 
-        toggleMobileMenu={toggleMobileMenu}
-        scrollToSection={scrollToSection}
-        navigate={navigate}
-      />
-
-      {/* Hero Section */}
-      <HeroSection navigate={navigate} />
-
-      {/* Features Section */}
-      <FeaturesSection />
-
-      {/* Testimonials Section */}
-      <TestimonialsSection />
-
-      {/* Call to Action Section */}
-      <CTASection navigate={navigate} />
-
-      {/* Pricing Section */}
-      <PricingSection navigate={navigate} />
-
-      {/* Footer */}
-      <Footer />
+    </PublicLayout>
+  );
     </div>
   );
 };
