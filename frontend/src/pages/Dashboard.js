@@ -72,6 +72,9 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <div className="dashboard-header">
+        <div className="header-left">
+          <Logo size="medium" />
+        </div>
         <div className="dashboard-nav">
           {/* Enterprise Users: Only see Enterprise + Admin dashboards */}
           {isEnterpriseUser && !hasRegularBundles && (
