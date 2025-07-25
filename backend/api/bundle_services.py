@@ -95,7 +95,7 @@ async def create_bio_link_page(
 ):
     """Create a new bio link page (Creator Bundle required)"""
     try:
-        user_id = current_user.get("id") or current_user.get("user_id")
+        user_id = str(current_user.id)
         await check_bundle_access(user_id, "complete_link_in_bio_service", bundle_manager)
         
         # Prepare bio link data
