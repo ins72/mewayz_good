@@ -31,8 +31,13 @@ class Settings(BaseSettings):
     SERVER_HOST: str = "0.0.0.0:8001"
     SERVER_BOT: str = "MEWAYZ Bot"
     
-    # CORS Settings
-    BACKEND_CORS_ORIGINS: list[str] = ["*"]
+    # CORS Settings - Allow both development and production origins
+    BACKEND_CORS_ORIGINS: list[str] = [
+        "http://localhost:3000",
+        "https://test.mewayz.com", 
+        "https://preview-launch-1.emergent.host",
+        "*"  # Keep wildcard for flexibility
+    ]
 
     # Monitoring
     SENTRY_DSN: HttpUrl | None = None
