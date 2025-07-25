@@ -105,7 +105,21 @@ const PaymentForm = ({
           );
 
           if (confirmError) {
-            setPaymentError(confirmError.message);
+            let errorMessage = confirmError.message;
+            // Provide user-friendly error messages
+            if (confirmError.code === 'card_declined') {
+              errorMessage = 'Your card was declined. Please try a different payment method or contact your bank.';
+            } else if (confirmError.code === 'expired_card') {
+              errorMessage = 'Your card has expired. Please use a different payment method.';
+            } else if (confirmError.code === 'insufficient_funds') {
+              errorMessage = 'Insufficient funds. Please try a different payment method.';
+            } else if (confirmError.code === 'incorrect_cvc') {
+              errorMessage = 'Your card security code is incorrect. Please check and try again.';
+            } else if (confirmError.code === 'processing_error') {
+              errorMessage = 'A temporary processing error occurred. Please try again in a few minutes.';
+            }
+            
+            setPaymentError(errorMessage);
             if (onPaymentError) onPaymentError(confirmError);
           } else {
             setPaymentSuccess(true);
@@ -116,7 +130,18 @@ const PaymentForm = ({
           if (onPaymentSuccess) onPaymentSuccess(subscriptionData);
         }
       } else {
-        setPaymentError(subscriptionData.message || 'Payment failed. Please try again.');
+        let errorMessage = subscriptionData.message || 'Payment failed. Please try again.';
+        
+        // Handle common backend errors
+        if (subscriptionData.message?.includes('Authentication')) {
+          errorMessage = 'Authentication failed. Please log in again.';
+        } else if (subscriptionData.message?.includes('Card error')) {
+          errorMessage = subscriptionData.message.replace('Card error: ', '');
+        } else if (subscriptionData.message?.includes('Rate limit')) {
+          errorMessage = 'Too many attempts. Please wait a moment and try again.';
+        }
+        
+        setPaymentError(errorMessage);
         if (onPaymentError) onPaymentError(new Error(subscriptionData.message));
       }
     } catch (error) {
