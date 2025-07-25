@@ -296,34 +296,35 @@
 .products-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: var(--space-md);
 }
 
 .product-item {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-lg);
+  gap: var(--space-sm);
+  padding: var(--space-md);
   background: var(--bg-secondary);
   border-radius: var(--radius-md);
 }
 
 .product-rank {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 800;
   color: var(--accent-primary);
-  min-width: 30px;
+  min-width: 25px;
 }
 
 .product-icon {
-  font-size: 1.5rem;
-  width: 40px;
-  height: 40px;
+  font-size: 1.2rem;
+  width: 35px;
+  height: 35px;
   border-radius: var(--radius-md);
   background: var(--bg-tertiary);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .product-info {
