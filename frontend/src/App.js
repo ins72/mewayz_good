@@ -7,16 +7,43 @@ import Dashboard from './pages/Dashboard';
 import OnboardingWizard from './pages/OnboardingWizard';
 import './App.css';
 
-// Protected Route Component
+// Protected Route Component - requires authentication
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('access_token');
   return token ? children : <Navigate to="/login" />;
 };
 
-// Public Route Component (redirect to dashboard if already logged in)
+// Public Route Component - redirect to appropriate page if already logged in
 const PublicRoute = ({ children }) => {
   const token = localStorage.getItem('access_token');
-  return token ? <Navigate to="/dashboard" /> : children;
+  const hasWorkspace = localStorage.getItem('has_workspace');
+  
+  if (token) {
+    // User is logged in, redirect based on workspace status
+    return hasWorkspace === 'true' ? <Navigate to="/dashboard" /> : <Navigate to="/onboarding" />;
+  }
+  
+  return children;
+};
+
+// Workspace Route Component - requires authentication and redirects based on workspace status
+const WorkspaceRoute = ({ children, requiresWorkspace = true }) => {
+  const token = localStorage.getItem('access_token');
+  const hasWorkspace = localStorage.getItem('has_workspace');
+  
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
+  
+  if (requiresWorkspace && hasWorkspace !== 'true') {
+    return <Navigate to="/onboarding" />;
+  }
+  
+  if (!requiresWorkspace && hasWorkspace === 'true') {
+    return <Navigate to="/dashboard" />;
+  }
+  
+  return children;
 };
 
 function App() {
@@ -42,22 +69,24 @@ function App() {
               </PublicRoute>
             } 
           />
+          
+          {/* Protected Routes - Onboarding (authenticated but no workspace) */}
           <Route 
             path="/onboarding" 
             element={
-              <PublicRoute>
+              <WorkspaceRoute requiresWorkspace={false}>
                 <OnboardingWizard />
-              </PublicRoute>
+              </WorkspaceRoute>
             } 
           />
           
-          {/* Protected Routes */}
+          {/* Protected Routes - Dashboard (authenticated with workspace) */}
           <Route 
             path="/dashboard" 
             element={
-              <ProtectedRoute>
+              <WorkspaceRoute requiresWorkspace={true}>
                 <Dashboard />
-              </ProtectedRoute>
+              </WorkspaceRoute>
             } 
           />
         </Routes>
