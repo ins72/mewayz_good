@@ -752,6 +752,36 @@ const PaymentStep = ({ formData, pricingBundles, calculateTotalPrice, onPaymentS
   const pricing = calculateTotalPrice();
   const userEmail = localStorage.getItem('user_email');
   
+  // Handle free plan - skip payment step
+  if (pricing.isFree) {
+    return (
+      <div className="payment-step free-plan">
+        <div className="free-plan-message">
+          <div className="free-icon">🎉</div>
+          <h3>You've Selected Our Free Starter Plan!</h3>
+          <p>No payment required - you can start building right away with:</p>
+          <ul className="free-features">
+            <li>✅ 1 Bio Link Page with 5 external links</li>
+            <li>✅ Basic Form Builder (1 form, 50 submissions/month)</li>
+            <li>✅ Simple Analytics (7 days retention)</li>
+            <li>✅ Template Marketplace (buy only)</li>
+          </ul>
+          <p className="free-note">You can upgrade anytime to unlock more powerful features!</p>
+          <button 
+            className="continue-free-btn"
+            onClick={() => onPaymentSuccess({ 
+              subscription_id: 'free_plan', 
+              status: 'free',
+              plan: 'free_starter' 
+            })}
+          >
+            Continue with Free Plan →
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   if (formData.selectedBundles.length === 0) {
     return (
       <div className="payment-step">
@@ -767,12 +797,25 @@ const PaymentStep = ({ formData, pricingBundles, calculateTotalPrice, onPaymentS
     <div className="payment-step">
       <div className="payment-header">
         <h3>Complete Your Subscription</h3>
-        <p>Secure payment processing powered by Stripe (Test Mode)</p>
+        <p>Secure payment processing powered by Stripe</p>
+        <div className="pricing-recap">
+          <div className="recap-item">
+            <span>Base Price: ${pricing.basePrice}</span>
+          </div>
+          {pricing.discount > 0 && (
+            <div className="recap-item discount">
+              <span>Multi-Bundle Discount: -{Math.round(pricing.discount * 100)}%</span>
+            </div>
+          )}
+          <div className="recap-item total">
+            <span>Total: ${pricing.discountedPrice.toFixed(2)}/{formData.paymentMethod}</span>
+          </div>
+        </div>
       </div>
       
       <StripePayment
         totalAmount={pricing.discountedPrice}
-        selectedBundles={formData.selectedBundles}
+        selectedBundles={formData.selectedBundles.filter(b => b !== 'free_starter')}
         paymentMethod={formData.paymentMethod}
         onPaymentSuccess={onPaymentSuccess}
         onPaymentError={onPaymentError}
