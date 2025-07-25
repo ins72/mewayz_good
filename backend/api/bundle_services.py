@@ -188,7 +188,7 @@ async def get_bio_link(
 ):
     """Get specific bio link page (Creator Bundle required)"""
     try:
-        user_id = current_user.get("id") or current_user.get("user_id")
+        user_id = str(current_user.id)
         await check_bundle_access(user_id, "complete_link_in_bio_service", bundle_manager)
         
         result = await bio_service.get_complete_link_in_bio(bio_link_id)
