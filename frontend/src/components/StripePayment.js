@@ -80,17 +80,20 @@ const PaymentForm = ({
   const [cardComplete, setCardComplete] = useState(false);
   const [cardError, setCardError] = useState(null);
 
-  // Debug logging
-  console.log('Stripe instance:', stripe);
-  console.log('Elements instance:', elements);
+  // Debug logging with better formatting
+  useEffect(() => {
+    console.log('PaymentForm initialized:');
+    console.log('- Stripe instance:', !!stripe);
+    console.log('- Elements instance:', !!elements);
+    console.log('- Disabled state:', disabled);
+  }, [stripe, elements, disabled]);
 
   const handleCardChange = (event) => {
-    console.log('CardElement onChange event:', event);
-    console.log('Event properties:', {
+    console.log('CardElement onChange event:', {
       empty: event.empty,
       complete: event.complete,
-      error: event.error,
-      brand: event.brand
+      error: event.error?.message || null,
+      brand: event.brand || null
     });
     
     setCardError(event.error ? event.error.message : null);
