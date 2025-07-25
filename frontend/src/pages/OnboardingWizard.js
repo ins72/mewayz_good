@@ -621,127 +621,247 @@ const BundlesStep = ({ formData, pricingBundles, handleBundleSelect, calculateTo
   return (
     <div className="bundles-step">
       <div className="pricing-header">
+        <div className="header-decoration">
+          <div className="decoration-line"></div>
+          <span className="header-icon">💎</span>
+          <div className="decoration-line"></div>
+        </div>
         <h2>Choose Your Perfect Bundle</h2>
         <p>Start with our Free Starter plan or unlock powerful features with our premium bundles</p>
-        <div className="payment-toggle">
-          <label className="toggle-label">
-            <input
-              type="radio"
-              name="paymentMethod"
-              value="monthly"
-              checked={formData.paymentMethod === 'monthly'}
-              onChange={handleInputChange}
-            />
-            Monthly
-          </label>
-          <label className="toggle-label">
-            <input
-              type="radio"
-              name="paymentMethod"
-              value="yearly"
-              checked={formData.paymentMethod === 'yearly'}
-              onChange={handleInputChange}
-            />
-            Yearly <span className="save-badge">Save up to 20%</span>
-          </label>
+        
+        <div className="payment-toggle-container">
+          <span className="toggle-title">Billing Cycle:</span>
+          <div className="payment-toggle">
+            <label className="toggle-label">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="monthly"
+                checked={formData.paymentMethod === 'monthly'}
+                onChange={handleInputChange}
+              />
+              <span className="toggle-text">Monthly</span>
+            </label>
+            <label className="toggle-label">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="yearly"
+                checked={formData.paymentMethod === 'yearly'}
+                onChange={handleInputChange}
+              />
+              <span className="toggle-text">Yearly</span>
+              <span className="save-badge">Save up to 20%</span>
+            </label>
+          </div>
         </div>
       </div>
       
-      <div className="bundles-grid">
-        {pricingBundles.map(bundle => (
-          <div 
-            key={bundle.id}
-            className={`bundle-card ${formData.selectedBundles.includes(bundle.id) ? 'selected' : ''} ${bundle.isFree ? 'free-bundle' : ''}`}
-            onClick={() => handleBundleSelect(bundle.id)}
-          >
-            {bundle.badge && <div className="bundle-badge">{bundle.badge}</div>}
-            <div className="bundle-header">
-              <h3>{bundle.name}</h3>
-              <div className="bundle-price">
-                {bundle.isFree ? (
-                  <span className="free-price">Free</span>
-                ) : (
-                  <>
-                    <span className="currency">$</span>
-                    <span className="amount">{formData.paymentMethod === 'monthly' ? bundle.monthlyPrice : bundle.yearlyPrice}</span>
-                    <span className="period">/{formData.paymentMethod === 'monthly' ? 'mo' : 'yr'}</span>
-                  </>
+      <div className="bundles-container">
+        <div className="bundles-grid">
+          {pricingBundles.map(bundle => (
+            <div 
+              key={bundle.id}
+              className={`bundle-card ${formData.selectedBundles.includes(bundle.id) ? 'selected' : ''} ${bundle.isFree ? 'free-bundle' : ''} ${bundle.isPopular ? 'popular-bundle' : ''}`}
+              onClick={() => handleBundleSelect(bundle.id)}
+            >
+              {/* Selection Indicator */}
+              <div className="selection-indicator">
+                {formData.selectedBundles.includes(bundle.id) && (
+                  <div className="check-mark">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                      <polyline points="20,6 9,17 4,12"/>
+                    </svg>
+                  </div>
                 )}
               </div>
-              <p className="bundle-description">{bundle.description}</p>
-              {bundle.savings && formData.paymentMethod === 'yearly' && (
-                <div className="yearly-savings">{bundle.savings}</div>
-              )}
-            </div>
-            
-            <div className="bundle-features">
-              {bundle.features.slice(0, 4).map((feature, index) => (
-                <div key={index} className="feature-item">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="20,6 9,17 4,12"/>
-                  </svg>
-                  {feature}
-                </div>
-              ))}
-              {bundle.features.length > 4 && (
-                <div className="feature-item more-features">
-                  <span>+{bundle.features.length - 4} more features</span>
+
+              {/* Badge */}
+              {bundle.badge && (
+                <div className="bundle-badge">
+                  {bundle.badge}
+                  {bundle.isPopular && <span className="badge-sparkle">✨</span>}
                 </div>
               )}
-            </div>
-            
-            {bundle.launchSpecial && (
-              <div className="launch-special">
-                🎉 {bundle.launchSpecial}
+              
+              {/* Bundle Icon */}
+              <div className="bundle-icon">
+                {bundle.isFree && '🎁'}
+                {bundle.id === 'creator' && '🎨'}
+                {bundle.id === 'ecommerce' && '🛒'}
+                {bundle.id === 'social_media' && '📱'}
+                {bundle.id === 'education' && '🎓'}
+                {bundle.id === 'business' && '💼'}
+                {bundle.id === 'operations' && '⚙️'}
               </div>
-            )}
-          </div>
-        ))}
+
+              <div className="bundle-header">
+                <h3>{bundle.name}</h3>
+                
+                {/* Price Display */}
+                <div className="price-container">
+                  {bundle.isFree ? (
+                    <div className="free-price-display">
+                      <span className="free-price">Free</span>
+                      <span className="price-period">Forever</span>
+                    </div>
+                  ) : (
+                    <div className="price-display">
+                      <div className="price-main">
+                        <span className="currency">$</span>
+                        <span className="amount">{formData.paymentMethod === 'monthly' ? bundle.monthlyPrice : bundle.yearlyPrice}</span>
+                        <span className="period">/{formData.paymentMethod === 'monthly' ? 'mo' : 'yr'}</span>
+                      </div>
+                      {formData.paymentMethod === 'yearly' && (
+                        <div className="monthly-equivalent">
+                          ${Math.round(bundle.yearlyPrice / 12)}/month when paid yearly
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+                
+                <p className="bundle-description">{bundle.description}</p>
+                
+                {bundle.savings && formData.paymentMethod === 'yearly' && (
+                  <div className="yearly-savings">
+                    💰 {bundle.savings}
+                  </div>
+                )}
+              </div>
+
+              {/* Features List */}
+              <div className="bundle-features">
+                <h4 className="features-title">What's Included:</h4>
+                <div className="features-list">
+                  {bundle.features.slice(0, 5).map((feature, index) => (
+                    <div key={index} className="feature-item">
+                      <div className="feature-check">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                          <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                      </div>
+                      <span className="feature-text">{feature}</span>
+                    </div>
+                  ))}
+                  {bundle.features.length > 5 && (
+                    <div className="feature-item more-features">
+                      <div className="feature-plus">+</div>
+                      <span className="feature-text">{bundle.features.length - 5} more powerful features</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+              
+              {/* Launch Special */}
+              {bundle.launchSpecial && (
+                <div className="launch-special">
+                  <div className="special-icon">🎉</div>
+                  <div className="special-text">{bundle.launchSpecial}</div>
+                </div>
+              )}
+              
+              {/* Action Button */}
+              <div className="bundle-action">
+                {formData.selectedBundles.includes(bundle.id) ? (
+                  <div className="selected-button">
+                    <span className="selected-icon">✓</span>
+                    Selected
+                  </div>
+                ) : (
+                  <div className="select-button">
+                    <span>Select Plan</span>
+                    <span className="button-arrow">→</span>
+                  </div>
+                )}
+              </div>
+              
+              {/* Hover Overlay */}
+              <div className="bundle-overlay"></div>
+            </div>
+          ))}
+        </div>
       </div>
       
+      {/* Pricing Summary */}
       {formData.selectedBundles.length > 0 && (
         <div className="pricing-summary">
           {pricing.isFree ? (
             <div className="free-summary">
-              <h3>🎉 Free Forever Plan Selected!</h3>
-              <p>Start building with our Free Starter plan - no payment required</p>
+              <div className="summary-icon">🎉</div>
+              <h3>Perfect! You've selected our Free Starter Plan</h3>
+              <p>Start building with our comprehensive free tools - no payment required</p>
+              <div className="free-features-preview">
+                <span>✅ Bio Link Builder</span>
+                <span>✅ Form Builder</span>
+                <span>✅ Analytics</span>
+                <span>✅ Template Marketplace</span>
+              </div>
             </div>
           ) : (
-            <>
-              <h3>Pricing Summary</h3>
-              <div className="summary-row">
-                <span>Base Price:</span>
-                <span>${pricing.basePrice}/{formData.paymentMethod === 'monthly' ? 'mo' : 'yr'}</span>
+            <div className="paid-summary">
+              <div className="summary-header">
+                <h3>Your Bundle Summary</h3>
+                <div className="selected-count">{formData.selectedBundles.filter(b => b !== 'free_starter').length} bundle{formData.selectedBundles.filter(b => b !== 'free_starter').length !== 1 ? 's' : ''} selected</div>
               </div>
-              {pricing.discount > 0 && (
-                <>
-                  <div className="summary-row discount">
-                    <span>Multi-Bundle Discount ({Math.round(pricing.discount * 100)}%):</span>
-                    <span>-${pricing.savings.toFixed(2)}</span>
-                  </div>
-                  <div className="summary-row total">
-                    <span>Total:</span>
-                    <span>${pricing.discountedPrice.toFixed(2)}/{formData.paymentMethod === 'monthly' ? 'mo' : 'yr'}</span>
-                  </div>
-                </>
-              )}
+              
+              <div className="summary-breakdown">
+                <div className="summary-row">
+                  <span className="row-label">Base Price:</span>
+                  <span className="row-value">${pricing.basePrice}/{formData.paymentMethod === 'monthly' ? 'mo' : 'yr'}</span>
+                </div>
+                
+                {pricing.discount > 0 && (
+                  <>
+                    <div className="summary-row discount-row">
+                      <span className="row-label">
+                        Multi-Bundle Discount ({Math.round(pricing.discount * 100)}%):
+                        <div className="discount-badge">SAVE {Math.round(pricing.discount * 100)}%</div>
+                      </span>
+                      <span className="row-value discount-value">-${pricing.savings.toFixed(2)}</span>
+                    </div>
+                    <div className="summary-divider"></div>
+                  </>
+                )}
+                
+                <div className="summary-row total-row">
+                  <span className="row-label total-label">Total:</span>
+                  <span className="row-value total-value">
+                    ${pricing.discountedPrice.toFixed(2)}
+                    <span className="total-period">/{formData.paymentMethod === 'monthly' ? 'mo' : 'yr'}</span>
+                  </span>
+                </div>
+              </div>
+              
               {formData.selectedBundles.length >= 2 && (
-                <div className="multi-bundle-note">
-                  <p>🎁 You're getting {Math.round(pricing.discount * 100)}% off with our multi-bundle discount!</p>
+                <div className="multi-bundle-celebration">
+                  <div className="celebration-content">
+                    <span className="celebration-emoji">🎊</span>
+                    <div className="celebration-text">
+                      <strong>Amazing choice!</strong> You're saving {Math.round(pricing.discount * 100)}% with our multi-bundle discount
+                    </div>
+                  </div>
                 </div>
               )}
-            </>
+            </div>
           )}
         </div>
       )}
       
-      <div className="enterprise-option">
+      {/* Enterprise CTA */}
+      <div className="enterprise-teaser">
         <div className="enterprise-card">
-          <h4>Need More? Try Enterprise</h4>
-          <p>Custom solutions with revenue-share pricing (15% of platform revenue, min $99/month)</p>
-          <button className="enterprise-link" onClick={() => window.open('/enterprise', '_blank')}>
-            Learn More About Enterprise →
-          </button>
+          <div className="enterprise-icon">🏢</div>
+          <div className="enterprise-content">
+            <h4>Need Enterprise Features?</h4>
+            <p>Custom solutions with revenue-share pricing starting at just 15% of platform revenue</p>
+            <button 
+              className="enterprise-link"
+              onClick={() => window.open('/enterprise', '_blank')}
+            >
+              Explore Enterprise →
+            </button>
+          </div>
         </div>
       </div>
     </div>
