@@ -64,6 +64,11 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
+          {/* Bundle Pages */}
+          <Route path="/bundles/creator" element={<CreatorBundle />} />
+          <Route path="/bundles/ecommerce" element={<EcommerceBundle />} />
+          <Route path="/bundles/business" element={<BusinessBundle />} />
+
           {/* Protected Routes */}
           <Route 
             path="/onboarding" 
