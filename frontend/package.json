@@ -1,11 +1,11 @@
 {
-  "name": "core-2",
-  "version": "0.1.0",
+  "name": "mewayz-v2",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3000",
     "lint": "next lint"
   },
   "dependencies": {
