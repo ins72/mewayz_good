@@ -6,10 +6,10 @@ import './OnboardingWizard.css';
 const OnboardingWizard = () => {
   const [currentStep, setCurrentStep] = useState(4); // Temporarily start at step 4 to showcase bundles
   const [formData, setFormData] = useState({
-    workspaceName: '',
-    industry: '',
-    teamSize: '',
-    selectedGoals: [],
+    workspaceName: 'My Awesome Workspace', // Pre-fill for demo
+    industry: 'technology',
+    teamSize: 'small',
+    selectedGoals: ['social_media', 'ecommerce'],
     selectedBundles: [],
     paymentMethod: 'monthly',
     paymentCompleted: false,
