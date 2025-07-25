@@ -10,13 +10,26 @@ const Dashboard = () => {
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     const userEmail = localStorage.getItem('user_email');
+    const hasWorkspace = localStorage.getItem('has_workspace');
     
     if (!token) {
       navigate('/login');
       return;
     }
 
-    // Fetch user data
+    if (hasWorkspace !== 'true') {
+      navigate('/onboarding');
+      return;
+    }
+
+    // Set basic user data from localStorage
+    setUser({
+      email: userEmail,
+      full_name: userEmail?.split('@')[0] || 'User', // Extract name from email as fallback
+      has_workspace: true
+    });
+
+    // Optionally fetch more detailed user data
     fetchUserData(token);
   }, [navigate]);
 
