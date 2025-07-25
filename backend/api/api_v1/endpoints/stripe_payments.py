@@ -80,11 +80,19 @@ async def create_subscription(
         except Exception as e:
             raise HTTPException(status_code=400, detail=f"Customer creation failed: {str(e)}")
 
-        # Attach payment method to customer
+        # Attach payment method to customer and save for future use
         try:
             stripe.PaymentMethod.attach(
                 request.payment_method_id,
                 customer=customer.id,
+            )
+            
+            # Set this as the default payment method for the customer
+            stripe.Customer.modify(
+                customer.id,
+                invoice_settings={
+                    'default_payment_method': request.payment_method_id,
+                }
             )
         except Exception as e:
             raise HTTPException(status_code=400, detail=f"Payment method attachment failed: {str(e)}")
