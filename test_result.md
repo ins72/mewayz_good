@@ -213,8 +213,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Frontend payment flow integration"
-    - "Complete end-to-end payment testing"
+    - "MEWAYZ V2 Smart Launch Pricing Implementation - Backend"
+    - "Complete pricing system verification with new 7-bundle structure"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
