@@ -98,8 +98,7 @@ async def create_subscription(
                     'interval': 'month' if request.payment_interval == 'monthly' else 'year'
                 },
                 product_data={
-                    'name': f"MEWAYZ V2 - {', '.join([bundle.title() for bundle in request.bundles])} Bundle(s)",
-                    'description': f"Subscription for {len(request.bundles)} bundle(s) with {int(discount_rate*100)}% multi-bundle discount"
+                    'name': f"MEWAYZ V2 - {', '.join([bundle.title() for bundle in request.bundles])} Bundle(s)"
                 },
                 metadata={
                     'bundles': ','.join(request.bundles),
