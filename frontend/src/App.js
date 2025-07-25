@@ -48,25 +48,14 @@ function App() {
       <div className="App">
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<LandingPage />} />
-          <Route 
-            path="/login" 
-            element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
-            } 
-          />
-          <Route 
-            path="/register" 
-            element={
-              <PublicRoute>
-                <Register />
-              </PublicRoute>
-            } 
-          />
+          <Route path="/" element={<MEWAYZ_V2_LANDING_PAGE />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/privacy" element={<Privacy />} />
           
-          {/* Protected Routes - Onboarding (authenticated but no workspace) */}
+          {/* Protected Routes */}
           <Route 
             path="/onboarding" 
             element={
@@ -75,8 +64,6 @@ function App() {
               </WorkspaceRoute>
             } 
           />
-          
-          {/* Protected Routes - Dashboard (authenticated with workspace) */}
           <Route 
             path="/dashboard" 
             element={
@@ -85,6 +72,9 @@ function App() {
               </WorkspaceRoute>
             } 
           />
+          
+          {/* 404 Route - Must be last */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </Router>
