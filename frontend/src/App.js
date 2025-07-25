@@ -14,6 +14,7 @@ import Enterprise from './pages/Enterprise';
 import Features from './pages/Features';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
+import AccountSettings from './pages/AccountSettings';
 // Bundle Pages
 import CreatorBundle from './pages/bundles/CreatorBundle';
 import EcommerceBundle from './pages/bundles/EcommerceBundle';
