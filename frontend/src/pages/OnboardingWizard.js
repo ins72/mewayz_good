@@ -334,10 +334,17 @@ const OnboardingWizard = () => {
 
   const handleComplete = async () => {
     setLoading(true);
+    setError('');
     
     // Create workspace via backend API
     try {
       const token = localStorage.getItem('access_token');
+      
+      if (!token) {
+        setError('Authentication required. Please log in again.');
+        setLoading(false);
+        return;
+      }
       
       // Prepare workspace data
       const workspaceData = {
@@ -348,6 +355,8 @@ const OnboardingWizard = () => {
         selected_bundles: formData.selectedBundles,
         payment_method: formData.paymentMethod
       };
+
+      console.log('Creating workspace with data:', workspaceData);
 
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/workspaces/`, {
         method: 'POST',
@@ -360,28 +369,24 @@ const OnboardingWizard = () => {
 
       if (response.ok) {
         const workspaceResult = await response.json();
-        console.log('Workspace created:', workspaceResult);
+        console.log('Workspace created successfully:', workspaceResult);
         
         // Mark user as having workspace
         localStorage.setItem('has_workspace', 'true');
+        localStorage.setItem('workspace_id', workspaceResult.id);
         
-        // Redirect to dashboard
-        setTimeout(() => {
-          navigate('/dashboard');
-        }, 2000);
+        // Redirect to dashboard immediately
+        navigate('/dashboard');
       } else {
         const errorData = await response.json();
-        console.error('Workspace creation failed:', errorData);
-        setError('Failed to create workspace. Please try again.');
+        console.error('Workspace creation failed:', response.status, errorData);
+        setError(`Failed to create workspace: ${errorData.detail || 'Unknown error'}`);
         setLoading(false);
       }
     } catch (error) {
       console.error('Onboarding failed:', error);
-      // For now, simulate success and redirect to dashboard
-      localStorage.setItem('has_workspace', 'true');
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 2000);
+      setError(`Network error: ${error.message}`);
+      setLoading(false);
     }
   };
 
