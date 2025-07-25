@@ -310,6 +310,9 @@ const PaymentForm = ({
                   backgroundColor: '#18181b',
                   fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                   fontSmoothing: 'antialiased',
+                  fontWeight: '400',
+                  letterSpacing: '0.025em',
+                  lineHeight: '1.6',
                   '::placeholder': {
                     color: '#a1a1aa',
                   },
@@ -318,11 +321,16 @@ const PaymentForm = ({
                 invalid: {
                   color: '#ef4444',
                   iconColor: '#ef4444',
+                },
+                complete: {
+                  color: '#10b981',
+                  iconColor: '#10b981',
                 }
               },
               hidePostalCode: true,
-              disableLink: false,
-              iconStyle: 'default'
+              disableLink: true, // Better control over payment flow
+              iconStyle: 'solid',
+              showIcon: true,
             }}
             className="card-element"
           />
