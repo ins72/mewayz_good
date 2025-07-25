@@ -86,7 +86,7 @@ const Register = () => {
           <div className="success-message">
             <div className="success-icon">✓</div>
             <h2>Account Created Successfully!</h2>
-            <p>Your MEWAYZ account has been created. Redirecting to login...</p>
+            <p>Your MEWAYZ account has been created. Redirecting to workspace setup...</p>
           </div>
         </div>
       </div>
