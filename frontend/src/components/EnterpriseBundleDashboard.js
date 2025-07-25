@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import EnterprisePayoutDashboard from './EnterprisePayoutDashboard';
 import './EnterpriseBundleDashboard.css';
 
 const EnterpriseBundleDashboard = () => {
