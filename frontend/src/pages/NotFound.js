@@ -24,10 +24,7 @@ const NotFound = () => {
 
       <div className="error-container">
         {/* Logo */}
-        <div className="error-logo" onClick={() => navigate('/')}>
-          <h1>MEWAYZ</h1>
-          <span className="version-badge">V2</span>
-        </div>
+        <Logo size="large" />
 
         {/* Main Error Content */}
         <div className="error-content">
