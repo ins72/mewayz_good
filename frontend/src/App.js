@@ -8,6 +8,8 @@ import Dashboard from './pages/Dashboard';
 import Contact from './pages/Contact';
 import Help from './pages/Help';
 import Privacy from './pages/Privacy';
+import Pricing from './pages/Pricing';
+import Enterprise from './pages/Enterprise';
 import NotFound from './pages/NotFound';
 import './App.css';
 
