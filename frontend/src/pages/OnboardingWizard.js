@@ -614,7 +614,7 @@ const GoalsStep = ({ formData, businessGoals, handleGoalSelect }) => (
   </div>
 );
 
-const BundlesStep = ({ formData, pricingBundles, handleBundleSelect, calculateTotalPrice }) => {
+const BundlesStep = ({ formData, pricingBundles, handleBundleSelect, calculateTotalPrice, handleInputChange }) => {
   const pricing = calculateTotalPrice();
   
   return (
