@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../components/Logo';
 import StripePayment from '../components/StripePayment';
 import './OnboardingWizard.css';
 
