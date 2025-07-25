@@ -96,7 +96,20 @@
 
 .hero-container {
   max-width: 800px;
+  width: 80%;
   margin: 0 auto;
+}
+
+@media (max-width: 1200px) {
+  .hero-container {
+    width: 85%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-container {
+    width: 95%;
+  }
 }
 
 .pricing-hero h1 {
