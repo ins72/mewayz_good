@@ -60,6 +60,11 @@ const PaymentForm = ({
 
     setProcessing(true);
     setPaymentError('');
+    
+    // If this is a retry, increment the retry count
+    if (paymentError) {
+      setRetryCount(prev => prev + 1);
+    }
 
     const cardElement = elements.getElement(CardElement);
 
