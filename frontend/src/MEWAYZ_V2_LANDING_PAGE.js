@@ -75,10 +75,10 @@ const LandingPage = () => {
         <button className="mobile-menu-close" onClick={toggleMobileMenu}>×</button>
         <div className="mobile-menu-content">
           <div className="mobile-nav-links">
-            <a href="#features" onClick={() => scrollToSection('features')}>Features</a>
-            <a href="#pricing" onClick={() => scrollToSection('pricing')}>Pricing</a>
+            <a href="/features">Features</a>
+            <a href="/pricing">Pricing</a>
             <a href="#testimonials" onClick={() => scrollToSection('testimonials')}>Reviews</a>
-            <a href="/help" target="_blank">Help</a>
+            <a href="/help">Help</a>
             <a href="/contact">Contact</a>
           </div>
           <div className="mobile-auth-actions">
