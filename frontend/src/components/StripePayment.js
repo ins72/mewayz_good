@@ -272,7 +272,7 @@ const PaymentForm = ({
 
         <button
           type="submit"
-          disabled={!stripe || processing || disabled}
+          disabled={!stripe || processing || disabled || !cardComplete}
           className="payment-button"
         >
           {processing ? (
