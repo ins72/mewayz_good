@@ -13,6 +13,7 @@ const OnboardingWizard = () => {
     paymentMethod: 'monthly'
   });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const steps = [
