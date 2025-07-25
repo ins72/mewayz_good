@@ -8,9 +8,10 @@ import {
 } from '@stripe/react-stripe-js';
 import './StripePayment.css';
 
-// Load Stripe with explicit configuration
+// Load Stripe with explicit configuration following 2025 best practices
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY, {
-  locale: 'en'
+  locale: 'en',
+  apiVersion: '2024-11-20',
 });
 
 console.log('Stripe publishable key:', process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
