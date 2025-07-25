@@ -1274,6 +1274,9 @@ def run_all_tests():
     auth_tests = ["Auth API Root", "Users Tester Endpoint", "User Registration", "OAuth2 Login", 
                   "Protected Endpoint Without Auth", "Protected Endpoint With Auth", "Duplicate User Registration"]
     workspace_tests = ["Workspace Creation Without Auth", "Create Workspace", "Get User Workspaces"]
+    mewayz_v2_tests = ["MEWAYZ V2 Bundle Pricing System", "Multi-Bundle Discount Logic", 
+                       "Payment Method Management Endpoints", "Subscription Management Workflows",
+                       "Bundle Combinations Pricing", "Data Validation and Persistence"]
     payment_tests = ["Bundle Pricing Calculation", "Stripe Subscription Without Auth", "Stripe Create Subscription"]
     flow_tests = ["Complete Onboarding Flow"]
     
