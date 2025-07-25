@@ -7,16 +7,25 @@ type LogoProps = {
 
 const Logo = ({ className }: LogoProps) => {
     return (
-        <Link className={`flex items-center gap-3 ${className || ""}`} href="/">
-            <div className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">M</span>
-                </div>
-                <div className="flex flex-col">
-                    <span className="text-lg font-bold text-gray-900 dark:text-white">MEWAYZ</span>
-                    <span className="text-xs font-medium text-blue-600 dark:text-blue-400 -mt-1">V2</span>
-                </div>
-            </div>
+        <Link className={`block w-12 h-12 ${className || ""}`} href="/">
+            <Image
+                className="size-full opacity-100 dark:!hidden"
+                src="/images/logo-light.png"
+                alt="MEWAYZ"
+                width={48}
+                height={48}
+                priority
+                quality={100}
+            />
+            <Image
+                className="size-full !hidden opacity-100 dark:!block"
+                src="/images/logo-dark.png"
+                alt="MEWAYZ"
+                width={48}
+                height={48}
+                priority
+                quality={100}
+            />
         </Link>
     );
 };
