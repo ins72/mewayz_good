@@ -1,0 +1,901 @@
+{
+  "export_metadata": {
+    "timestamp": "2025-07-25T13:06:11.394740",
+    "total_mongodb_users": 28,
+    "total_stripe_customers": 8,
+    "users_with_payments": 8,
+    "total_payment_methods": 9,
+    "total_subscriptions": 0,
+    "active_subscriptions": 0,
+    "total_revenue": 0
+  },
+  "user_payment_data": [
+    {
+      "mongodb_user": {
+        "_id": "6882c6ea5d1120e962f40a36",
+        "created": "2025-07-24T23:51:06",
+        "email": "sarah.johnson.20250724_235105@mewayz.com",
+        "email_validated": false,
+        "full_name": "Sarah Johnson",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$ilHKOSekFOI8Z8zZ+x+jlA$yrqT281E10jgfOMEbrMbW+vhJhPl3JRDo5XUi08lG8Y",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-24T23:51:06",
+        "refresh_tokens": [
+          "6882c6ea5d1120e962f40a37"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "sarah.johnson.20250724_235105@mewayz.com",
+      "name": "Sarah Johnson",
+      "user_id": "6882c6ea5d1120e962f40a36"
+    },
+    {
+      "mongodb_user": {
+        "_id": "6882c94bba2858222286fb8a",
+        "created": "2025-07-25T00:01:15",
+        "email": "tmonnens@outlook.com",
+        "email_validated": false,
+        "full_name": "Toon Monnens",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$jzFG6J1zTkmJEaJUaq0Vwg$q+Qj2PbbuJj5U/DTXigw7nN7fmNoPW4csrgX5vG6FS8",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T00:01:15",
+        "refresh_tokens": [
+          "6882c951ba2858222286fb8b"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "tmonnens@outlook.com",
+      "name": "Toon Monnens",
+      "user_id": "6882c94bba2858222286fb8a"
+    },
+    {
+      "mongodb_user": {
+        "_id": "6882ddd388bccf3c35352c50",
+        "created": "2025-07-25T01:28:51",
+        "email": "tmonnens1@outlook.com",
+        "email_validated": false,
+        "full_name": "Toon Monnens",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$d24NQSiFEGLsnRPCuJeSsg$OEUsUFSIJZjkkMAZxw2lGNepBaFFRoFJyOAefTJiShE",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T01:28:51",
+        "refresh_tokens": [],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "tmonnens1@outlook.com",
+      "name": "Toon Monnens",
+      "user_id": "6882ddd388bccf3c35352c50"
+    },
+    {
+      "mongodb_user": {
+        "_id": "6882e04b88bccf3c35352c51",
+        "created": "2025-07-25T01:39:23",
+        "email": "tmonnens2@outlook.com",
+        "email_validated": false,
+        "full_name": "ins72t",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$FqJ0TsnZW8vZGwMAoHQuJQ$YZ8YUFSh5dhU+ooMcTDlk46mkwQLAgSXxgfFk44a/fM",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T01:39:23",
+        "refresh_tokens": [
+          "6882e04c88bccf3c35352c52",
+          "6883805186e64eb80ffc1338"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": {
+        "id": "cus_SkFm8LFCPspCTe",
+        "email": "tmonnens2@outlook.com",
+        "name": "My Workspace",
+        "created": "2025-07-25T13:02:46",
+        "metadata": {
+          "bundles": "business,social_media,creator,ecommerce",
+          "user_id": "6882e04b88bccf3c35352c51"
+        },
+        "payment_methods": [
+          {
+            "id": "pm_1RolGrAMBUSa1xpX9NIY74wS",
+            "card": {
+              "brand": "visa",
+              "last4": "4242",
+              "exp_month": 2,
+              "exp_year": 2028,
+              "funding": "credit"
+            },
+            "created": "2025-07-25T13:02:45",
+            "billing_details": {
+              "name": "My Workspace",
+              "email": "tmonnens2@outlook.com",
+              "phone": null
+            }
+          }
+        ],
+        "subscriptions": []
+      },
+      "has_payment": true,
+      "email": "tmonnens2@outlook.com",
+      "name": "ins72t",
+      "user_id": "6882e04b88bccf3c35352c51"
+    },
+    {
+      "mongodb_user": {
+        "_id": "6882e21088bccf3c35352c53",
+        "created": "2025-07-25T01:46:56",
+        "email": "tmonnens3@outlook.com",
+        "email_validated": false,
+        "full_name": "Toon Monnens",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$GsOY03rPuZdyrpUSYowx5g$t+Ds4CEIomyMa87XPDHI40i/ZddlpFYHvKvcCx7nJRE",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T01:46:56",
+        "refresh_tokens": [
+          "6882e21088bccf3c35352c54",
+          "68834eac2ba679716cd68508",
+          "688376dbf30960d02e219a39",
+          "68837d2186e64eb80ffc1336",
+          "68837f7786e64eb80ffc1337"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": {
+        "id": "cus_SkFYoR0Nacs6eC",
+        "email": "tmonnens3@outlook.com",
+        "name": "fb",
+        "created": "2025-07-25T12:49:09",
+        "metadata": {
+          "bundles": "business",
+          "user_id": "6882e21088bccf3c35352c53"
+        },
+        "payment_methods": [
+          {
+            "id": "pm_1RolEPAMBUSa1xpXa253ZDev",
+            "card": {
+              "brand": "visa",
+              "last4": "4242",
+              "exp_month": 4,
+              "exp_year": 2029,
+              "funding": "credit"
+            },
+            "created": "2025-07-25T13:00:13",
+            "billing_details": {
+              "name": "My Workspace",
+              "email": "tmonnens3@outlook.com",
+              "phone": null
+            }
+          },
+          {
+            "id": "pm_1Rol3gAMBUSa1xpX71u1ZcDj",
+            "card": {
+              "brand": "visa",
+              "last4": "4242",
+              "exp_month": 2,
+              "exp_year": 2038,
+              "funding": "credit"
+            },
+            "created": "2025-07-25T12:49:08",
+            "billing_details": {
+              "name": "fb",
+              "email": "tmonnens3@outlook.com",
+              "phone": null
+            }
+          }
+        ],
+        "subscriptions": []
+      },
+      "has_payment": true,
+      "email": "tmonnens3@outlook.com",
+      "name": "Toon Monnens",
+      "user_id": "6882e21088bccf3c35352c53"
+    },
+    {
+      "mongodb_user": {
+        "_id": "6883489dffdc15fa5bee1db9",
+        "created": "2025-07-25T09:04:29",
+        "email": "sarah.johnson.20250725_090429@mewayz.com",
+        "email_validated": false,
+        "full_name": "Sarah Johnson",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$FYIw5jxHqNX6vxciZGyNEQ$zdxMZQe3zMvCni6wdkSWVEhfyDuUhnM0KkTqQbpQh48",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T09:04:29",
+        "refresh_tokens": [
+          "6883489effdc15fa5bee1dba"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "sarah.johnson.20250725_090429@mewayz.com",
+      "name": "Sarah Johnson",
+      "user_id": "6883489dffdc15fa5bee1db9"
+    },
+    {
+      "mongodb_user": {
+        "_id": "68834f15c3000cb8d73cea5f",
+        "created": "2025-07-25T09:32:05",
+        "email": "sarah.johnson.20250725_093205@mewayz.com",
+        "email_validated": false,
+        "full_name": "Sarah Johnson",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$2lvr3RsjpLT2XstZC4EQog$2HYcA3qau2dfIYWlRbDQ6HGs6edh3t5WWftrfYd8GSw",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T09:32:05",
+        "refresh_tokens": [
+          "68834f15c3000cb8d73cea60"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "sarah.johnson.20250725_093205@mewayz.com",
+      "name": "Sarah Johnson",
+      "user_id": "68834f15c3000cb8d73cea5f"
+    },
+    {
+      "mongodb_user": {
+        "_id": "68834f6dc3000cb8d73cea61",
+        "created": "2025-07-25T09:33:33",
+        "email": "stripe.test.20250725_093333@mewayz.com",
+        "email_validated": false,
+        "full_name": "Stripe Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$pFQqhdBaixEiZKzVOodwrg$6uQxurx9pLWdoc1h/MjndwBA9y2fBG4Et9RJLYLBrgU",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T09:33:33",
+        "refresh_tokens": [
+          "68834f6dc3000cb8d73cea62"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "stripe.test.20250725_093333@mewayz.com",
+      "name": "Stripe Test User",
+      "user_id": "68834f6dc3000cb8d73cea61"
+    },
+    {
+      "mongodb_user": {
+        "_id": "68835005c3000cb8d73cea63",
+        "created": "2025-07-25T09:36:05",
+        "email": "stripe.fixed.20250725_093605@mewayz.com",
+        "email_validated": false,
+        "full_name": "Stripe Fixed Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$aY0R4twbQyjFWKvV+p8TIg$iYjb7E4CrvU40z1zdE+cie2pKDo8TrCDPGtJ2Sq2yk4",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T09:36:05",
+        "refresh_tokens": [
+          "68835005c3000cb8d73cea64"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "stripe.fixed.20250725_093605@mewayz.com",
+      "name": "Stripe Fixed Test User",
+      "user_id": "68835005c3000cb8d73cea63"
+    },
+    {
+      "mongodb_user": {
+        "_id": "68835062c3000cb8d73cea65",
+        "created": "2025-07-25T09:37:38",
+        "email": "stripe.comprehensive.20250725_093738@mewayz.com",
+        "email_validated": false,
+        "full_name": "Stripe Comprehensive Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$jRFCiBECIKS0FoJQKkUohQ$XJgNIQ/YxBssGN9z67yuqkWQJDzGrhFVW+J4XzVHFFQ",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T09:37:38",
+        "refresh_tokens": [
+          "68835063c3000cb8d73cea66"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "stripe.comprehensive.20250725_093738@mewayz.com",
+      "name": "Stripe Comprehensive Test User",
+      "user_id": "68835062c3000cb8d73cea65"
+    },
+    {
+      "mongodb_user": {
+        "_id": "6883519dc3000cb8d73cea67",
+        "created": "2025-07-25T09:42:53",
+        "email": "testuser1070117@example.com",
+        "email_validated": false,
+        "full_name": "Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$8t5bS6m1tpZyjrF2rvWesw$76UXNioK1SSuU1ZedtJnPc0WrexxYdJAmR7ll5PzpTo",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T09:42:53",
+        "refresh_tokens": [
+          "6883519dc3000cb8d73cea68"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "testuser1070117@example.com",
+      "name": "Test User",
+      "user_id": "6883519dc3000cb8d73cea67"
+    },
+    {
+      "mongodb_user": {
+        "_id": "688351dbc3000cb8d73cea69",
+        "created": "2025-07-25T09:43:55",
+        "email": "testuser1070179@example.com",
+        "email_validated": false,
+        "full_name": "Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$RwhhzPnfew+B8L5XKqXUeg$RG6ol3znbQXao+Ckwsy8RoKue8rjzepW+1MFYf5fwsw",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T09:43:55",
+        "refresh_tokens": [
+          "688351dbc3000cb8d73cea6a"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "testuser1070179@example.com",
+      "name": "Test User",
+      "user_id": "688351dbc3000cb8d73cea69"
+    },
+    {
+      "mongodb_user": {
+        "_id": "6883523ec3000cb8d73cea6b",
+        "created": "2025-07-25T09:45:34",
+        "email": "testuser1070279@example.com",
+        "email_validated": false,
+        "full_name": "Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$wVir9V4rJYTwntNay3lvTQ$2ehhQLJkERe7/MPej4LrlTdl703iBuj96IAkHY8MCQw",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T09:45:34",
+        "refresh_tokens": [
+          "6883523fc3000cb8d73cea6c"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "testuser1070279@example.com",
+      "name": "Test User",
+      "user_id": "6883523ec3000cb8d73cea6b"
+    },
+    {
+      "mongodb_user": {
+        "_id": "68835376e2aecece3e2078d5",
+        "created": "2025-07-25T09:50:46",
+        "email": "testuser1070591@example.com",
+        "email_validated": false,
+        "full_name": "Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$5XyPUep9bw2hFEII4RxjbA$IvWPOBgDUFKt59PPKei+VJYjCDAkkmGFu4JHwkX6POw",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T09:50:46",
+        "refresh_tokens": [
+          "68835376e2aecece3e2078d6"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "testuser1070591@example.com",
+      "name": "Test User",
+      "user_id": "68835376e2aecece3e2078d5"
+    },
+    {
+      "mongodb_user": {
+        "_id": "688355f4a9197425b6f9440a",
+        "created": "2025-07-25T10:01:24",
+        "email": "testuser@example.com",
+        "email_validated": false,
+        "full_name": "Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$bM3Zm1Pq3TunVOq9t7a2Ng$BuI9+Wz+pxoI5/vJ3mVIK+8f4o3brx87GZjeuSgNVz8",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T10:01:24",
+        "refresh_tokens": [
+          "688355f4a9197425b6f9440b",
+          "68835a11a9197425b6f9440c"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "testuser@example.com",
+      "name": "Test User",
+      "user_id": "688355f4a9197425b6f9440a"
+    },
+    {
+      "mongodb_user": {
+        "_id": "68835aecc135d235bb2027d6",
+        "created": "2025-07-25T10:22:36",
+        "email": "testuser1753438955@example.com",
+        "email_validated": false,
+        "full_name": "Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$DEHI2ZtTam0NYUxJqTWGMA$527RjKLlnptMg52PeqgBUm5IQMx6RpC0B4Fl9bsDQcU",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T10:22:36",
+        "refresh_tokens": [
+          "68835aecc135d235bb2027d7"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "testuser1753438955@example.com",
+      "name": "Test User",
+      "user_id": "68835aecc135d235bb2027d6"
+    },
+    {
+      "mongodb_user": {
+        "_id": "688372287d14f149ebc1f50e",
+        "created": "2025-07-25T12:01:44",
+        "email": "sarah.johnson.20250725_120143@mewayz.com",
+        "email_validated": false,
+        "full_name": "Sarah Johnson",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$TmkNodRaq5XyvjcGAMB4Lw$01gnz/YyF9RApE0IWrv+84owwoO9OxuLY+oM0MxZbgg",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T12:01:44",
+        "refresh_tokens": [
+          "688372287d14f149ebc1f50f"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "sarah.johnson.20250725_120143@mewayz.com",
+      "name": "Sarah Johnson",
+      "user_id": "688372287d14f149ebc1f50e"
+    },
+    {
+      "mongodb_user": {
+        "_id": "688373567202410b97f5d5b8",
+        "created": "2025-07-25T12:06:46",
+        "email": "payment.test.20250725_120646@mewayz.com",
+        "email_validated": false,
+        "full_name": "Payment Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$VMqZk9JaS6lV6j3n/H+vlQ$CN+EmmVz9BzVS2q/mqSNFHToxiucvuWXdLAbRJmgOdI",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T12:06:46",
+        "refresh_tokens": [
+          "688373577202410b97f5d5b9"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "payment.test.20250725_120646@mewayz.com",
+      "name": "Payment Test User",
+      "user_id": "688373567202410b97f5d5b8"
+    },
+    {
+      "mongodb_user": {
+        "_id": "688374dd2a9ca29194ebafb3",
+        "created": "2025-07-25T12:13:17",
+        "email": "sarah.johnson.20250725_121317@mewayz.com",
+        "email_validated": false,
+        "full_name": "Sarah Johnson",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$inFOyZnTWkvp3VuLEYIQIg$hroRAZQ+5iB/OnSIajyzi6Yh5L/ZbpkgEo9/DYDlow0",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T12:13:17",
+        "refresh_tokens": [
+          "688374de2a9ca29194ebafb4"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": {
+        "id": "cus_SkEyZ5vlxsYd5S",
+        "email": "sarah.johnson.20250725_121317@mewayz.com",
+        "name": "Test Customer",
+        "created": "2025-07-25T12:13:18",
+        "metadata": {
+          "bundles": "creator,ecommerce",
+          "user_id": "688374dd2a9ca29194ebafb3"
+        },
+        "payment_methods": [
+          {
+            "id": "pm_1RokV1AMBUSa1xpXMBZTwDh4",
+            "card": {
+              "brand": "visa",
+              "last4": "4242",
+              "exp_month": 7,
+              "exp_year": 2026,
+              "funding": "credit"
+            },
+            "created": "2025-07-25T12:13:19",
+            "billing_details": {
+              "name": null,
+              "email": null,
+              "phone": null
+            }
+          }
+        ],
+        "subscriptions": []
+      },
+      "has_payment": true,
+      "email": "sarah.johnson.20250725_121317@mewayz.com",
+      "name": "Sarah Johnson",
+      "user_id": "688374dd2a9ca29194ebafb3"
+    },
+    {
+      "mongodb_user": {
+        "_id": "688375452a9ca29194ebafb5",
+        "created": "2025-07-25T12:15:01",
+        "email": "proper.payment.test.20250725_121501@mewayz.com",
+        "email_validated": false,
+        "full_name": "Proper Payment Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$dE5JiVFKCQEAoPT+PyfkvA$kxJGcdn9RFVdOiQItpZ4jmNPWZDG3ejNSrACTT7aytM",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T12:15:01",
+        "refresh_tokens": [
+          "688375452a9ca29194ebafb6"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": {
+        "id": "cus_SkF0Amg8Wg0jkD",
+        "email": "proper.payment.test.20250725_121501@mewayz.com",
+        "name": "Proper Payment Test User",
+        "created": "2025-07-25T12:15:02",
+        "metadata": {
+          "source": "test_simulation"
+        },
+        "payment_methods": [
+          {
+            "id": "pm_1RokWgAMBUSa1xpXhUaIiQMN",
+            "card": {
+              "brand": "visa",
+              "last4": "4242",
+              "exp_month": 7,
+              "exp_year": 2026,
+              "funding": "credit"
+            },
+            "created": "2025-07-25T12:15:02",
+            "billing_details": {
+              "name": null,
+              "email": null,
+              "phone": null
+            }
+          }
+        ],
+        "subscriptions": []
+      },
+      "has_payment": true,
+      "email": "proper.payment.test.20250725_121501@mewayz.com",
+      "name": "Proper Payment Test User",
+      "user_id": "688375452a9ca29194ebafb5"
+    },
+    {
+      "mongodb_user": {
+        "_id": "688376eff30960d02e219a3a",
+        "created": "2025-07-25T12:22:07",
+        "email": "sarah.johnson@testcompany.com",
+        "email_validated": false,
+        "full_name": "Sarah Johnson",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$5Rzj3Nu715qT0ro3xnivlQ$9r40rkrup2kDVJZ3wbXtdOPvmF94G1w+2NSVP5wymu0",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T12:22:07",
+        "refresh_tokens": [
+          "688376eff30960d02e219a3b"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "sarah.johnson@testcompany.com",
+      "name": "Sarah Johnson",
+      "user_id": "688376eff30960d02e219a3a"
+    },
+    {
+      "mongodb_user": {
+        "_id": "6883775dc95d33e0423ec322",
+        "created": "2025-07-25T12:23:57",
+        "email": "testpayment@example.com",
+        "email_validated": false,
+        "full_name": "Test User Payment",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$zrn3vtf6H6OU0tr7vzcGAA$hl1SbBQxxoqSE3HhOI1OHtFYz8uFsEys1w1JCmKnjaE",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T12:23:57",
+        "refresh_tokens": [
+          "6883775ec95d33e0423ec323"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "testpayment@example.com",
+      "name": "Test User Payment",
+      "user_id": "6883775dc95d33e0423ec322"
+    },
+    {
+      "mongodb_user": {
+        "_id": "688377d0c95d33e0423ec324",
+        "created": "2025-07-25T12:25:52",
+        "email": "payment.test@company.com",
+        "email_validated": false,
+        "full_name": "Payment Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$+R+jdA6hVCpFyJlzbm2NkQ$12J4dwsay5ELq74NkZxjgzIEiMyk8q7nUtMndJm1LoY",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T12:25:52",
+        "refresh_tokens": [
+          "688377d0c95d33e0423ec325"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "payment.test@company.com",
+      "name": "Payment Test User",
+      "user_id": "688377d0c95d33e0423ec324"
+    },
+    {
+      "mongodb_user": {
+        "_id": "68837869c95d33e0423ec326",
+        "created": "2025-07-25T12:28:25",
+        "email": "cardtest@example.com",
+        "email_validated": false,
+        "full_name": "Card Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$ac1Zi1HqPafUulfqPYdwLg$AiR5g44zPYWOCGOT5aB0QXPN8WvmQ6lFlizlkXD2e4Y",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T12:28:25",
+        "refresh_tokens": [
+          "68837869c95d33e0423ec327"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": null,
+      "has_payment": false,
+      "email": "cardtest@example.com",
+      "name": "Card Test User",
+      "user_id": "68837869c95d33e0423ec326"
+    },
+    {
+      "mongodb_user": {
+        "_id": "68837940c95d33e0423ec328",
+        "created": "2025-07-25T12:32:00",
+        "email": "integration@test.com",
+        "email_validated": false,
+        "full_name": "Integration Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$613LmXMOofR+T+nde29t7Q$vTp1rdQCw+9sTfyqXfSOENHHlYGaXnzH2SUuPvBH3Ng",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T12:32:00",
+        "refresh_tokens": [
+          "68837940c95d33e0423ec329"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": {
+        "id": "cus_SkFHh99FqbLeDK",
+        "email": "integration@test.com",
+        "name": "Integration Test Workspace",
+        "created": "2025-07-25T12:32:19",
+        "metadata": {
+          "bundles": "creator,ecommerce",
+          "user_id": "68837940c95d33e0423ec328"
+        },
+        "payment_methods": [
+          {
+            "id": "pm_1RoknOAMBUSa1xpXKIiILVmv",
+            "card": {
+              "brand": "visa",
+              "last4": "4242",
+              "exp_month": 12,
+              "exp_year": 2034,
+              "funding": "credit"
+            },
+            "created": "2025-07-25T12:32:18",
+            "billing_details": {
+              "name": "Integration Test Workspace",
+              "email": "integration@test.com",
+              "phone": null
+            }
+          }
+        ],
+        "subscriptions": []
+      },
+      "has_payment": true,
+      "email": "integration@test.com",
+      "name": "Integration Test User",
+      "user_id": "68837940c95d33e0423ec328"
+    },
+    {
+      "mongodb_user": {
+        "_id": "68837a511b277c3170bac7e0",
+        "created": "2025-07-25T12:36:33",
+        "email": "twostep@test.com",
+        "email_validated": false,
+        "full_name": "Two Step Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$YKx1DmGstTam1Lo3JmTMeQ$IGIGnUXX2Spyk4xMY+J34c7cesnJ+PNEFK7AuJosTL8",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T12:36:33",
+        "refresh_tokens": [
+          "68837a511b277c3170bac7e1"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": {
+        "id": "cus_SkFMOc06rXn8Kc",
+        "email": "twostep@test.com",
+        "name": "Two Step Test Workspace",
+        "created": "2025-07-25T12:36:52",
+        "metadata": {
+          "bundles": "creator,ecommerce",
+          "user_id": "68837a511b277c3170bac7e0"
+        },
+        "payment_methods": [
+          {
+            "id": "pm_1RokrnAMBUSa1xpXlcxpdiP9",
+            "card": {
+              "brand": "visa",
+              "last4": "4242",
+              "exp_month": 12,
+              "exp_year": 2034,
+              "funding": "credit"
+            },
+            "created": "2025-07-25T12:36:51",
+            "billing_details": {
+              "name": "Two Step Test Workspace",
+              "email": "twostep@test.com",
+              "phone": null
+            }
+          }
+        ],
+        "subscriptions": []
+      },
+      "has_payment": true,
+      "email": "twostep@test.com",
+      "name": "Two Step Test User",
+      "user_id": "68837a511b277c3170bac7e0"
+    },
+    {
+      "mongodb_user": {
+        "_id": "68837b8786e64eb80ffc1332",
+        "created": "2025-07-25T12:41:43",
+        "email": "finaltest@example.com",
+        "email_validated": false,
+        "full_name": "Final Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$wtj7XyvlHKN0rjUGoPR+zw$CHFmzcF/MyAIsGjBjz/ETTAXOUjM+F2ri2oObwkZAJs",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T12:41:43",
+        "refresh_tokens": [
+          "68837b8786e64eb80ffc1333"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": {
+        "id": "cus_SkFRYyi8aItdIe",
+        "email": "finaltest@example.com",
+        "name": "Final Test Workspace",
+        "created": "2025-07-25T12:42:02",
+        "metadata": {
+          "bundles": "creator,ecommerce",
+          "user_id": "68837b8786e64eb80ffc1332"
+        },
+        "payment_methods": [
+          {
+            "id": "pm_1RokwnAMBUSa1xpX6DwdcS5u",
+            "card": {
+              "brand": "visa",
+              "last4": "4242",
+              "exp_month": 12,
+              "exp_year": 2034,
+              "funding": "credit"
+            },
+            "created": "2025-07-25T12:42:01",
+            "billing_details": {
+              "name": "Final Test Workspace",
+              "email": "finaltest@example.com",
+              "phone": null
+            }
+          }
+        ],
+        "subscriptions": []
+      },
+      "has_payment": true,
+      "email": "finaltest@example.com",
+      "name": "Final Test User",
+      "user_id": "68837b8786e64eb80ffc1332"
+    },
+    {
+      "mongodb_user": {
+        "_id": "68837cc686e64eb80ffc1334",
+        "created": "2025-07-25T12:47:02",
+        "email": "validation@test.com",
+        "email_validated": false,
+        "full_name": "Validation Test User",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$vxciJIQQAiAk5JzzXmttTQ$I7zjB1XPAmyVkS07KLOPgoM1aXOhAQpLGbs3UM8LDwE",
+        "is_active": true,
+        "is_superuser": false,
+        "modified": "2025-07-25T12:47:02",
+        "refresh_tokens": [
+          "68837cc786e64eb80ffc1335"
+        ],
+        "totp_counter": null,
+        "totp_secret": null
+      },
+      "stripe_customer": {
+        "id": "cus_SkFXy5dr2Ze44r",
+        "email": "validation@test.com",
+        "name": "Validation Test Workspace",
+        "created": "2025-07-25T12:47:20",
+        "metadata": {
+          "bundles": "creator,ecommerce",
+          "user_id": "68837cc686e64eb80ffc1334"
+        },
+        "payment_methods": [
+          {
+            "id": "pm_1Rol1wAMBUSa1xpXw04x9E9O",
+            "card": {
+              "brand": "visa",
+              "last4": "4242",
+              "exp_month": 12,
+              "exp_year": 2034,
+              "funding": "credit"
+            },
+            "created": "2025-07-25T12:47:20",
+            "billing_details": {
+              "name": "Validation Test Workspace",
+              "email": "validation@test.com",
+              "phone": null
+            }
+          }
+        ],
+        "subscriptions": []
+      },
+      "has_payment": true,
+      "email": "validation@test.com",
+      "name": "Validation Test User",
+      "user_id": "68837cc686e64eb80ffc1334"
+    }
+  ]
+}
