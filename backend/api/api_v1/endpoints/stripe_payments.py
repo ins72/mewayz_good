@@ -363,6 +363,37 @@ async def create_subscription_with_saved_card(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Subscription with saved card failed: {str(e)}")
 
+@router.post("/create-customer-portal-session")
+async def create_customer_portal_session(
+    return_url: str,
+    current_user=Depends(get_current_user)
+):
+    """Create a customer portal session for subscription management"""
+    try:
+        # Find customer by email
+        customers = stripe.Customer.list(
+            email=current_user.email,
+            limit=1
+        )
+        
+        if not customers.data:
+            raise HTTPException(status_code=400, detail="No customer found for this user")
+        
+        customer = customers.data[0]
+        
+        # Create portal session
+        session = stripe.billing_portal.Session.create(
+            customer=customer.id,
+            return_url=return_url,
+        )
+        
+        return {
+            'portal_url': session.url
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Portal session creation failed: {str(e)}")
+
 @router.get("/customer-subscriptions")
 async def get_customer_subscriptions(current_user=Depends(get_current_user)):
     """Get all subscriptions for the current user"""
