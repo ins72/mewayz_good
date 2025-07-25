@@ -653,6 +653,32 @@
 }
 
 @media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  
+  .nav-actions {
+    gap: 0.5rem;
+  }
+  
+  .nav-actions .btn {
+    font-size: 0.8rem;
+    padding: 0.6rem 1.2rem;
+  }
+  
+  .header {
+    padding: 0.5rem 0;
+  }
+  
+  .nav {
+    padding: 0.5rem 1rem;
+    width: 95%;
+  }
+  
+  .hero {
+    padding: 4rem 1rem 3rem;
+  }
+  
   .hero h1 {
     font-size: 2.5rem;
   }
@@ -664,6 +690,31 @@
   .hero-actions {
     flex-direction: column;
     align-items: center;
+    gap: 1rem;
+  }
+  
+  .hero-actions .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-actions .btn {
+    min-width: auto;
+  }
+  
+  .hero-stats {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
   }
 }
 
