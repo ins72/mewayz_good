@@ -43,24 +43,37 @@ const Login = () => {
         localStorage.setItem('refresh_token', data.refresh_token);
         localStorage.setItem('user_email', formData.username);
         
-        // Check if user has workspace
+        // Check if user has an existing workspace
         try {
-          const workspaceResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
+          const workspaceResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/workspaces/`, {
+            method: 'GET',
             headers: {
+              'Content-Type': 'application/json',
               'Authorization': `Bearer ${data.access_token}`
             }
           });
           
-          const userData = await workspaceResponse.json();
-          
-          // For now, assume new users don't have workspace (you can implement workspace check logic)
-          const hasWorkspace = userData.workspaces && userData.workspaces.length > 0;
-          localStorage.setItem('has_workspace', hasWorkspace ? 'true' : 'false');
-          
-          // Redirect based on workspace status
-          if (hasWorkspace) {
-            navigate('/dashboard');
+          if (workspaceResponse.ok) {
+            const workspaces = await workspaceResponse.json();
+            
+            // Check if user has any workspaces
+            const hasWorkspace = workspaces && workspaces.length > 0;
+            localStorage.setItem('has_workspace', hasWorkspace ? 'true' : 'false');
+            
+            console.log('Workspace check result:', hasWorkspace, workspaces);
+            
+            // Redirect based on workspace status
+            if (hasWorkspace) {
+              console.log('User has workspace, redirecting to dashboard');
+              navigate('/dashboard');
+            } else {
+              console.log('User has no workspace, redirecting to onboarding');
+              navigate('/onboarding');
+            }
           } else {
+            console.log('Failed to fetch workspaces, defaulting to onboarding');
+            // If we can't fetch workspaces, assume user needs onboarding
+            localStorage.setItem('has_workspace', 'false');
             navigate('/onboarding');
           }
         } catch (error) {
