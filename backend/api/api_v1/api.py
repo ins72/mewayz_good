@@ -30,5 +30,6 @@ api_router.include_router(proxy.router, prefix="/proxy", tags=["proxy"])
 api_router.include_router(stripe_payments.router, prefix="/payments", tags=["payments"])
 api_router.include_router(stripe_webhooks.router, prefix="/webhooks", tags=["webhooks"])
 api_router.include_router(workspaces.router, prefix="/workspaces", tags=["workspaces"])
+api_router.include_router(invitations.router, prefix="/invitations", tags=["invitations"])
 # api_router.include_router(ecommerce.router, tags=["e-commerce"])  # Temporarily disabled
 # api_router.include_router(payments.router, tags=["payments"])  # Temporarily disabled
