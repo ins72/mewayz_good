@@ -55,6 +55,10 @@ const PaymentForm = ({
   const [cardComplete, setCardComplete] = useState(false);
   const [cardError, setCardError] = useState(null);
 
+  // Debug logging
+  console.log('Stripe instance:', stripe);
+  console.log('Elements instance:', elements);
+
   const handleCardChange = (event) => {
     console.log('CardElement onChange event:', event);
     console.log('Event properties:', {
