@@ -1,10 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import LandingPage from './MEWAYZ_V2_LANDING_PAGE';
+import MEWAYZ_V2_LANDING_PAGE from './MEWAYZ_V2_LANDING_PAGE';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
 import OnboardingWizard from './pages/OnboardingWizard';
+import Dashboard from './pages/Dashboard';
+import Contact from './pages/Contact';
+import Help from './pages/Help';
+import Privacy from './pages/Privacy';
+import NotFound from './pages/NotFound';
 import './App.css';
 
 // Protected Route Component - requires authentication
