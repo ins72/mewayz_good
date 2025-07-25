@@ -396,7 +396,9 @@ const OnboardingWizard = () => {
       case 4:
         return formData.selectedBundles.length > 0;
       case 5:
-        return formData.paymentCompleted;
+        return formData.selectedBundles.includes('free_starter') && formData.selectedBundles.length === 1 
+          ? true // Skip payment for free plan
+          : formData.paymentCompleted;
       default:
         return true;
     }
