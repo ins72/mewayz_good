@@ -7,6 +7,7 @@ from api.api_v1.endpoints import (
     stripe_payments,
     stripe_webhooks,
     workspaces,
+    invitations,
     # ecommerce,  # Temporarily disabled due to Pydantic v2 compatibility
     # payments,   # Temporarily disabled due to Pydantic v2 compatibility
 )
