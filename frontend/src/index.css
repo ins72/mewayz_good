@@ -20,11 +20,11 @@
   --bg-glass-strong: rgba(255, 255, 255, 0.08);
   --bg-surface: rgba(255, 255, 255, 0.02);
   
-  /* Professional Text Colors - High Contrast */
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.8);
-  --text-tertiary: rgba(255, 255, 255, 0.6);
-  --text-muted: rgba(255, 255, 255, 0.4);
+  /* Professional Text Colors - Enhanced Contrast */
+  --text-primary: #f8fafc;
+  --text-secondary: rgba(248, 250, 252, 0.85);
+  --text-tertiary: rgba(248, 250, 252, 0.7);
+  --text-muted: rgba(248, 250, 252, 0.5);
   
   /* Professional Brand Colors */
   --accent-primary: #6366f1;
