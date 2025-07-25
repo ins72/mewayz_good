@@ -32,8 +32,8 @@ class TokenPayload(BaseModel):
 
 
 class MagicTokenPayload(BaseModel):
-    sub: ObjectId | None = None
-    fingerprint: ObjectId | None = None
+    sub: str | None = None
+    fingerprint: str | None = None
 
 
 class WebToken(BaseModel):
