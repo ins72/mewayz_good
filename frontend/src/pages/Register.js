@@ -64,10 +64,46 @@ const Register = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess(true);
-        setTimeout(() => {
-          navigate('/onboarding');
-        }, 2000);
+        // Auto-login the user after registration
+        try {
+          const loginResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/login/oauth`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+              username: formData.email,
+              password: formData.password
+            })
+          });
+
+          const loginData = await loginResponse.json();
+
+          if (loginResponse.ok) {
+            // Store the tokens
+            localStorage.setItem('access_token', loginData.access_token);
+            localStorage.setItem('refresh_token', loginData.refresh_token);
+            localStorage.setItem('user_email', formData.email);
+            localStorage.setItem('has_workspace', 'false'); // New user, no workspace yet
+            
+            setSuccess(true);
+            setTimeout(() => {
+              navigate('/onboarding');
+            }, 2000);
+          } else {
+            // If auto-login fails, show success but redirect to login
+            setSuccess(true);
+            setTimeout(() => {
+              navigate('/login');
+            }, 2000);
+          }
+        } catch (loginError) {
+          console.error('Auto-login failed:', loginError);
+          setSuccess(true);
+          setTimeout(() => {
+            navigate('/login');
+          }, 2000);
+        }
       } else {
         setError(data.detail || 'Registration failed. Please try again.');
       }
