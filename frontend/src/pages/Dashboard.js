@@ -7,6 +7,7 @@ import EducationBundleDashboard from '../components/EducationBundleDashboard';
 import BusinessBundleDashboard from '../components/BusinessBundleDashboard';
 import OperationsBundleDashboard from '../components/OperationsBundleDashboard';
 import EnterpriseBundleDashboard from '../components/EnterpriseBundleDashboard';
+import StarterBundleDashboard from '../components/StarterBundleDashboard';
 import AdminDashboard from '../components/AdminDashboard';
 import NotificationSystem from '../components/NotificationSystem';
 import './Dashboard.css';
