@@ -64,7 +64,7 @@
   backdrop-filter: blur(20px);
   border-radius: 24px;
   padding: 48px;
-  width: 100%;
+  width: 90%;
   max-width: 420px;
   box-shadow: var(--shadow-card), var(--shadow-glow);
   border: 1px solid var(--border-light);
@@ -73,6 +73,21 @@
   
   /* Add subtle animation */
   animation: authCardFloat 6s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+  .auth-card {
+    width: 95%;
+    padding: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    width: 100%;
+    padding: 24px;
+    border-radius: 16px;
+  }
 }
 
 @keyframes authCardFloat {
