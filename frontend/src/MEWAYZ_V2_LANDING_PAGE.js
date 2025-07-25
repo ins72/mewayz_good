@@ -3,15 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import './MEWAYZ_V2_LANDING_PAGE.css';
 
 const LandingPage = () => {
-  const [isLoading, setIsLoading] = useState(false); // Disable loading screen temporarily
+  const [isLoading, setIsLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Loading screen
+    // Loading screen - reduced time
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, []);
