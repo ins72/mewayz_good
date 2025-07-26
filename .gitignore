@@ -89,3 +89,4 @@ temp_meway_clone/.git/objects/pack/pack-46ce7edfa9af6676949b87e12c09655806122cc1
 frontend/node_modules/@next/swc-linux-arm64-gnu/next-swc.linux-arm64-gnu.node
 frontend/node_modules/@next/swc-linux-arm64-musl/next-swc.linux-arm64-musl.node
 frontend/.next/cache/webpack/server-production/0.pack
+frontend/.next/cache/webpack/client-production/0.pack
