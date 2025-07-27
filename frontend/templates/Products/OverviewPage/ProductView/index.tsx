@@ -1,10 +1,12 @@
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { NumericFormat } from "react-number-format";
 import Card from "@/components/Card";
+import { useProductPerformance } from "@/hooks/useApi";
+import { LoadingSpinner } from "@/components/LoadingStates";
 
-import { productsProductViewChartData } from "@/mocks/charts";
+const ProductView = () => {
+    const { data: chartData, loading, error } = useProductPerformance(undefined, "7days");
 
-const ProductView = ({}) => {
     const CustomTooltip = ({
         payload,
         label,
@@ -32,6 +34,26 @@ const ProductView = ({}) => {
         }
         return null;
     };
+
+    if (loading) {
+        return (
+            <Card className="col-right" classHead="!pl-3" title="Product view">
+                <LoadingSpinner message="Loading product view data..." />
+            </Card>
+        );
+    }
+
+    if (error) {
+        return (
+            <Card className="col-right" classHead="!pl-3" title="Product view">
+                <div className="p-5 text-center text-red-500">
+                    Error loading product view data: {error}
+                </div>
+            </Card>
+        );
+    }
+
+    const productsProductViewChartData = (chartData as any)?.data || [];
 
     return (
         <Card className="col-right" classHead="!pl-3" title="Product view">

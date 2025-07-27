@@ -12,7 +12,7 @@ import List from "./List";
 import { Comment } from "@/types/comment";
 import { useSelection } from "@/hooks/useSelection";
 
-import { comments } from "@/mocks/comments";
+import { useProductComments, useCommentMutations } from "@/hooks/useApi";
 
 const timeCreateOptions = [
     { id: 1, name: "Newest first" },
@@ -24,6 +24,15 @@ const timeCreateOptions = [
 const CommentsPage = () => {
     const [search, setSearch] = useState("");
     const [timeCreate, setTimeCreate] = useState(timeCreateOptions[0]);
+    const [selectedProductId, setSelectedProductId] = useState("all"); // Default to all products
+    
+    // Use real API data instead of mock data
+    const { data: commentsResponse, loading, error, refetch } = useProductComments(selectedProductId);
+    const { deleteComment, loading: deleteLoading } = useCommentMutations();
+    
+    // Extract comments from API response
+    const comments = commentsResponse?.data || [];
+
     const {
         selectedRows,
         selectAll,
@@ -31,6 +40,19 @@ const CommentsPage = () => {
         handleSelectAll,
         handleDeselect,
     } = useSelection<Comment>(comments);
+
+    // Handle comment deletion
+    const handleDeleteComments = async () => {
+        try {
+            await Promise.all(
+                selectedRows.map(commentId => deleteComment(commentId.toString()))
+            );
+            refetch();
+            handleDeselect();
+        } catch (error) {
+            console.error('Failed to delete comments:', error);
+        }
+    };
 
     return (
         <Layout title="Comments">
@@ -85,8 +107,9 @@ const CommentsPage = () => {
                                     ? `${selectedRows.length} comments`
                                     : "this comment"
                             }, and all data will be removed. This action cannot be undone.`}
-                            onDelete={() => {}}
+                            onDelete={handleDeleteComments}
                             isLargeButton
+                            disabled={deleteLoading}
                         />
                         <Button className="ml-2" isBlack>
                             Mark as read

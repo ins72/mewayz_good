@@ -12,7 +12,7 @@ import List from "./List";
 import { Customer } from "@/types/customer";
 import { useSelection } from "@/hooks/useSelection";
 
-import { customers } from "@/mocks/customers";
+import { useCustomers, useCustomerMutations } from "@/hooks/useApi";
 
 const views = [
     { id: 1, name: "Active" },
@@ -22,6 +22,17 @@ const views = [
 const CustomerListPage = () => {
     const [search, setSearch] = useState("");
     const [view, setView] = useState(views[0]);
+    
+    // Use real API data instead of mock data
+    const { data: customersResponse, loading, error, refetch } = useCustomers({
+        search: search || undefined,
+        status: view.name.toLowerCase()
+    });
+    const { deleteCustomer, loading: deleteLoading } = useCustomerMutations();
+    
+    // Extract customers from API response
+    const customers = customersResponse?.data || [];
+
     const {
         selectedRows,
         selectAll,
@@ -29,6 +40,19 @@ const CustomerListPage = () => {
         handleSelectAll,
         handleDeselect,
     } = useSelection<Customer>(customers);
+
+    // Handle customer deletion
+    const handleDeleteCustomers = async () => {
+        try {
+            await Promise.all(
+                selectedRows.map(customerId => deleteCustomer(customerId.toString()))
+            );
+            refetch();
+            handleDeselect();
+        } catch (error) {
+            console.error('Failed to delete customers:', error);
+        }
+    };
 
     return (
         <Layout title="Customer list">
@@ -77,8 +101,9 @@ const CustomerListPage = () => {
                         </Button>
                         <DeleteItems
                             counter={selectedRows.length}
-                            onDelete={() => {}}
+                            onDelete={handleDeleteCustomers}
                             isLargeButton
+                            disabled={deleteLoading}
                         />
                     </div>
                 )}

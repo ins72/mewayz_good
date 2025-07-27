@@ -7,8 +7,8 @@ import NoFound from "@/components/NoFound";
 import Table from "@/components/Table";
 import TableRow from "@/components/TableRow";
 import Image from "@/components/Image";
-
-import { transactions } from "@/mocks/statements";
+import { useStatements } from "@/hooks/useApi";
+import { LoadingSpinner } from "@/components/LoadingStates";
 
 const durations = [
     { id: 1, name: "Last 7 days" },
@@ -16,11 +16,49 @@ const durations = [
     { id: 3, name: "Last 30 days" },
 ];
 
+const durationValues = {
+    1: "7days",
+    2: "14days", 
+    3: "30days"
+};
+
 const tableHead = ["Item", "Type", "Date", "Order ID", "Price", "Amount"];
 
 const Transactions = () => {
     const [search, setSearch] = useState("");
     const [duration, setDuration] = useState(durations[2]);
+    const { data: statementsData, loading, error } = useStatements({
+        page: 1,
+        limit: 50,
+        period: durationValues[duration.id as keyof typeof durationValues]
+    });
+
+    if (loading) {
+        return (
+            <div className="card">
+                <LoadingSpinner message="Loading statement transactions..." />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="card">
+                <div className="p-5 text-center text-red-500">
+                    Error loading statement transactions: {error}
+                </div>
+            </div>
+        );
+    }
+
+    const transactions = (statementsData as any)?.data || [];
+    const filteredTransactions = search 
+        ? transactions.filter((transaction: any) => 
+            transaction.title.toLowerCase().includes(search.toLowerCase()) ||
+            transaction.type.toLowerCase().includes(search.toLowerCase()) ||
+            transaction.orderId.toLowerCase().includes(search.toLowerCase())
+          )
+        : transactions;
 
     return (
         <div className="card">
@@ -43,11 +81,11 @@ const Transactions = () => {
                             value={duration}
                             onChange={setDuration}
                         />
-                        <Button isBlack>Download SCV</Button>
+                        <Button isBlack>Download CSV</Button>
                     </>
                 )}
             </div>
-            {search !== "" ? (
+            {filteredTransactions.length === 0 ? (
                 <NoFound title="No transactions found" />
             ) : (
                 <div className="p-1 pt-6 max-lg:px-0 max-md:pt-3">
@@ -62,7 +100,7 @@ const Transactions = () => {
                         ))}
                         isMobileVisibleTHead
                     >
-                        {transactions.map((transaction) => (
+                        {filteredTransactions.map((transaction: any) => (
                             <TableRow key={transaction.id}>
                                 <td>
                                     <div className="inline-flex items-center">

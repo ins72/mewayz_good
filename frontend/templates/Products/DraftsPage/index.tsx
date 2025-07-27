@@ -12,7 +12,7 @@ import Grid from "./Grid";
 import { ProductDraft } from "@/types/product";
 import { useSelection } from "@/hooks/useSelection";
 
-import { draftsProducts } from "@/mocks/products";
+import { useProducts, useProductMutations } from "@/hooks/useApi";
 
 const views = [
     { id: 1, name: "grid" },
@@ -22,6 +22,17 @@ const views = [
 const DraftsPage = () => {
     const [search, setSearch] = useState("");
     const [view, setView] = useState(views[1]);
+    
+    // Use real API data instead of mock data
+    const { data: draftsProductsResponse, loading, error, refetch } = useProducts({
+        status: 'draft',
+        search: search || undefined
+    });
+    const { deleteProduct, loading: deleteLoading } = useProductMutations();
+    
+    // Extract drafts from API response
+    const draftsProducts = draftsProductsResponse?.data || [];
+    
     const {
         selectedRows,
         selectAll,

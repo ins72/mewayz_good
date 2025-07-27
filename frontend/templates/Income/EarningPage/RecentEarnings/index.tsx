@@ -13,8 +13,8 @@ import { NumericFormat } from "react-number-format";
 import Card from "@/components/Card";
 import Button from "@/components/Button";
 import Percentage from "@/components/Percentage";
-
-import { recentEarningsChartData } from "@/mocks/charts";
+import { useEarnings } from "@/hooks/useApi";
+import { LoadingSpinner } from "@/components/LoadingStates";
 
 const durations = [
     { id: 1, name: "Last 7 days" },
@@ -22,8 +22,65 @@ const durations = [
     { id: 3, name: "Last year" },
 ];
 
-const RecentEarnings = ({}) => {
+const durationValues = {
+    1: "7days",
+    2: "month", 
+    3: "year"
+};
+
+const RecentEarnings = () => {
     const [duration, setDuration] = useState(durations[0]);
+    const { data: earningsData, loading, error } = useEarnings(durationValues[duration.id as keyof typeof durationValues]);
+
+    const handleDurationChange = (newDuration: { id: number; name: string }) => {
+        setDuration(newDuration);
+    };
+
+    if (loading) {
+        return (
+            <Card
+                title="Recent earnings"
+                selectValue={duration}
+                selectOnChange={handleDurationChange}
+                selectOptions={durations}
+                headContent={
+                    <Button
+                        className="mr-3 max-md:hidden"
+                        icon="calendar-1"
+                        isCircle
+                        isStroke
+                    />
+                }
+            >
+                <LoadingSpinner message="Loading earnings data..." />
+            </Card>
+        );
+    }
+
+    if (error) {
+        return (
+            <Card
+                title="Recent earnings"
+                selectValue={duration}
+                selectOnChange={handleDurationChange}
+                selectOptions={durations}
+                headContent={
+                    <Button
+                        className="mr-3 max-md:hidden"
+                        icon="calendar-1"
+                        isCircle
+                        isStroke
+                    />
+                }
+            >
+                <div className="p-5 text-center text-red-500">
+                    Error loading earnings data: {error}
+                </div>
+            </Card>
+        );
+    }
+
+    const recentEarningsChartData = (earningsData as any)?.data || [];
 
     const CustomTooltip = ({
         payload,
@@ -55,7 +112,7 @@ const RecentEarnings = ({}) => {
         <Card
             title="Recent earnings"
             selectValue={duration}
-            selectOnChange={setDuration}
+            selectOnChange={handleDurationChange}
             selectOptions={durations}
             headContent={
                 <Button

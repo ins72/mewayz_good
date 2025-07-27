@@ -9,14 +9,16 @@ import {
 } from "recharts";
 import { NumericFormat } from "react-number-format";
 import Card from "@/components/Card";
-
-import { productsProductViewChartData } from "@/mocks/charts";
+import { useProductPerformance } from "@/hooks/useApi";
+import { LoadingSpinner } from "@/components/LoadingStates";
 
 type ProductViewProps = {
     className?: string;
 };
 
 const ProductView = ({ className }: ProductViewProps) => {
+    const { data: chartData, loading, error } = useProductPerformance(undefined, "7days");
+
     const CustomTooltip = ({
         payload,
         label,
@@ -45,12 +47,41 @@ const ProductView = ({ className }: ProductViewProps) => {
         return null;
     };
 
+    if (loading) {
+        return (
+            <Card
+                className={`${className || ""}`}
+                classHead="!pl-3"
+                title="Product views"
+            >
+                <LoadingSpinner message="Loading product view data..." />
+            </Card>
+        );
+    }
+
+    if (error) {
+        return (
+            <Card
+                className={`${className || ""}`}
+                classHead="!pl-3"
+                title="Product views"
+            >
+                <div className="p-5 text-center text-red-500">
+                    Error loading product view data: {error}
+                </div>
+            </Card>
+        );
+    }
+
+    const productsProductViewChartData = (chartData as any)?.data || [];
+
     const getMinValues = useMemo(() => {
+        if (productsProductViewChartData.length === 0) return [0, 0];
         const sortedData = [...productsProductViewChartData].sort(
-            (a, b) => a.amt - b.amt
+            (a: any, b: any) => a.amt - b.amt
         );
         return [sortedData[0].amt, sortedData[1].amt];
-    }, []);
+    }, [productsProductViewChartData]);
 
     return (
         <Card
@@ -100,7 +131,7 @@ const ProductView = ({ className }: ProductViewProps) => {
                                 radius={8}
                             >
                                 {productsProductViewChartData.map(
-                                    (entry, index) => (
+                                    (entry: any, index: number) => (
                                         <Cell
                                             key={`cell-${index}`}
                                             fill={

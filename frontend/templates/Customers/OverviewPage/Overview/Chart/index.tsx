@@ -9,10 +9,31 @@ import {
 } from "recharts";
 import millify from "millify";
 import { NumericFormat } from "react-number-format";
+import { useCustomerAnalytics } from "@/hooks/useApi";
+import { LoadingSpinner } from "@/components/LoadingStates";
 
-import { customersOverviewChartData } from "@/mocks/charts";
+const Chart = () => {
+    const { data: chartData, loading, error } = useCustomerAnalytics("28days");
 
-const Chart = ({}) => {
+    if (loading) {
+        return (
+            <div className="mt-8 -ml-1">
+                <LoadingSpinner message="Loading customer chart data..." />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="mt-8 -ml-1">
+                <div className="p-5 text-center text-red-500">
+                    Error loading customer chart data: {error}
+                </div>
+            </div>
+        );
+    }
+
+    const customersOverviewChartData = (chartData as any)?.data || [];
     const formatterYAxis = (value: number) => {
         if (value === 0) {
             return "0";

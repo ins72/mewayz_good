@@ -53,7 +53,41 @@ class Settings(BaseSettings):
 
     # Database Settings
     MONGO_DATABASE: str = os.environ.get("MONGO_DATABASE", "mewayz")
-    MONGO_DATABASE_URI: str = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
+    MONGO_DATABASE_URI: str = os.environ.get("MONGO_URL", "mongodb://localhost:5000")
+
+    # Production Database Settings (with fallbacks)
+    @field_validator("MONGO_DATABASE_URI", mode="before")
+    def validate_mongo_uri(cls, v: str) -> str:
+        if not v:
+            # Try different common MongoDB URIs
+            possible_uris = [
+                "mongodb://localhost:5000",
+                "mongodb://127.0.0.1:5000",
+                "mongodb://localhost:27017",
+                "mongodb://127.0.0.1:27017",
+                "mongodb://mongo:27017",  # Docker container
+                # MongoDB Atlas free tier (replace with your own connection string)
+                "mongodb+srv://mewayz:mewayz123@cluster0.mongodb.net/mewayz?retryWrites=true&w=majority",
+            ]
+            for uri in possible_uris:
+                try:
+                    import motor.motor_asyncio
+                    client = motor.motor_asyncio.AsyncIOMotorClient(uri)
+                    # Test connection
+                    import asyncio
+                    loop = asyncio.new_event_loop()
+                    asyncio.set_event_loop(loop)
+                    try:
+                        loop.run_until_complete(client.admin.command('ping'))
+                        client.close()
+                        return uri
+                    except:
+                        client.close()
+                        continue
+                except:
+                    continue
+            return "mongodb://localhost:27017"  # Default fallback
+        return v
 
     # Email Settings
     SMTP_TLS: bool = True

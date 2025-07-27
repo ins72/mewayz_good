@@ -8,7 +8,7 @@ import Spinner from "@/components/Spinner";
 import Filters from "./Filters";
 import Creator from "./Creator";
 
-import { creators } from "@/mocks/creators";
+import { useCreators } from "@/hooks/useApi";
 
 const types = [
     { id: 1, name: "All" },
@@ -28,6 +28,15 @@ const sortOptions = [
 const ShopPage = () => {
     const [type, setType] = useState(types[0]);
     const [sort, setSort] = useState(sortOptions[0]);
+    
+    // Use real API data instead of mock data
+    const { data: creatorsResponse, loading, error } = useCreators({
+        category: type.name === "All" ? undefined : type.name.toLowerCase(),
+        sort: sort.name.toLowerCase()
+    });
+    
+    // Extract creators from API response
+    const creators = creatorsResponse?.data || [];
 
     return (
         <Layout hideSidebar>
@@ -60,11 +69,25 @@ const ShopPage = () => {
                     <Filters />
                 </div>
                 <div className="flex flex-col gap-6 max-md:gap-3">
-                    {creators.map((creator) => (
-                        <Creator value={creator} key={creator.id} />
-                    ))}
+                    {loading ? (
+                        <div className="text-center py-8">
+                            <Spinner />
+                            <p className="mt-2 text-gray-600">Loading creators...</p>
+                        </div>
+                    ) : error ? (
+                        <div className="text-center py-8">
+                            <p className="text-red-500">Failed to load creators: {error}</p>
+                        </div>
+                    ) : creators.length > 0 ? (
+                        creators.map((creator) => (
+                            <Creator value={creator} key={creator.id} />
+                        ))
+                    ) : (
+                        <div className="text-center py-8">
+                            <p className="text-gray-500">No creators found</p>
+                        </div>
+                    )}
                 </div>
-                <Spinner className="mt-10 max-xl:mt-6" />
             </div>
         </Layout>
     );

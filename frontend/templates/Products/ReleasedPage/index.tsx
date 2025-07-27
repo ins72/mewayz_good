@@ -13,7 +13,7 @@ import Grid from "./Grid";
 import { ProductReleased } from "@/types/product";
 import { useSelection } from "@/hooks/useSelection";
 
-import { releasedProducts } from "@/mocks/products";
+import { useProducts, useProductMutations } from "@/hooks/useApi";
 
 const views = [
     { id: 1, name: "grid" },
@@ -23,6 +23,17 @@ const views = [
 const ReleasedPage = () => {
     const [search, setSearch] = useState("");
     const [view, setView] = useState(views[1]);
+    
+    // Use real API data instead of mock data
+    const { data: releasedProductsResponse, loading, error, refetch } = useProducts({
+        status: 'released',
+        search: search || undefined
+    });
+    const { deleteProduct, loading: deleteLoading } = useProductMutations();
+    
+    // Extract released products from API response
+    const releasedProducts = releasedProductsResponse?.data || [];
+    
     const {
         selectedRows,
         selectAll,

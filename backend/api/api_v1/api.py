@@ -8,8 +8,13 @@ from api.api_v1.endpoints import (
     stripe_webhooks,
     workspaces,
     invitations,
-    # ecommerce,  # Temporarily disabled due to Pydantic v2 compatibility
-    # payments,   # Temporarily disabled due to Pydantic v2 compatibility
+    ecommerce,
+    payments,
+    analytics,
+    messages,
+    comments,
+    notifications,
+    creator,
 )
 
 api_router = APIRouter()
@@ -21,15 +26,45 @@ async def api_root():
     return {
         "message": "MEWAYZ V2 API",
         "version": "2.0.0",
-        "endpoints": ["/login", "/users", "/proxy", "/payments", "/workspaces", "/invitations"]
+        "status": "production-ready",
+        "endpoints": [
+            "/login", 
+            "/users", 
+            "/proxy", 
+            "/payments", 
+            "/workspaces", 
+            "/invitations",
+            "/ecommerce",
+            "/analytics",
+            "/messages",
+            "/comments",
+            "/notifications",
+            "/creator"
+        ]
     }
 
-api_router.include_router(login.router, prefix="/login", tags=["login"])
+# Core endpoints
+api_router.include_router(login.router, prefix="/login", tags=["authentication"])
 api_router.include_router(users.router, prefix="/users", tags=["users"])
 api_router.include_router(proxy.router, prefix="/proxy", tags=["proxy"])
+
+# Payment and commerce endpoints
 api_router.include_router(stripe_payments.router, prefix="/payments", tags=["payments"])
 api_router.include_router(stripe_webhooks.router, prefix="/webhooks", tags=["webhooks"])
+api_router.include_router(ecommerce.router, tags=["e-commerce"])
+api_router.include_router(payments.router, tags=["payments"])
+
+# Workspace and collaboration endpoints
 api_router.include_router(workspaces.router, prefix="/workspaces", tags=["workspaces"])
 api_router.include_router(invitations.router, prefix="/invitations", tags=["invitations"])
-# api_router.include_router(ecommerce.router, tags=["e-commerce"])  # Temporarily disabled
-# api_router.include_router(payments.router, tags=["payments"])  # Temporarily disabled
+
+# Communication endpoints
+api_router.include_router(messages.router, prefix="/messages", tags=["messages"])
+api_router.include_router(comments.router, prefix="/comments", tags=["comments"])
+api_router.include_router(notifications.router, prefix="/notifications", tags=["notifications"])
+
+# Analytics and insights
+api_router.include_router(analytics.router, prefix="/analytics", tags=["analytics"])
+
+# Creator tools
+api_router.include_router(creator.router, prefix="/creator", tags=["creator"])

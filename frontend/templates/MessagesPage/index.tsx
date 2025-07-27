@@ -8,12 +8,15 @@ import Button from "@/components/Button";
 import Message from "./Message";
 import Details from "./Details";
 
-import { messages } from "@/mocks/messages";
+import { useUserMessages } from "@/hooks/useApi";
 
 const MessagesPage = () => {
     const [search, setSearch] = useState("");
     const [mounted, setMounted] = useState(false);
     const isMobile = useMedia("(max-width: 767px)");
+
+    // Use real API data instead of mock data
+    const { data: messages, loading, error } = useUserMessages();
 
     useEffect(() => {
         setMounted(true);

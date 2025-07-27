@@ -1,0 +1,35 @@
+2025-07-27 08:09:45,794 - __main__ - INFO -    - Categories: 0
+2025-07-27 08:09:45,794 - __main__ - INFO -    - Products: 0
+2025-07-27 08:09:45,794 - __main__ - INFO -    - Users: 0
+2025-07-27 08:13:22,573 - __main__ - INFO - Starting MEWAYZ V2 Production Setup...
+2025-07-27 08:13:22,573 - __main__ - INFO - Verifying database connection...
+2025-07-27 08:13:22,584 - __main__ - INFO - Database connection successful
+2025-07-27 08:13:22,584 - __main__ - INFO - CRUD objects initialized successfully
+2025-07-27 08:13:22,591 - __main__ - INFO - Creating admin user...
+2025-07-27 08:13:22,606 - __main__ - INFO - Admin user created: admin@mewayz.com
+2025-07-27 08:13:22,606 - __main__ - INFO - Seeding categories...
+2025-07-27 08:13:22,607 - __main__ - INFO - Created category: Digital Products
+2025-07-27 08:13:22,608 - __main__ - INFO - Created category: Physical Products
+2025-07-27 08:13:22,609 - __main__ - INFO - Created category: Services
+2025-07-27 08:13:22,611 - __main__ - INFO - Created category: Courses
+2025-07-27 08:13:22,612 - __main__ - INFO - Created category: Bio Links
+2025-07-27 08:13:22,613 - __main__ - INFO - Created category: E-commerce
+2025-07-27 08:13:22,614 - __main__ - INFO - Created category: Design
+2025-07-27 08:13:22,615 - __main__ - INFO - Created category: Marketing
+2025-07-27 08:13:22,615 - __main__ - INFO - Seeding sample products...
+2025-07-27 08:13:22,615 - __main__ - WARNING - Product Premium Bio Link Page may already exist: ProductCRUD.create_product() missing 1 required positional argument: 'user_id'
+2025-07-27 08:13:22,616 - __main__ - WARNING - Product E-commerce Store Template may already exist: ProductCRUD.create_product() missing 1 required positional argument: 'user_id'
+2025-07-27 08:13:22,616 - __main__ - WARNING - Product Digital Marketing Course may already exist: ProductCRUD.create_product() missing 1 required positional argument: 'user_id'
+2025-07-27 08:13:22,616 - __main__ - WARNING - Product Professional Design Bundle may already exist: ProductCRUD.create_product() missing 1 required positional argument: 'user_id'
+2025-07-27 08:13:22,616 - __main__ - INFO - Seeding sample users...
+2025-07-27 08:13:22,620 - __main__ - INFO - Created user: john@example.com
+2025-07-27 08:13:22,623 - __main__ - INFO - Created user: sarah@example.com
+2025-07-27 08:13:22,626 - __main__ - INFO - Created user: mike@example.com
+2025-07-27 08:13:22,626 - __main__ - INFO - Verifying API endpoints...
+2025-07-27 08:13:22,626 - __main__ - INFO - API endpoints verification complete
+2025-07-27 08:13:22,626 - __main__ - INFO - MEWAYZ V2 Production Setup Complete!
+2025-07-27 08:13:22,626 - __main__ - INFO - Summary:
+2025-07-27 08:13:22,626 - __main__ - INFO -    - Categories: 8
+2025-07-27 08:13:22,626 - __main__ - INFO -    - Products: 0
+2025-07-27 08:13:22,627 - __main__ - INFO -    - Users: 3
+2025-07-27 08:13:22,627 - __main__ - INFO -    - Admin: OK

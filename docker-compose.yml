@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:latest
+    container_name: mewayz_mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: mewayz
+    volumes:
+      - mongodb_data:/data/db
+      - ./backend/scripts/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    networks:
+      - mewayz_network
+
+  # MongoDB Express (Optional - Web UI for MongoDB)
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mewayz_mongo_express
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password123
+      ME_CONFIG_MONGODB_URL: mongodb://admin:password123@mongodb:27017/
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: password123
+    depends_on:
+      - mongodb
+    networks:
+      - mewayz_network
+
+  # Backend API (Optional - can be run separately)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mewayz_backend
+    restart: unless-stopped
+    ports:
+      - "8002:8002"
+    environment:
+      - MONGO_URL=mongodb://admin:password123@mongodb:27017
+      - MONGO_DATABASE=mewayz
+      - SECRET_KEY=your-super-secret-key-here
+      - TOTP_SECRET_KEY=your-totp-secret-key-here
+      - ADMIN_EMAIL=admin@mewayz.com
+      - ADMIN_PASSWORD=admin123
+      - ENVIRONMENT=development
+    depends_on:
+      - mongodb
+    volumes:
+      - ./backend:/app
+      - /app/__pycache__
+    networks:
+      - mewayz_network
+    command: python -m uvicorn main:app --host 0.0.0.0 --port 8002 --reload
+
+  # Frontend (Optional - can be run separately)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: mewayz_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8002/api/v1
+      - NEXT_PUBLIC_ENVIRONMENT=development
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    networks:
+      - mewayz_network
+    command: npm run dev
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  mewayz_network:
+    driver: bridge 

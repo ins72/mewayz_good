@@ -9,8 +9,8 @@ import Table from "@/components/Table";
 import TableRow from "@/components/TableRow";
 import Image from "@/components/Image";
 import Dropdown from "@/components/Dropdown";
-
-import { payoutHistory } from "@/mocks/payouts";
+import { usePayoutHistory } from "@/hooks/useApi";
+import { LoadingSpinner } from "@/components/LoadingStates";
 
 const sortOptions = [
     { id: 1, name: "All" },
@@ -31,6 +31,38 @@ const tableHead = [
 const PayoutHistory = () => {
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState(sortOptions[0]);
+    const { data: payoutsData, loading, error } = usePayoutHistory({
+        page: 1,
+        limit: 50,
+        status: sort.id === 1 ? "all" : sort.name.toLowerCase()
+    });
+
+    if (loading) {
+        return (
+            <div className="card">
+                <LoadingSpinner message="Loading payout history..." />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="card">
+                <div className="p-5 text-center text-red-500">
+                    Error loading payout history: {error}
+                </div>
+            </div>
+        );
+    }
+
+    const payoutHistory = (payoutsData as any)?.data || [];
+    const filteredPayouts = search 
+        ? payoutHistory.filter((transaction: any) => 
+            transaction.transactionId.toLowerCase().includes(search.toLowerCase()) ||
+            transaction.status.toLowerCase().includes(search.toLowerCase()) ||
+            transaction.method.toLowerCase().includes(search.toLowerCase())
+          )
+        : payoutHistory;
 
     return (
         <div className="card">
@@ -62,7 +94,7 @@ const PayoutHistory = () => {
                     </>
                 )}
             </div>
-            {search !== "" ? (
+            {filteredPayouts.length === 0 ? (
                 <NoFound title="No payouts found" />
             ) : (
                 <div className="p-1 pt-6 max-md:pt-3 max-lg:px-0">
@@ -77,7 +109,7 @@ const PayoutHistory = () => {
                         ))}
                         isMobileVisibleTHead
                     >
-                        {payoutHistory.map((transaction) => (
+                        {filteredPayouts.map((transaction: any) => (
                             <TableRow key={transaction.id}>
                                 <td className="max-md:text-caption">
                                     {transaction.date}

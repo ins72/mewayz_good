@@ -12,7 +12,7 @@ import { Refund } from "@/types/refund";
 import { useSelection } from "@/hooks/useSelection";
 import List from "./List";
 
-import { refunds } from "@/mocks/refunds";
+import { useUserTransactions } from "@/hooks/useApi";
 
 const views = [
     { id: 1, name: "Open requests" },
@@ -22,6 +22,16 @@ const views = [
 const RefundsPage = () => {
     const [search, setSearch] = useState("");
     const [view, setView] = useState(views[0]);
+    
+    // Use real API data instead of mock data
+    const { data: refundsResponse, loading, error, refetch } = useUserTransactions({
+        status: 'refunded',
+        search: search || undefined
+    });
+    
+    // Extract refunds from API response
+    const refunds = refundsResponse?.data || [];
+    
     const {
         selectedRows,
         selectAll,

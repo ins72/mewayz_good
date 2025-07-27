@@ -28,9 +28,39 @@ const tabs = [
     },
 ];
 
-const Overview = ({}) => {
+interface OverviewProps {
+    dashboardData?: any;
+    loading?: boolean;
+}
+
+const Overview = ({ dashboardData, loading }: OverviewProps) => {
     const [duration, setDuration] = useState(durations[0]);
     const [activeTab, setActiveTab] = useState(1);
+
+    // Use real data from API if available
+    const metrics = dashboardData?.metrics || {};
+    const customerCount = metrics.customers?.value || "1,293";
+    const customerGrowth = metrics.customers?.growth || -36.8;
+    const balanceValue = metrics.revenue?.value || "256k";
+    const balanceGrowth = metrics.revenue?.growth || 36.8;
+
+    // Update tabs with real data
+    const realTabs = [
+        {
+            id: 1,
+            icon: "profile",
+            label: "Customers",
+            value: customerCount,
+            percent: customerGrowth,
+        },
+        {
+            id: 2,
+            icon: "wallet",
+            label: "Balance",
+            value: balanceValue,
+            percent: balanceGrowth,
+        },
+    ];
 
     return (
         <Card
@@ -41,7 +71,7 @@ const Overview = ({}) => {
         >
             <div className="pt-1">
                 <div className="flex mb-4 p-1.5 border border-s-subtle rounded-4xl bg-b-depth2">
-                    {tabs.map((tab) => (
+                    {realTabs.map((tab) => (
                         <div
                             className={`group flex-1 px-12 py-8 rounded-3xl cursor-pointer transition-all max-2xl:p-6 max-xl:pr-3 max-md:p-4 ${
                                 activeTab === tab.id

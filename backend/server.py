@@ -89,72 +89,45 @@ async def get_status_checks():
     status_checks = await db.status_checks.find().to_list(1000)
     return [StatusCheck(**status_check) for status_check in status_checks]
 
-# MEWAYZ Bundle Pricing Information (Ready for Frontend)
+# MEWAYZ Bundle Pricing Information (Database-Driven)
 @api_router.get("/bundles/pricing")
 async def get_mewayz_bundles():
-    """Get MEWAYZ bundle pricing - matches user's pricing strategy"""
-    return {
-        "bundles": {
-            "free_starter": {
-                "name": "FREE STARTER",
-                "price": 0,
-                "features": ["1 workspace", "Basic bio links", "Basic analytics", "Email support"]
+    """Get MEWAYZ bundle pricing with real database statistics"""
+    from services.bundle_service import BundleService
+    from db.session import MongoDatabase
+    
+    try:
+        # Initialize database and service
+        db = MongoDatabase()
+        bundle_service = BundleService(db)
+        
+        # Get real bundle pricing with database statistics
+        bundle_pricing = await bundle_service.get_bundle_pricing()
+        
+        return bundle_pricing
+        
+    except Exception as e:
+        logger.error(f"Error getting bundle pricing: {e}")
+        # Return fallback data if database is unavailable
+        return {
+            "bundles": {
+                "creator": {
+                    "name": "CREATOR",
+                    "price": 19,
+                    "status": "✅ AVAILABLE",
+                    "features": ["Bio Links", "Content Creation", "Analytics"]
+                },
+                "ecommerce": {
+                    "name": "E-COMMERCE", 
+                    "price": 24,
+                    "status": "✅ AVAILABLE",
+                    "features": ["Online Store", "Payment Processing", "Inventory"]
+                }
             },
-            "creator": {
-                "name": "CREATOR",
-                "price": 19,
-                "monthly_price": 19,
-                "features": ["5 workspaces", "Advanced bio links", "Content creation", "Custom domains", "Analytics dashboard", "Priority support"],
-                "status": "✅ AVAILABLE - Bio Links & Content Platform Ready!"
-            },
-            "ecommerce": {
-                "name": "E-COMMERCE", 
-                "price": 24,
-                "monthly_price": 24,
-                "features": ["Online store", "Inventory management", "Payment processing", "Multi-vendor marketplace"],
-                "status": "✅ AVAILABLE - Full E-commerce Suite Ready!"
-            },
-            "social_media": {
-                "name": "SOCIAL MEDIA",
-                "price": 29,
-                "monthly_price": 29,
-                "features": ["Post scheduling", "Social analytics", "Automation", "Multi-platform management"],
-                "status": "⏳ IN DEVELOPMENT"
-            },
-            "education": {
-                "name": "EDUCATION",
-                "price": 29,
-                "monthly_price": 29,
-                "features": ["Course creation", "Student management", "Certificates", "Live sessions"],
-                "status": "⏳ COMING SOON"
-            },
-            "business": {
-                "name": "BUSINESS",
-                "price": 39,
-                "monthly_price": 39,
-                "features": ["CRM", "Team management", "Advanced analytics", "Business intelligence"],
-                "status": "⏳ COMING SOON"
-            },
-            "operations": {
-                "name": "OPERATIONS",
-                "price": 24,
-                "monthly_price": 24,
-                "features": ["Booking system", "Form builder", "Workflow automation", "Operations management"],
-                "status": "⏳ COMING SOON"
-            }
-        },
-        "discounts": {
-            "2_bundles": 0.20,
-            "3_bundles": 0.30,
-            "4_plus_bundles": 0.40
-        },
-        "enterprise": {
-            "name": "ENTERPRISE",
-            "revenue_share": 0.15,
-            "minimum_monthly": 99,
-            "features": ["All bundles included", "White-label solution", "Dedicated support", "API access"]
+            "discounts": {"2_bundles": 0.20, "3_bundles": 0.30, "4_plus_bundles": 0.40},
+            "enterprise": {"name": "ENTERPRISE", "revenue_share": 0.15, "minimum_monthly": 99},
+            "error": "Database temporarily unavailable"
         }
-    }
 
 # Creator Bundle Quick Access (NEW!)
 @api_router.get("/creator/quick-demo")

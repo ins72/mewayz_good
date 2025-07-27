@@ -4,7 +4,7 @@ import Modal from "@/components/Modal";
 import Image from "@/components/Image";
 import Button from "@/components/Button";
 
-import { releasedProducts } from "@/mocks/products";
+import { useProducts } from "@/hooks/useApi";
 
 type UnpublishItemsProps = {
     items?: number[];
@@ -20,6 +20,13 @@ const UnpublishItems = ({
     isLargeButton,
 }: UnpublishItemsProps) => {
     const [open, setOpen] = useState(false);
+    const { data: productsData } = useProducts({
+        page: 1,
+        limit: 100,
+        bundle_type: "creator"
+    });
+
+    const releasedProducts = (productsData as any)?.data || [];
 
     return (
         <>
@@ -46,8 +53,8 @@ const UnpublishItems = ({
                         </div>
                     ) : (
                         releasedProducts
-                            .filter((product) => items.includes(product.id))
-                            .map((product) => (
+                            .filter((product: any) => items.includes(product.id))
+                            .map((product: any) => (
                                 <div
                                     className="relative w-20 h-20 rounded-2xl overflow-hidden"
                                     key={product.id}

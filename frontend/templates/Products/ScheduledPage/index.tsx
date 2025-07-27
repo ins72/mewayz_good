@@ -12,7 +12,7 @@ import List from "./List";
 import { ProductDraft } from "@/types/product";
 import { useSelection } from "@/hooks/useSelection";
 
-import { draftsProducts } from "@/mocks/products";
+import { useProducts, useProductMutations } from "@/hooks/useApi";
 
 const timeCreateOptions = [
     { id: 1, name: "Newest first" },
@@ -24,13 +24,24 @@ const timeCreateOptions = [
 const ScheduledPage = () => {
     const [search, setSearch] = useState("");
     const [timeCreate, setTimeCreate] = useState(timeCreateOptions[0]);
+    
+    // Use real API data instead of mock data
+    const { data: scheduledProductsResponse, loading, error, refetch } = useProducts({
+        status: 'scheduled',
+        search: search || undefined
+    });
+    const { deleteProduct, loading: deleteLoading } = useProductMutations();
+    
+    // Extract scheduled products from API response
+    const scheduledProducts = scheduledProductsResponse?.data || [];
+    
     const {
         selectedRows,
         selectAll,
         handleRowSelect,
         handleSelectAll,
         handleDeselect,
-    } = useSelection<ProductDraft>(draftsProducts);
+    } = useSelection<ProductDraft>(scheduledProducts);
 
     return (
         <Layout title="Scheduled">

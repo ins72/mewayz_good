@@ -2,8 +2,8 @@ import { useState } from "react";
 import Card from "@/components/Card";
 import Percentage from "@/components/Percentage";
 import Tabs from "@/components/Tabs";
-
-import { productActivity } from "@/mocks/products";
+import { useProductPerformance } from "@/hooks/useApi";
+import { LoadingSpinner } from "@/components/LoadingStates";
 
 const durations = [
     { id: 1, name: "Last 2 weeks" },
@@ -11,22 +11,65 @@ const durations = [
     { id: 3, name: "Last year" },
 ];
 
+const durationValues = {
+    1: "2weeks",
+    2: "month", 
+    3: "year"
+};
+
 const categories = [
     { id: 1, name: "Product" },
     { id: 2, name: "Views" },
     { id: 3, name: "Likes" },
 ];
 
-const ProductActivity = ({}) => {
+const ProductActivity = () => {
     const [duration, setDuration] = useState(durations[0]);
     const [category, setCategory] = useState(categories[0]);
+    const { data: activityData, loading, error } = useProductPerformance(undefined, durationValues[duration.id as keyof typeof durationValues]);
+
+    const handleDurationChange = (newDuration: { id: number; name: string }) => {
+        setDuration(newDuration);
+    };
+
+    if (loading) {
+        return (
+            <Card
+                className="col-left mb-0 max-lg:mb-3"
+                title="Product activity"
+                selectValue={duration}
+                selectOnChange={handleDurationChange}
+                selectOptions={durations}
+            >
+                <LoadingSpinner message="Loading product activity..." />
+            </Card>
+        );
+    }
+
+    if (error) {
+        return (
+            <Card
+                className="col-left mb-0 max-lg:mb-3"
+                title="Product activity"
+                selectValue={duration}
+                selectOnChange={handleDurationChange}
+                selectOptions={durations}
+            >
+                <div className="p-5 text-center text-red-500">
+                    Error loading product activity: {error}
+                </div>
+            </Card>
+        );
+    }
+
+    const productActivity = (activityData as any)?.data || [];
 
     return (
         <Card
             className="col-left mb-0 max-lg:mb-3"
             title="Product activity"
             selectValue={duration}
-            selectOnChange={setDuration}
+            selectOnChange={handleDurationChange}
             selectOptions={durations}
         >
             <Tabs
@@ -62,7 +105,7 @@ const ProductActivity = ({}) => {
                     </div>
                     <div className="flex-1 max-2xl:hidden">Comments</div>
                 </div>
-                {productActivity.map((item) => (
+                {productActivity.map((item: any) => (
                     <div
                         className="flex items-center gap-6 h-17 border-t border-s-subtle text-body-2 last:h-19"
                         key={item.id}

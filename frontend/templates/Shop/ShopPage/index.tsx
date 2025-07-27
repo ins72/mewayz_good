@@ -11,9 +11,7 @@ import Follower from "@/components/Follower";
 import Spinner from "@/components/Spinner";
 import Profile from "./Profile";
 
-import { shopItems } from "@/mocks/shopItems";
-import { followers } from "@/mocks/followers";
-import { followings } from "@/mocks/followings";
+import { useProducts, useCreators } from "@/hooks/useApi";
 
 const types = [
     { id: 1, name: "Products" },
@@ -30,6 +28,25 @@ const sortOptions = [
 const ShopPage = () => {
     const [type, setType] = useState(types[0]);
     const [sort, setSort] = useState(sortOptions[0]);
+    
+    // Use real API data instead of mock data
+    const { data: shopItemsResponse, loading: productsLoading } = useProducts({
+        limit: 50,
+        bundle_type: 'marketplace'
+    });
+    const { data: followersResponse, loading: followersLoading } = useCreators({
+        limit: 50,
+        category: 'followers'
+    });
+    const { data: followingsResponse, loading: followingsLoading } = useCreators({
+        limit: 50,
+        category: 'followings'
+    });
+    
+    // Extract data from API responses
+    const shopItems = shopItemsResponse?.data || [];
+    const followers = followersResponse?.data || [];
+    const followings = followingsResponse?.data || [];
 
     return (
         <Layout hideSidebar>

@@ -8,7 +8,7 @@ import NewPost from "./NewPost";
 import Published from "./Published";
 import Scheduled from "./Scheduled";
 
-import { publishedItems, scheduledItems } from "@/mocks/promote";
+import { useProducts } from "@/hooks/useApi";
 
 const sortOptions = [
     { id: 1, name: "Published" },
@@ -17,6 +17,21 @@ const sortOptions = [
 
 const List = ({}) => {
     const [sort, setSort] = useState(sortOptions[0]);
+    
+    // Use real API data instead of mock data
+    const { data: publishedItemsResponse, loading: publishedLoading } = useProducts({
+        status: 'published',
+        limit: 50
+    });
+    const { data: scheduledItemsResponse, loading: scheduledLoading } = useProducts({
+        status: 'scheduled',
+        limit: 50
+    });
+    
+    // Extract items from API responses
+    const publishedItems = publishedItemsResponse?.data || [];
+    const scheduledItems = scheduledItemsResponse?.data || [];
+    
     const {
         selectedRows,
         selectAll,

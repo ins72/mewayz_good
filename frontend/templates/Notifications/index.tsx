@@ -8,7 +8,7 @@ import Modal from "@/components/Modal";
 import Notification from "./Notification";
 import Filter from "./Filter";
 
-import { allNotifications } from "@/mocks/notifications";
+import { useUserNotifications, useMessageMutations } from "@/hooks/useApi";
 
 const categories = [
     { id: 1, name: "Recent" },
@@ -18,6 +18,19 @@ const categories = [
 const NotificationsPage = () => {
     const [category, setCategory] = useState(categories[0]);
     const [isOpen, setIsOpen] = useState(false);
+    
+    // Use real API data instead of mock data
+    const { data: notifications, loading, error, refetch } = useUserNotifications();
+    const { markAllAsRead } = useMessageMutations();
+
+    const handleMarkAllAsRead = async () => {
+        try {
+            await markAllAsRead();
+            refetch();
+        } catch (error) {
+            console.error('Failed to mark all as read:', error);
+        }
+    };
     return (
         <>
             <Layout title="Notifications">
@@ -29,7 +42,12 @@ const NotificationsPage = () => {
                                 value={category}
                                 setValue={setCategory}
                             />
-                            <Button className="ml-auto max-md:!hidden" isBlack>
+                            <Button 
+                                className="ml-auto max-md:!hidden" 
+                                isBlack
+                                onClick={handleMarkAllAsRead}
+                                disabled={loading}
+                            >
                                 Mark all as read
                             </Button>
                             <Button
@@ -41,12 +59,27 @@ const NotificationsPage = () => {
                             />
                         </div>
                         <div className="">
-                            {allNotifications.map((notification) => (
-                                <Notification
-                                    value={notification}
-                                    key={notification.id}
-                                />
-                            ))}
+                            {loading ? (
+                                <div className="text-center py-8">
+                                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+                                    <p className="mt-2 text-gray-600">Loading notifications...</p>
+                                </div>
+                            ) : error ? (
+                                <div className="text-center py-8">
+                                    <p className="text-red-500">Failed to load notifications: {error}</p>
+                                </div>
+                            ) : notifications && notifications.length > 0 ? (
+                                notifications.map((notification) => (
+                                    <Notification
+                                        value={notification}
+                                        key={notification.id}
+                                    />
+                                ))
+                            ) : (
+                                <div className="text-center py-8">
+                                    <p className="text-gray-500">No notifications found</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div className="col-right card sticky top-22 px-6 pb-6 max-lg:hidden">

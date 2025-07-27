@@ -4,13 +4,45 @@ import Search from "@/components/Search";
 import Table from "@/components/Table";
 import TableRow from "@/components/TableRow";
 import NoFound from "@/components/NoFound";
-import { transactions } from "@/mocks/transactions";
+import { useUserTransactions } from "@/hooks/useApi";
+import { LoadingSpinner } from "@/components/LoadingStates";
 import { NumericFormat } from "react-number-format";
 
 const tableHead = ["Date", "Status", "Earnings", "Fee", "Net"];
 
-const Transactions = ({}) => {
+const Transactions = () => {
     const [search, setSearch] = useState("");
+    const { data: transactionsData, loading, error } = useUserTransactions({
+        page: 1,
+        limit: 50,
+        status: "all"
+    });
+
+    if (loading) {
+        return (
+            <Card title="Transactions">
+                <LoadingSpinner message="Loading transactions..." />
+            </Card>
+        );
+    }
+
+    if (error) {
+        return (
+            <Card title="Transactions">
+                <div className="p-5 text-center text-red-500">
+                    Error loading transactions: {error}
+                </div>
+            </Card>
+        );
+    }
+
+    const transactions = (transactionsData as any)?.data || [];
+    const filteredTransactions = search 
+        ? transactions.filter((transaction: any) => 
+            transaction.id.toLowerCase().includes(search.toLowerCase()) ||
+            transaction.status.toLowerCase().includes(search.toLowerCase())
+          )
+        : transactions;
 
     return (
         <Card
@@ -25,7 +57,7 @@ const Transactions = ({}) => {
                 />
             }
         >
-            {search !== "" ? (
+            {filteredTransactions.length === 0 ? (
                 <NoFound title="No transactions found" />
             ) : (
                 <div className="pt-3 px-1 max-lg:px-0 max-md:pt-0">
@@ -40,7 +72,7 @@ const Transactions = ({}) => {
                         ))}
                         isMobileVisibleTHead
                     >
-                        {transactions.map((transaction) => (
+                        {filteredTransactions.map((transaction: any) => (
                             <TableRow key={transaction.id}>
                                 <td>
                                     {transaction.date}&nbsp;
